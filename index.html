@@ -1,0 +1,648 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Regular — Read the room</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;700;900&family=Noto+Serif:ital,wght@1,500;1,600&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#111110;--ink-72:rgba(17,17,16,.72);--ink-55:rgba(17,17,16,.55);
+    --ink-25:rgba(17,17,16,.25);--ink-08:rgba(17,17,16,.08);
+    --white:#FFFFFF;--off:#FFFFFF;--ember:#3F7A4E;--grove:#2A4A2A;--rust:#4E9CBE;--clay:#C16A45;
+  }
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-snap-type:y proximity}
+  body{font-family:'Noto Sans',system-ui,sans-serif;color:var(--ink);background:var(--off);-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 clamp(22px,5vw,80px);width:100%}
+  a{color:inherit}
+  em{font-family:'Noto Serif',Georgia,serif;font-style:italic;font-weight:600;color:var(--ember)}
+  .kicker{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--rust)}
+  .display{font-family:'Noto Sans';font-weight:900;text-transform:uppercase;letter-spacing:-.03em;line-height:.92}
+  h2{font-weight:700;font-size:clamp(27px,3.4vw,44px);letter-spacing:-.02em;line-height:1.1}
+  h3{font-weight:700}
+  p{line-height:1.65}
+  .lead{font-weight:300;color:var(--ink-72);font-size:clamp(16px,1.7vw,19px);max-width:620px;line-height:1.6}
+  section[id]{scroll-margin-top:84px}
+
+  .btn{display:inline-flex;align-items:center;gap:10px;font-family:'Noto Sans';font-weight:700;font-size:13px;letter-spacing:.05em;text-transform:uppercase;text-decoration:none;padding:15px 32px;border-radius:100px;transition:opacity .2s,transform .2s;cursor:pointer;border:none}
+  .btn--dark{background:var(--ink);color:var(--white)} .btn--light{background:var(--white);color:var(--ink)}
+  .btn:hover{opacity:.9;transform:translateY(-2px)}
+  .btn .dot{width:7px;height:7px;border-radius:50%;background:var(--ember)}
+  .risk{font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-55);margin-top:16px}
+
+  /* topbar */
+  .topbar{position:fixed;top:0;left:0;right:0;height:72px;z-index:80;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(22px,5vw,80px);color:var(--white);transition:color .35s,background .35s}
+  .topbar.on-light{color:var(--ink);background:rgba(242,239,233,.9);backdrop-filter:saturate(150%) blur(8px);border-bottom:1px solid var(--ink-08)}
+  .topbar .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit}
+  .topbar .logo-mark{width:22px;height:22px;display:block}
+  .logo-mark{flex:none}
+  .topbar .logo-name{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:inherit}
+  .topbar .nav-links{display:flex;align-items:center;gap:28px}
+  .topbar .nav-link{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;color:inherit;opacity:.62;transition:opacity .2s}
+  .topbar .nav-link:hover{opacity:1}
+  .topbar .nav-cta{font-family:'Noto Sans';font-weight:700;font-size:11px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;padding:9px 22px;border-radius:100px;background:var(--white);color:var(--ink);transition:opacity .2s,background .35s,color .35s}
+  .topbar.on-light .nav-cta{background:var(--ink);color:var(--white)}
+  @media(max-width:680px){.topbar .nav-link{display:none}}
+
+  /* hero — HORIZON */
+  .hero{position:relative;width:100%;height:100svh;min-height:640px;overflow:hidden;background:var(--ink);scroll-snap-align:start;scroll-snap-stop:always}
+  @keyframes entryUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  .sky{position:absolute;top:0;left:0;right:0;height:0;background:var(--ink);overflow:hidden;z-index:1;animation:skyReveal 2.2s cubic-bezier(.16,1,.3,1) .25s both}
+  @keyframes skyReveal{from{height:0}to{height:44%}}
+  .sky::after{content:'';position:absolute;width:55vw;height:55vw;max-width:640px;max-height:640px;border-radius:50%;background:radial-gradient(circle at 60% 50%,rgba(140,58,42,.14),rgba(78,156,190,.05) 42%,transparent 68%);top:-30%;right:-8%;pointer-events:none}
+  .hero-eyebrow{position:absolute;top:94px;left:clamp(22px,5vw,80px);z-index:6;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--rust);opacity:0;animation:entryUp .8s ease 1.1s both}
+  .word-top-zone{position:absolute;bottom:0;left:0;right:0;padding:0 clamp(22px,5vw,80px) 10px;overflow:hidden}
+  .word-top{font-size:min(17vw,33vh,220px);color:var(--white);display:block;white-space:nowrap;transform:translateY(110%);animation:wUp 2s cubic-bezier(.16,1,.3,1) .8s both}
+  @keyframes wUp{from{transform:translateY(110%)}to{transform:translateY(0)}}
+  .accent{position:absolute;top:44%;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--rust),var(--ember));z-index:10;transform:scaleX(0);transform-origin:left;animation:lineIn 1.4s cubic-bezier(.16,1,.3,1) 2s both}
+  @keyframes lineIn{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  .ground{position:absolute;left:0;right:0;top:44%;bottom:0;z-index:1;overflow:hidden}
+  .video-bg{position:absolute;inset:0;z-index:0;overflow:hidden}
+  .video-bg video{width:100%;height:100%;object-fit:cover;opacity:0}
+  .video-bg::after{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(to bottom,var(--off),rgba(242,239,233,.5) 32%,rgba(242,239,233,.1) 72%,var(--off))}
+  .word-bot-zone{position:absolute;top:0;left:0;right:0;padding:14px clamp(22px,5vw,80px) 0;overflow:hidden;z-index:2}
+  .word-bot{font-size:min(10.5vw,19vh,150px);color:var(--ink);display:block;white-space:nowrap;transform:translateY(-110%);animation:wDown 2s cubic-bezier(.16,1,.3,1) .95s both}
+  @keyframes wDown{from{transform:translateY(-110%)}to{transform:translateY(0)}}
+  .hero-sub{position:absolute;left:clamp(22px,5vw,80px);right:clamp(22px,5vw,80px);bottom:78px;z-index:5;opacity:0;animation:entryUp .8s ease 2.3s both}
+  .hero-sub .lbl{font-weight:400;font-size:17px;color:var(--ink);display:block;margin-bottom:24px;max-width:520px;line-height:1.55}
+  .hero-cta{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+  .hero-scroll{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--rust);opacity:1;text-decoration:none;border-bottom:1px solid rgba(78,156,190,.4);padding-bottom:3px}
+  .hero-scroll:hover{border-color:var(--rust)}
+  .hero-meta{position:absolute;bottom:30px;left:clamp(22px,5vw,80px);right:clamp(22px,5vw,80px);z-index:10;display:flex;align-items:center;gap:30px;flex-wrap:wrap;opacity:0;animation:entryUp .7s ease 2.6s both}
+  .hero-meta .mi{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-55)}
+  .hero-meta .md{width:1px;height:10px;background:var(--ink-08)}
+  @media(max-width:760px){.hero-sub{bottom:104px}.hero-meta{gap:14px;bottom:20px}}
+  @media (prefers-reduced-motion:reduce){.word-top,.word-bot,.accent,.hero-sub,.hero-meta,.sky,.hero-eyebrow{animation:none}.sky{height:44%}.word-top,.word-bot{transform:none}.hero-sub,.hero-meta,.hero-eyebrow{opacity:1}.accent{transform:scaleX(1)}}
+
+  /* sections */
+  section{padding:92px 0 48px;min-height:100svh;scroll-snap-align:start;scroll-snap-stop:always;display:flex;flex-direction:column;justify-content:safe center}
+  .sec-white{background:var(--white)} .sec-off{background:var(--off)} .sec-ink{background:var(--ink);color:#fff}
+  .sec-ink .lead{color:rgba(250,250,248,.7)}
+  .head{max-width:680px;margin-bottom:40px}
+  .head h2{margin:16px 0}
+
+  /* infographic */
+  .chart{background:var(--white);border:1px solid var(--ink-08);border-radius:20px;padding:clamp(14px,2.4vw,26px);max-width:920px;margin:0 auto}
+  .chart svg{display:block;width:100%;height:auto}
+  .chart-note{margin-top:20px;color:var(--ink-72);font-weight:300;font-size:15.5px;max-width:820px;line-height:1.55}
+  .chart-note a{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--rust);text-decoration:none;white-space:nowrap}
+  .chart-note a:hover{text-decoration:underline}
+
+  /* quotes */
+  .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .quote{background:var(--off);border:1px solid var(--ink-08);border-radius:18px;padding:24px 26px 22px;position:relative}
+  .quote:before{content:'\201C';position:absolute;top:10px;left:20px;font-family:Georgia,serif;font-size:42px;line-height:1;color:var(--rust);opacity:.45}
+  .quote p{font-size:16.5px;font-weight:400;line-height:1.5;padding-top:20px}
+  .quote .src{display:block;margin-top:16px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-55)}
+  .quote .src a{color:var(--rust);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .2s}
+  .quote .src a:hover{border-color:var(--rust)}
+  @media(max-width:820px){.quotes{grid-template-columns:1fr}}
+
+  /* WHY → demand vs. capacity scale */
+  #why .scalebox{max-width:450px;margin:4px auto 0}
+  #why .scalebox svg{width:100%;height:auto;display:block;overflow:visible}
+  #why .beam{transform-box:view-box;transform-origin:280px 99px;animation:sway 5.2s ease-in-out infinite}
+  @keyframes sway{0%,100%{transform:rotate(-6.4deg)}50%{transform:rotate(-7.8deg)}}
+  #why .why-bridge{margin:22px auto 0;text-align:center;max-width:660px;font-size:clamp(17px,1.9vw,21px);font-weight:600;color:var(--ink)}
+  @media (prefers-reduced-motion:reduce){#why .beam{animation:none;transform:rotate(-7deg)}}
+
+  /* DARK → full-screen interactive neural web */
+  #dark{position:relative;min-height:100vh;padding:0;display:flex;align-items:center;justify-content:center;background:#0b0f17;overflow:hidden;scroll-snap-align:start}
+  #dark #nncanvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+  #dark .nn-overlay{position:relative;z-index:2;max-width:680px;padding:0 28px;text-align:center;pointer-events:none}
+  #dark .nn-kicker{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#8fc0db}
+  #dark .nn-h{color:#fff;font-weight:800;font-size:clamp(26px,4vw,46px);letter-spacing:-.02em;line-height:1.12;margin:16px 0 0;text-shadow:0 2px 34px rgba(0,0,0,.75)}
+  #dark .nn-h em{color:#9fd0ea;font-family:'Noto Serif',Georgia,serif;font-weight:600;font-style:italic}
+  #dark .nn-sub{color:rgba(255,255,255,.74);font-size:clamp(15px,1.5vw,18px);line-height:1.6;margin:18px auto 0;max-width:520px;text-shadow:0 1px 22px rgba(0,0,0,.75)}
+
+  /* steps */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .step{background:var(--white);border:1px solid var(--ink-08);border-radius:18px;padding:28px}
+  .step .num{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.16em;color:var(--rust);margin-bottom:16px}
+  .step h3{font-size:18px;font-weight:700;margin-bottom:8px}
+  .step p{color:var(--ink-55);font-size:14.5px}
+  .how-note{margin-top:30px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-55)}
+  @media(max-width:820px){.steps{grid-template-columns:1fr}}
+
+  /* science */
+  .sci-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+  .sci-grid ul{list-style:none;margin-top:6px;display:flex;flex-direction:column;gap:16px}
+  .sci-grid li{padding-left:26px;position:relative;color:var(--ink-55)}
+  .sci-grid li:before{content:'';position:absolute;left:0;top:9px;width:9px;height:9px;border-radius:50%;background:var(--rust)}
+  .sci-grid li b{color:var(--ink);font-weight:700}
+  .promise-line{margin-top:20px;font-size:16px;color:var(--ink);font-weight:500}
+  .disclaimer{margin-top:20px;font-size:13px;color:var(--ink-55);border-left:2px solid var(--rust);padding:10px 14px}
+  .sci-more{margin-top:30px}
+  .sci-more a{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--rust);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .2s}
+  .sci-more a:hover{border-color:var(--rust)}
+  @media(max-width:820px){.sci-grid{grid-template-columns:1fr;gap:28px}}
+
+  /* philosophy */
+  .philo{display:grid;grid-template-columns:420px 1fr;gap:52px;align-items:center}
+  .philo img{width:100%;border-radius:20px;display:block}
+  @media(max-width:820px){.philo{grid-template-columns:1fr;gap:26px}}
+
+  /* faq */
+  .faq{max-width:820px}
+  .faq details{border-bottom:1px solid var(--ink-08);padding:18px 0}
+  .faq summary{font-weight:700;font-size:18px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary:after{content:'+';color:var(--rust);font-weight:400;font-size:24px;line-height:1}
+  .faq details[open] summary:after{content:'\2013'}
+  .faq p{margin-top:12px;color:var(--ink-72);font-size:15.5px;max-width:680px}
+
+  /* final + footer */
+  #get.final{justify-content:space-between;padding:48px 0 0;text-align:center}
+  #get .final-main{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;width:100%;padding:32px 0 72px;box-sizing:border-box}
+  .final .display{font-size:clamp(30px,5.5vw,70px);max-width:16ch;margin:14px auto 28px}
+  footer{background:var(--off);border-top:1px solid var(--ink-08);padding:48px 0;width:100%}
+  .frow{display:flex;justify-content:space-between;flex-wrap:wrap;gap:18px;align-items:center}
+  footer .flinks a{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-55);text-decoration:none;margin-right:22px}
+  footer .flinks a:hover{color:var(--ink)}
+  .badges a{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--ink-25);border-radius:10px;padding:9px 16px;margin-left:10px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);text-decoration:none;transition:background .2s,color .2s}
+  .badges a:hover{background:var(--ink);color:var(--white)}
+  .fine{margin-top:22px;font-size:12px;color:var(--ink-55);max-width:780px;line-height:1.6}
+
+  /* mobile / short: natural scroll */
+  @media(max-width:820px){
+    html{scroll-snap-type:none}
+    section{min-height:auto;display:block;padding:56px 0;scroll-snap-align:none}
+    #get.final{display:block;padding:56px 0 0}
+    #get .final-main{display:block;padding:0 0 56px}
+    #dark .wrap{display:block}
+    #dark .dk-lit{position:static}
+  }
+  @media(max-height:720px){html{scroll-snap-type:none}section{min-height:auto}}
+
+  /* scroll-reveal animations */
+  @media (prefers-reduced-motion:no-preference){
+    #map .curve{stroke-dasharray:1;stroke-dashoffset:1}
+    #map .mk{opacity:0;transform-box:fill-box;transform-origin:center}
+    #map .fig,#map .reveal{opacity:0}
+    #map.in .curve{animation:mapDraw 1.7s ease .15s forwards}
+    #map.in .mk{animation:mapPop .55s ease forwards}
+    #map.in .fig{animation:mapFadeO .6s ease forwards}
+    #map.in .reveal{animation:mapFade .6s ease forwards}
+    @keyframes mapDraw{to{stroke-dashoffset:0}}
+    @keyframes mapPop{from{opacity:0;transform:scale(.3)}to{opacity:1;transform:scale(1)}}
+    @keyframes mapFadeO{from{opacity:0}to{opacity:1}}
+    @keyframes mapFade{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+    #stories .quote{opacity:0}
+    #stories.in .quote{animation:quoteIn .6s cubic-bezier(.16,1,.3,1) forwards}
+    #stories.in .quote:nth-child(1){animation-delay:.05s}
+    #stories.in .quote:nth-child(2){animation-delay:.22s}
+    #stories.in .quote:nth-child(3){animation-delay:.39s}
+    @keyframes quoteIn{from{opacity:0;transform:translateY(18px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+  }
+  /* science — by the numbers */
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-bottom:28px}
+  .stat{background:var(--off);border:1px solid var(--ink-08);border-radius:18px;padding:28px 24px;text-align:center;display:flex;flex-direction:column;align-items:center}
+  .stat .big{font-weight:900;font-size:clamp(38px,5vw,58px);letter-spacing:-.02em;line-height:1;color:var(--ink);margin:12px 0 12px}
+  .stat p{font-size:14px;color:var(--ink-55);line-height:1.45}
+  .stat .dots{display:flex;justify-content:center;gap:8px}
+  .stat .dots i{width:16px;height:16px;border-radius:50%;display:inline-block}
+  .stat .dots i.g{background:var(--grove)} .stat .dots i.r{background:var(--rust)}
+  .stat .donut{width:54px;height:54px;border-radius:50%;background:conic-gradient(var(--clay) calc(var(--p,67)*1%),var(--ink-08) 0);position:relative}
+  .stat .donut:after{content:'';position:absolute;inset:9px;border-radius:50%;background:var(--white)}
+  .stat .one{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--rust)}
+  .stat .dots,.stat .donut,.stat .one{height:54px;display:flex;align-items:flex-end;justify-content:center}
+  @media(max-width:760px){.stats{grid-template-columns:1fr}}
+  /* how it works — product flow */
+  .flow{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;align-items:start}
+  .flowcard{text-align:center}
+  .flowcard .fnum{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--rust)}
+  .flowcard h3{font-size:17px;font-weight:700;margin:6px 0 18px}
+  .miniphone{width:206px;margin:0 auto;background:#0c0c0b;border-radius:30px;padding:9px;box-shadow:0 18px 40px rgba(17,17,16,.16)}
+  .miniphone .scr{background:var(--off);border-radius:23px;padding:15px;min-height:300px;display:flex;flex-direction:column;gap:9px;text-align:left}
+  .miniphone .shead{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-55)}
+  .miniphone .toggle{display:flex;justify-content:space-between;align-items:center;font-size:13px;background:var(--white);border:1px solid var(--ink-08);border-radius:10px;padding:9px 11px}
+  .miniphone .toggle i{width:30px;height:17px;border-radius:99px;background:var(--ink-08);position:relative;flex:none}
+  .miniphone .toggle.on i{background:var(--rust)}
+  .miniphone .toggle i:before{content:'';position:absolute;top:2px;left:2px;width:13px;height:13px;border-radius:50%;background:#fff}
+  .miniphone .toggle.on i:before{left:15px}
+  .miniphone .line{display:flex;justify-content:space-between;font-size:13px;padding:7px 0;border-bottom:1px solid var(--ink-08)}
+  .miniphone .line span{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-55)}
+  .miniphone .line b{font-weight:600}
+  .miniphone .readline{font-size:14.5px;line-height:1.5;color:var(--ink);margin-top:2px}
+  .miniphone .brainout{margin-top:6px;padding-top:9px;border-top:1px solid var(--ink-08);font-size:13.5px;font-weight:700;color:var(--ink);line-height:1.35}
+  .miniphone .hint,.miniphone .readtag,.miniphone .done{font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-55);margin-top:auto}
+  .miniphone .movecard{margin-top:auto;background:var(--ink);color:#fff;border-radius:12px;padding:12px;font-size:13.5px;line-height:1.4}
+  .miniphone .movecard .who{font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#9FCBDE;margin-bottom:5px}
+  @media(max-width:760px){.flow{grid-template-columns:1fr;gap:30px}}
+</style>
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CNWV2T2BK9"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNWV2T2BK9');</script>
+</head>
+<body>
+
+<header class="topbar" id="topbar">
+  <a href="#top" class="logo"><svg class="logo-mark" viewBox="0 0 2048 2048" aria-hidden="true"><path fill="currentColor" d="M 1048.00 1520.50 L 1023.00 1520.50 L 1020.00 1517.50 L 1016.00 1520.50 L 1005.00 1520.50 L 999.00 1517.50 L 973.00 1518.50 L 969.00 1515.50 L 955.00 1516.50 L 952.00 1513.50 L 943.00 1514.50 L 939.00 1511.50 L 919.00 1510.50 L 916.00 1507.50 L 908.00 1508.50 L 905.00 1505.50 L 900.00 1506.50 L 897.00 1503.50 L 892.00 1504.50 L 889.00 1501.50 L 884.00 1502.50 L 881.00 1499.50 L 870.00 1498.50 L 855.00 1491.50 L 851.00 1492.50 L 838.00 1485.50 L 834.00 1486.50 L 822.00 1479.50 L 820.00 1480.50 L 817.00 1477.50 L 814.00 1478.50 L 804.00 1472.50 L 800.00 1472.50 L 768.00 1456.50 L 744.00 1442.50 L 740.00 1437.50 L 734.00 1436.50 L 684.00 1397.50 L 682.00 1398.50 L 647.00 1366.50 L 616.50 1335.00 L 611.50 1327.00 L 600.50 1318.00 L 600.50 1314.00 L 594.50 1309.00 L 560.50 1261.00 L 524.50 1193.00 L 520.50 1183.00 L 521.50 1180.00 L 512.50 1163.00 L 506.50 1145.00 L 507.50 1142.00 L 504.50 1139.00 L 505.50 1134.00 L 500.50 1125.00 L 501.50 1121.00 L 498.50 1118.00 L 499.50 1112.00 L 496.50 1109.00 L 495.50 1095.00 L 492.50 1092.00 L 493.50 1086.00 L 490.50 1083.00 L 491.50 1075.00 L 488.50 1072.00 L 487.50 1048.00 L 484.50 1045.00 L 485.50 1030.00 L 482.50 1027.00 L 482.50 934.00 L 485.50 929.00 L 484.50 914.00 L 487.50 911.00 L 488.50 887.00 L 491.50 884.00 L 490.50 876.00 L 493.50 872.00 L 492.50 866.00 L 495.50 863.00 L 496.50 849.00 L 499.50 846.00 L 498.50 841.00 L 501.50 838.00 L 500.50 833.00 L 503.50 830.00 L 502.50 826.00 L 509.50 811.00 L 508.50 807.00 L 517.50 788.00 L 516.50 785.00 L 519.50 782.00 L 518.50 780.00 L 523.50 772.00 L 526.50 760.00 L 546.50 720.00 L 551.50 716.00 L 552.50 710.00 L 580.50 666.00 L 587.50 660.00 L 586.50 658.00 L 630.50 606.00 L 686.00 556.50 L 688.00 557.50 L 706.00 542.50 L 708.00 543.50 L 712.00 538.50 L 724.00 533.50 L 728.00 528.50 L 730.00 529.50 L 742.00 520.50 L 758.00 512.50 L 761.00 513.50 L 766.00 508.50 L 770.00 509.50 L 781.00 502.50 L 782.50 505.00 L 764.50 522.00 L 764.50 526.00 L 751.50 537.00 L 750.50 541.00 L 742.50 548.00 L 742.50 551.00 L 735.50 557.00 L 734.50 561.00 L 729.50 565.00 L 730.50 567.00 L 719.50 579.00 L 720.50 581.00 L 709.50 595.00 L 710.50 597.00 L 685.50 639.00 L 684.50 646.00 L 673.50 669.00 L 674.50 672.00 L 667.50 686.00 L 666.50 696.00 L 663.50 699.00 L 664.50 703.00 L 661.50 706.00 L 662.50 711.00 L 659.50 714.00 L 660.50 719.00 L 657.50 722.00 L 658.50 728.00 L 655.50 731.00 L 654.50 749.00 L 651.50 754.00 L 652.50 769.00 L 649.50 772.00 L 650.50 805.00 L 648.50 807.00 L 648.50 815.00 L 650.50 817.00 L 649.50 844.00 L 652.50 848.00 L 651.50 862.00 L 654.50 865.00 L 653.50 875.00 L 656.50 878.00 L 657.50 896.00 L 660.50 899.00 L 659.50 903.00 L 662.50 906.00 L 661.50 910.00 L 664.50 913.00 L 665.50 924.00 L 676.50 948.00 L 675.50 951.00 L 692.50 982.00 L 693.50 988.00 L 698.50 992.00 L 704.50 1002.00 L 703.50 1004.00 L 723.50 1032.00 L 748.50 1060.00 L 789.00 1097.50 L 820.00 1119.50 L 827.00 1123.50 L 829.00 1122.50 L 837.00 1129.50 L 868.00 1145.50 L 880.00 1148.50 L 892.00 1155.50 L 896.00 1154.50 L 904.00 1159.50 L 913.00 1160.50 L 916.00 1163.50 L 920.00 1162.50 L 923.00 1165.50 L 928.00 1164.50 L 939.00 1169.50 L 945.00 1168.50 L 948.00 1171.50 L 954.00 1170.50 L 957.00 1173.50 L 983.00 1174.50 L 986.00 1177.50 L 1058.00 1177.50 L 1061.00 1174.50 L 1076.00 1175.50 L 1079.00 1172.50 L 1088.00 1173.50 L 1091.00 1170.50 L 1099.00 1171.50 L 1102.00 1168.50 L 1108.00 1169.50 L 1111.00 1166.50 L 1116.00 1167.50 L 1119.00 1164.50 L 1131.00 1163.50 L 1134.00 1160.50 L 1137.00 1161.50 L 1140.00 1158.50 L 1143.00 1159.50 L 1146.00 1156.50 L 1149.00 1157.50 L 1152.00 1154.50 L 1161.00 1153.50 L 1168.00 1148.50 L 1170.00 1149.50 L 1182.00 1142.50 L 1184.00 1143.50 L 1198.00 1134.50 L 1200.00 1135.50 L 1208.00 1131.50 L 1216.00 1124.50 L 1218.00 1125.50 L 1248.00 1105.50 L 1253.00 1098.50 L 1257.00 1098.50 L 1262.00 1092.50 L 1266.00 1091.50 L 1303.50 1056.00 L 1345.50 1002.00 L 1344.50 1000.00 L 1351.50 992.00 L 1352.50 986.00 L 1363.50 970.00 L 1362.50 968.00 L 1367.50 961.00 L 1366.50 958.00 L 1377.50 937.00 L 1376.50 934.00 L 1379.50 931.00 L 1378.50 928.00 L 1385.50 913.00 L 1386.50 901.00 L 1389.50 898.00 L 1390.50 884.00 L 1393.50 881.00 L 1394.50 862.00 L 1397.50 859.00 L 1396.50 844.00 L 1399.50 839.00 L 1399.50 776.00 L 1396.50 773.00 L 1397.50 758.00 L 1394.50 755.00 L 1395.50 746.00 L 1392.50 743.00 L 1393.50 735.00 L 1390.50 732.00 L 1391.50 726.00 L 1388.50 723.00 L 1389.50 718.00 L 1386.50 715.00 L 1385.50 702.00 L 1382.50 699.00 L 1374.50 673.00 L 1362.50 647.00 L 1363.50 645.00 L 1350.50 619.00 L 1317.50 565.00 L 1293.50 535.00 L 1265.50 508.00 L 1267.00 502.50 L 1273.00 507.50 L 1283.00 510.50 L 1309.00 525.50 L 1315.00 526.50 L 1323.00 533.50 L 1325.00 532.50 L 1328.00 536.50 L 1331.00 536.50 L 1362.00 558.50 L 1371.00 567.50 L 1373.00 566.50 L 1415.00 604.50 L 1446.50 640.00 L 1469.50 674.00 L 1474.50 678.00 L 1502.50 724.00 L 1501.50 726.00 L 1516.50 752.00 L 1515.50 754.00 L 1528.50 780.00 L 1527.50 783.00 L 1532.50 790.00 L 1531.50 793.00 L 1538.50 806.00 L 1539.50 817.00 L 1546.50 832.00 L 1545.50 836.00 L 1548.50 839.00 L 1547.50 843.00 L 1550.50 846.00 L 1549.50 852.00 L 1552.50 855.00 L 1553.50 869.00 L 1556.50 872.00 L 1555.50 880.00 L 1558.50 883.00 L 1557.50 892.00 L 1560.50 895.00 L 1559.50 903.00 L 1562.50 906.00 L 1563.50 938.00 L 1566.50 941.00 L 1566.50 1014.00 L 1563.50 1017.00 L 1564.50 1036.00 L 1561.50 1039.00 L 1562.50 1054.00 L 1559.50 1057.00 L 1560.50 1065.00 L 1557.50 1068.00 L 1558.50 1078.00 L 1555.50 1081.00 L 1554.50 1097.00 L 1551.50 1100.00 L 1552.50 1105.00 L 1549.50 1108.00 L 1550.50 1113.00 L 1547.50 1116.00 L 1546.50 1127.00 L 1541.50 1136.00 L 1542.50 1140.00 L 1539.50 1143.00 L 1540.50 1146.00 L 1537.50 1149.00 L 1536.50 1158.00 L 1533.50 1161.00 L 1532.50 1169.00 L 1525.50 1181.00 L 1522.50 1192.00 L 1517.50 1199.00 L 1518.50 1201.00 L 1503.50 1227.00 L 1504.50 1229.00 L 1499.50 1234.00 L 1496.50 1243.00 L 1489.50 1251.00 L 1488.50 1257.00 L 1483.50 1261.00 L 1480.50 1269.00 L 1468.50 1287.00 L 1463.50 1291.00 L 1458.50 1301.00 L 1410.50 1357.00 L 1379.00 1386.50 L 1333.00 1422.50 L 1275.00 1458.50 L 1251.00 1470.50 L 1248.00 1469.50 L 1242.00 1474.50 L 1235.00 1475.50 L 1228.00 1480.50 L 1209.00 1485.50 L 1197.00 1492.50 L 1194.00 1491.50 L 1185.00 1496.50 L 1181.00 1495.50 L 1178.00 1498.50 L 1174.00 1497.50 L 1171.00 1500.50 L 1160.00 1501.50 L 1157.00 1504.50 L 1153.00 1503.50 L 1150.00 1506.50 L 1134.00 1507.50 L 1131.00 1510.50 L 1125.00 1509.50 L 1121.00 1512.50 L 1112.00 1511.50 L 1109.00 1514.50 L 1081.00 1515.50 L 1078.00 1518.50 L 1053.00 1517.50 L 1048.00 1520.50 Z"/><path fill="currentColor" d="M 1037.00 910.50 L 1006.00 910.50 L 1002.00 907.50 L 991.00 908.50 L 988.00 905.50 L 981.00 906.50 L 978.00 903.50 L 973.00 904.50 L 970.00 901.50 L 966.00 902.50 L 964.00 900.50 L 954.00 898.50 L 947.00 893.50 L 942.00 892.50 L 936.00 887.50 L 934.00 888.50 L 927.00 882.50 L 920.00 880.50 L 914.00 874.50 L 912.00 874.50 L 900.00 861.50 L 890.50 854.00 L 889.50 851.00 L 872.50 833.00 L 873.50 831.00 L 860.50 813.00 L 852.50 797.00 L 853.50 794.00 L 848.50 787.00 L 849.50 783.00 L 846.50 780.00 L 847.50 777.00 L 844.50 774.00 L 845.50 768.00 L 842.50 765.00 L 843.50 759.00 L 840.50 756.00 L 841.50 743.00 L 838.50 740.00 L 838.50 712.00 L 841.50 708.00 L 840.50 695.00 L 843.50 692.00 L 842.50 684.00 L 845.50 681.00 L 844.50 676.00 L 847.50 673.00 L 846.50 669.00 L 849.50 666.00 L 848.50 664.00 L 851.50 661.00 L 850.50 658.00 L 853.50 655.00 L 852.50 654.00 L 854.50 652.00 L 854.50 649.00 L 857.50 646.00 L 856.50 644.00 L 870.50 622.00 L 870.50 620.00 L 904.00 584.50 L 908.00 583.50 L 920.00 572.50 L 922.00 573.50 L 926.00 568.50 L 927.00 569.50 L 930.00 566.50 L 934.00 564.50 L 935.00 565.50 L 938.00 562.50 L 946.00 558.50 L 948.00 559.50 L 956.00 554.50 L 959.00 555.50 L 962.00 552.50 L 965.00 553.50 L 968.00 550.50 L 971.00 551.50 L 974.00 548.50 L 980.00 549.50 L 983.00 546.50 L 991.00 547.50 L 994.00 544.50 L 1005.00 545.50 L 1008.00 542.50 L 1039.00 542.50 L 1043.00 545.50 L 1054.00 544.50 L 1057.00 547.50 L 1065.00 546.50 L 1068.00 549.50 L 1073.00 548.50 L 1076.00 551.50 L 1080.00 550.50 L 1083.00 553.50 L 1086.00 552.50 L 1089.00 555.50 L 1091.00 554.50 L 1094.00 557.50 L 1096.00 556.50 L 1102.00 561.50 L 1105.00 560.50 L 1112.00 565.50 L 1113.00 564.50 L 1127.00 575.50 L 1137.00 580.50 L 1170.50 614.00 L 1170.50 616.00 L 1176.50 622.00 L 1175.50 624.00 L 1180.50 628.00 L 1179.50 630.00 L 1186.50 638.00 L 1194.50 654.00 L 1194.50 658.00 L 1198.50 664.00 L 1198.50 668.00 L 1200.50 670.00 L 1199.50 675.00 L 1202.50 678.00 L 1201.50 682.00 L 1204.50 685.00 L 1203.50 693.00 L 1206.50 696.00 L 1205.50 707.00 L 1208.50 710.00 L 1208.50 743.00 L 1205.50 746.00 L 1206.50 757.00 L 1203.50 760.00 L 1204.50 766.00 L 1201.50 769.00 L 1202.50 773.00 L 1199.50 776.00 L 1200.50 780.00 L 1197.50 783.00 L 1198.50 786.00 L 1195.50 789.00 L 1196.50 791.00 L 1194.50 793.00 L 1194.50 796.00 L 1191.50 799.00 L 1192.50 800.00 L 1185.50 811.00 L 1186.50 813.00 L 1184.50 817.00 L 1167.50 839.00 L 1168.50 841.00 L 1133.00 874.50 L 1129.00 875.50 L 1103.00 892.50 L 1092.00 895.50 L 1085.00 900.50 L 1081.00 899.50 L 1078.00 902.50 L 1075.00 901.50 L 1072.00 904.50 L 1067.00 903.50 L 1064.00 906.50 L 1057.00 905.50 L 1053.00 908.50 L 1040.00 907.50 L 1037.00 910.50 Z"/></svg><span class="logo-name">Regular</span></a>
+  <div class="nav-links">
+    <a href="#how" class="nav-link">It works</a>
+    <a href="#science" class="nav-link">The science</a>
+    <a href="regular_blog.html" class="nav-link">Blog</a>
+    <a href="#get" class="nav-cta">Start free</a>
+  </div>
+</header>
+
+<!-- 1. HERO -->
+<header class="hero" id="top">
+  <div class="sky"><span class="hero-eyebrow">An AI buddy for new dads</span><div class="word-top-zone"><span class="display word-top">How</span></div></div>
+  <div class="accent"></div>
+  <div class="ground">
+    <div class="video-bg">
+      <video class="hero-video" autoplay muted loop playsinline poster="regular_hero_poster.jpg">
+        <source src="regular_hero_loop.webm" type="video/webm">
+        <source src="regular_hero_loop.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="word-bot-zone"><span class="display word-bot">matters.</span></div>
+  </div>
+  <div class="hero-sub">
+    <span class="lbl">Reads what's going on with her. Hands you one move tonight.</span>
+    <div class="hero-cta">
+      <a href="#get" class="btn btn--dark"><span class="dot"></span>Start free</a>
+      <a href="#map" class="hero-scroll">See what's happening &darr;</a>
+    </div>
+  </div>
+  <div class="hero-meta">
+    <span class="mi">Free</span><div class="md"></div>
+    <span class="mi">2 min to set up</span><div class="md"></div>
+    <span class="mi">Regular · 2026</span>
+  </div>
+</header>
+
+<!-- 2. THE DIP -->
+<section id="map" class="sec-off">
+  <div class="wrap">
+    <div class="head" style="margin-bottom:26px">
+      <span class="kicker">It's not you</span>
+      <h2>The hardest year a couple <em>ever gets.</em></h2>
+    </div>
+    <div class="chart">
+      <svg viewBox="0 0 1000 470" role="img" aria-label="Relationship satisfaction curve across life stages, with the deepest dip after a baby arrives">
+        <text x="26" y="220" transform="rotate(-90 26 220)" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" letter-spacing="2" fill="rgba(17,17,16,.45)">RELATIONSHIP SATISFACTION</text>
+        <line x1="60" y1="372" x2="965" y2="372" stroke="rgba(17,17,16,.12)" stroke-width="1"/>
+        <rect class="reveal" style="animation-delay:.1s" x="404" y="78" width="190" height="294" rx="10" fill="rgba(78,156,190,.10)"/>
+        <text class="reveal" style="animation-delay:.5s" x="499" y="100" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" letter-spacing="1.5" fill="#C16A45">THE HARDEST CRISIS</text>
+        <path class="curve" pathLength="1" d="M 110,120 C 200,126 250,134 320,142 C 400,152 430,300 470,330 C 505,356 545,358 580,344 C 650,316 670,272 720,262 C 770,253 795,292 825,282 C 875,266 905,196 935,150" fill="none" stroke="#111110" stroke-width="3.5" stroke-linecap="round"/>
+        <circle class="mk" style="animation-delay:1.5s" cx="110" cy="120" r="5" fill="#2A4A2A"/>
+        <circle class="mk" style="animation-delay:1.7s" cx="320" cy="142" r="5" fill="#111110"/>
+        <circle class="mk" style="animation-delay:1.9s" cx="499" cy="345" r="8" fill="#C16A45"/>
+        <circle class="mk" style="animation-delay:2.1s" cx="720" cy="262" r="5" fill="#111110"/>
+        <circle class="mk" style="animation-delay:2.2s" cx="935" cy="150" r="5" fill="#2A4A2A"/>
+        <g class="fig" style="animation-delay:1.6s" transform="translate(92,70)" fill="#2A4A2A"><circle cx="0" cy="-20" r="6"/><path d="M -7,0 Q -7,-13 0,-13 Q 7,-13 7,0 Z"/><g transform="translate(18,0)"><circle cx="0" cy="-20" r="6"/><path d="M -7,0 Q -7,-13 0,-13 Q 7,-13 7,0 Z"/></g></g>
+        <g class="fig" style="animation-delay:1.9s" transform="translate(452,300)" fill="#111110" opacity=".82"><circle cx="0" cy="-20" r="6"/><path d="M -7,0 Q -7,-13 0,-13 Q 7,-13 7,0 Z"/></g>
+        <g class="fig" style="animation-delay:1.95s" transform="translate(548,300)" fill="#111110" opacity=".82"><circle cx="0" cy="-20" r="6"/><path d="M -7,0 Q -7,-13 0,-13 Q 7,-13 7,0 Z"/></g>
+        <g class="fig" style="animation-delay:2.05s" transform="translate(500,322)" fill="#C16A45"><circle cx="0" cy="-9" r="5"/><path d="M -5,0 Q -5,-8 0,-8 Q 5,-8 5,0 Z"/></g>
+        <g class="fig" style="animation-delay:2.35s" transform="translate(917,104)" fill="#2A4A2A"><circle cx="0" cy="-20" r="6"/><path d="M -7,0 Q -7,-13 0,-13 Q 7,-13 7,0 Z"/><g transform="translate(16,0)"><circle cx="0" cy="-20" r="6"/><path d="M -7,0 Q -7,-13 0,-13 Q 7,-13 7,0 Z"/></g></g>
+        <text class="reveal" style="animation-delay:2.1s" x="499" y="412" text-anchor="middle" font-family="Noto Sans, sans-serif" font-size="13" font-weight="700" fill="#C16A45">Baby arrives</text>
+        <text class="reveal" style="animation-delay:2.25s" x="499" y="432" text-anchor="middle" font-family="Noto Sans, sans-serif" font-size="12" fill="rgba(17,17,16,.6)">~2 in 3 couples dip · first 1–3 years</text>
+        <text class="reveal" style="animation-delay:.9s" x="110" y="412" text-anchor="middle" font-family="DM Mono, monospace" font-size="10.5" letter-spacing="1" fill="rgba(17,17,16,.55)">FALLING IN LOVE</text>
+        <text class="reveal" style="animation-delay:1.05s" x="320" y="412" text-anchor="middle" font-family="DM Mono, monospace" font-size="10.5" letter-spacing="1" fill="rgba(17,17,16,.55)">MOVING IN</text>
+        <text class="reveal" style="animation-delay:1.5s" x="700" y="412" text-anchor="middle" font-family="DM Mono, monospace" font-size="10.5" letter-spacing="1" fill="rgba(17,17,16,.55)">EARLY YEARS</text>
+        <text class="reveal" style="animation-delay:1.9s" x="935" y="412" text-anchor="middle" font-family="DM Mono, monospace" font-size="10.5" letter-spacing="1" fill="rgba(17,17,16,.55)">EMPTY NEST</text>
+      </svg>
+    </div>
+    <p class="chart-note">~2 in 3 couples hit this wall after the first baby (Gottman). Love didn't run out — everything changed at once. &nbsp;<a href="regular_how-relationships-work.html">See the full map &rarr;</a></p>
+  </div>
+</section>
+
+<!-- 3. YOU'RE NOT ALONE -->
+<section id="stories" class="sec-white">
+  <div class="wrap">
+    <div class="head">
+      <span class="kicker">You're not alone</span>
+      <h2>Here's what new dads <em>face.</em></h2>
+    </div>
+    <div class="quotes">
+      <div class="quote"><p>"It's not just about the sex — it's about feeling close with my wife, and now I just feel like a roommate who does chores."</p><span class="src">New dad · <a href="https://www.reddit.com/r/NewParents/" target="_blank" rel="noopener">r/NewParents ↗</a></span></div>
+      <div class="quote"><p>"I've never been more lonely in my life, than I am now in marriage."</p><span class="src">New dad · <a href="https://www.reddit.com/r/daddit/" target="_blank" rel="noopener">r/daddit ↗</a></span></div>
+      <div class="quote"><p>"I just want to feel wanted again."</p><span class="src">New dad · <a href="https://www.reddit.com/r/DeadBedrooms/" target="_blank" rel="noopener">r/DeadBedrooms ↗</a></span></div>
+      <div class="quote"><p>"I feel like a third wheel in my own home."</p><span class="src">New dad · <a href="https://www.reddit.com/r/daddit/" target="_blank" rel="noopener">r/daddit ↗</a></span></div>
+      <div class="quote"><p>"We're not a couple anymore — just parents."</p><span class="src">New dad · <a href="https://www.reddit.com/r/Parenting/" target="_blank" rel="noopener">r/Parenting ↗</a></span></div>
+      <div class="quote"><p>"Once the baby came, I felt completely irrelevant."</p><span class="src">New dad · <a href="https://www.reddit.com/r/predaddit/" target="_blank" rel="noopener">r/predaddit ↗</a></span></div>
+    </div>
+    <p style="text-align:center;margin-top:22px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-55)">Pulled from new-dad threads on <a href="https://www.reddit.com/r/daddit/" target="_blank" rel="noopener" style="color:var(--rust)">r/daddit</a>, <a href="https://www.reddit.com/r/NewParents/" target="_blank" rel="noopener" style="color:var(--rust)">r/NewParents</a> &amp; <a href="https://www.reddit.com/r/DeadBedrooms/" target="_blank" rel="noopener" style="color:var(--rust)">r/DeadBedrooms</a></p>
+  </div>
+</section>
+
+<!-- 4. IN THE DARK → TURN ON -->
+<section id="why" class="sec-off">
+  <div class="wrap">
+    <div class="head" style="max-width:640px">
+      <span class="kicker">Why it happens</span>
+      <h2>It's not you two. <em>It's the conditions.</em></h2>
+    </div>
+    <div class="scalebox">
+      <svg viewBox="0 84 560 198" role="img" aria-label="A balance scale: labelled bricks of demands outweigh capacity">
+        <rect x="276" y="99" width="8" height="150" fill="#111110"/>
+        <rect x="230" y="247" width="100" height="8" rx="4" fill="#111110"/>
+        <ellipse cx="280" cy="255" rx="64" ry="5" fill="rgba(17,17,16,.07)"/>
+        <g class="beam">
+          <rect x="120" y="96" width="320" height="6" rx="3" fill="#111110"/>
+          <circle cx="280" cy="99" r="5.5" fill="#111110"/>
+          <!-- LEFT · demands -->
+          <path d="M130,99 L70,172 M130,99 L190,172" stroke="rgba(17,17,16,.5)" stroke-width="1.2" fill="none"/>
+          <path d="M66,172 Q130,196 194,172 Z" fill="rgba(193,106,69,.12)" stroke="#C16A45" stroke-width="1.3"/>
+          <g font-family="Noto Sans, sans-serif" font-size="11" font-weight="600" fill="#fff" text-anchor="middle">
+            <g transform="rotate(-1.5 130 160)"><rect x="66" y="150" width="128" height="20" rx="3" fill="#C16A45" stroke="rgba(0,0,0,.1)" stroke-width="0.6"/><text x="130" y="164">No sleep · chores</text></g>
+            <g transform="rotate(1.5 130 138)"><rect x="72" y="128" width="116" height="20" rx="3" fill="#AD5B3B" stroke="rgba(0,0,0,.1)" stroke-width="0.6"/><text x="130" y="142">A newborn</text></g>
+            <g transform="rotate(-1 130 116)"><rect x="84" y="106" width="92" height="20" rx="3" fill="#C16A45" stroke="rgba(0,0,0,.1)" stroke-width="0.6"/><text x="130" y="120">Work</text></g>
+          </g>
+          <text x="130" y="214" text-anchor="middle" font-family="DM Mono, monospace" font-size="9.5" letter-spacing="1.8" fill="#C16A45">DEMANDS</text>
+          <!-- RIGHT · capacity -->
+          <path d="M430,99 L386,172 M430,99 L474,172" stroke="rgba(17,17,16,.5)" stroke-width="1.2" fill="none"/>
+          <path d="M384,172 Q430,194 476,172 Z" fill="rgba(78,156,190,.12)" stroke="#4E9CBE" stroke-width="1.3"/>
+          <g font-family="Noto Sans, sans-serif" font-size="11" font-weight="600" fill="#fff" text-anchor="middle">
+            <g transform="rotate(1 430 160)"><rect x="388" y="150" width="84" height="20" rx="3" fill="#4E9CBE" stroke="rgba(0,0,0,.08)" stroke-width="0.6"/><text x="430" y="164">Sleep</text></g>
+            <g transform="rotate(-1 430 138)"><rect x="392" y="128" width="76" height="20" rx="3" fill="#7FB4CE" stroke="rgba(0,0,0,.08)" stroke-width="0.6"/><text x="430" y="142">Energy</text></g>
+          </g>
+          <text x="430" y="214" text-anchor="middle" font-family="DM Mono, monospace" font-size="9.5" letter-spacing="1.8" fill="#3E89AD">CAPACITY</text>
+        </g>
+      </svg>
+    </div>
+    <p class="why-bridge">That's a lot of moving parts to run on no sleep. <em>This is how Regular helps.</em></p>
+  </div>
+</section>
+
+<section id="dark">
+  <canvas id="nncanvas" aria-hidden="true"></canvas>
+  <div class="nn-overlay">
+    <span class="nn-kicker">Regular's brain</span>
+    <h2 class="nn-h">Regular <em>connects the dots</em> for you.</h2>
+    <p class="nn-sub">It pulls in the whole picture — her cycle, your sleep, your calendar, the science of what works — and turns a thousand signals into one clear move.</p>
+  </div>
+  <div class="pin" hidden>
+      <div class="layer layer-light">
+        <p class="dk-cap">Regular holds the whole picture — so you don't have to.</p>
+        <svg class="sigmap" viewBox="0 0 372 300" aria-hidden="true">
+  <g><line x1="74" y1="40.0" x2="172" y2="58.0" stroke="#111110" stroke-opacity=".09" stroke-width="1"/><line x1="74" y1="40.0" x2="172" y2="104.5" stroke="#111110" stroke-opacity=".09" stroke-width="1"/><line x1="74" y1="40.0" x2="172" y2="151.0" stroke="#111110" stroke-opacity=".09" stroke-width="1"/><line x1="74" y1="40.0" x2="172" y2="197.5" stroke="#111110" stroke-opacity=".09" stroke-width="1"/><line x1="74" y1="40.0" x2="172" y2="244.0" stroke="#111110" stroke-opacity=".09" stroke-width="1"/><line x1="74" y1="84.4" x2="172" y2="58.0" stroke="#111110" stroke-opacity=".09" stroke-width="1"/><line x1="74" y1="84.4" x2="172" y2="104.5" stroke="#111110" stroke-opacity=".09" stroke-width="1"/><line x1="74" y1="84.4" x2="172" y2="151.0" stroke="#111110" stroke-opacity=".09" stroke-width="1"/><line x1="74" y1="84.4" x2="172" y2="197.5" stroke="#111110" stroke-opacity=".09" stroke-width="1"/><line x1="74" y1="84.4" x2="172" y2="244.0" stroke="#111110" stroke-opacity=".09" stroke-width="1"/><line x1="74" y1="128.8" x2="172" y2="58.0" stroke="#111110" stroke-opacity=".09" stroke-width="1"/><line x1="74" y1="128.8" x2="172" y2="104.5" stroke="#111110" stroke-opacity=".09" stroke-width="1"/><line x1="74" y1="128.8" x2="172" y2="151.0" stroke="#111110" stroke-opacity=".09" stroke-width="1"/><line x1="74" y1="128.8" x2="172" y2="197.5" stroke="#111110" stroke-opacity=".09" stroke-width="1"/><line x1="74" y1="128.8" x2="172" y2="244.0" stroke="#111110" stroke-opacity=".09" stroke-width="1"/><line x1="74" y1="173.2" x2="172" y2="58.0" stroke="#111110" stroke-opacity=".09" stroke-width="1"/><line x1="74" y1="173.2" x2="172" y2="104.5" stroke="#111110" stroke-opacity=".09" stroke-width="1"/><line x1="74" y1="173.2" x2="172" y2="151.0" stroke="#111110" stroke-opacity=".09" stroke-width="1"/><line x1="74" y1="173.2" x2="172" y2="197.5" stroke="#111110" stroke-opacity=".09" stroke-width="1"/><line x1="74" y1="173.2" x2="172" y2="244.0" stroke="#111110" stroke-opacity=".09" stroke-width="1"/><line x1="74" y1="217.6" x2="172" y2="58.0" stroke="#111110" stroke-opacity=".09" stroke-width="1"/><line x1="74" y1="217.6" x2="172" y2="104.5" stroke="#111110" stroke-opacity=".09" stroke-width="1"/><line x1="74" y1="217.6" x2="172" y2="151.0" stroke="#111110" stroke-opacity=".09" stroke-width="1"/><line x1="74" y1="217.6" x2="172" y2="197.5" stroke="#111110" stroke-opacity=".09" stroke-width="1"/><line x1="74" y1="217.6" x2="172" y2="244.0" stroke="#111110" stroke-opacity=".09" stroke-width="1"/><line x1="74" y1="262.0" x2="172" y2="58.0" stroke="#111110" stroke-opacity=".09" stroke-width="1"/><line x1="74" y1="262.0" x2="172" y2="104.5" stroke="#111110" stroke-opacity=".09" stroke-width="1"/><line x1="74" y1="262.0" x2="172" y2="151.0" stroke="#111110" stroke-opacity=".09" stroke-width="1"/><line x1="74" y1="262.0" x2="172" y2="197.5" stroke="#111110" stroke-opacity=".09" stroke-width="1"/><line x1="74" y1="262.0" x2="172" y2="244.0" stroke="#111110" stroke-opacity=".09" stroke-width="1"/><line x1="172" y1="58.0" x2="260" y2="78.0" stroke="#111110" stroke-opacity=".11" stroke-width="1"/><line x1="172" y1="58.0" x2="260" y2="126.7" stroke="#111110" stroke-opacity=".11" stroke-width="1"/><line x1="172" y1="58.0" x2="260" y2="175.3" stroke="#111110" stroke-opacity=".11" stroke-width="1"/><line x1="172" y1="58.0" x2="260" y2="224.0" stroke="#111110" stroke-opacity=".11" stroke-width="1"/><line x1="172" y1="104.5" x2="260" y2="78.0" stroke="#111110" stroke-opacity=".11" stroke-width="1"/><line x1="172" y1="104.5" x2="260" y2="126.7" stroke="#111110" stroke-opacity=".11" stroke-width="1"/><line x1="172" y1="104.5" x2="260" y2="175.3" stroke="#111110" stroke-opacity=".11" stroke-width="1"/><line x1="172" y1="104.5" x2="260" y2="224.0" stroke="#111110" stroke-opacity=".11" stroke-width="1"/><line x1="172" y1="151.0" x2="260" y2="78.0" stroke="#111110" stroke-opacity=".11" stroke-width="1"/><line x1="172" y1="151.0" x2="260" y2="126.7" stroke="#111110" stroke-opacity=".11" stroke-width="1"/><line x1="172" y1="151.0" x2="260" y2="175.3" stroke="#111110" stroke-opacity=".11" stroke-width="1"/><line x1="172" y1="151.0" x2="260" y2="224.0" stroke="#111110" stroke-opacity=".11" stroke-width="1"/><line x1="172" y1="197.5" x2="260" y2="78.0" stroke="#111110" stroke-opacity=".11" stroke-width="1"/><line x1="172" y1="197.5" x2="260" y2="126.7" stroke="#111110" stroke-opacity=".11" stroke-width="1"/><line x1="172" y1="197.5" x2="260" y2="175.3" stroke="#111110" stroke-opacity=".11" stroke-width="1"/><line x1="172" y1="197.5" x2="260" y2="224.0" stroke="#111110" stroke-opacity=".11" stroke-width="1"/><line x1="172" y1="244.0" x2="260" y2="78.0" stroke="#111110" stroke-opacity=".11" stroke-width="1"/><line x1="172" y1="244.0" x2="260" y2="126.7" stroke="#111110" stroke-opacity=".11" stroke-width="1"/><line x1="172" y1="244.0" x2="260" y2="175.3" stroke="#111110" stroke-opacity=".11" stroke-width="1"/><line x1="172" y1="244.0" x2="260" y2="224.0" stroke="#111110" stroke-opacity=".11" stroke-width="1"/><line x1="260" y1="78.0" x2="330" y2="151" stroke="#2F7B9E" stroke-opacity=".5" stroke-width="1.4"/><line x1="260" y1="126.7" x2="330" y2="151" stroke="#2F7B9E" stroke-opacity=".5" stroke-width="1.4"/><line x1="260" y1="175.3" x2="330" y2="151" stroke="#2F7B9E" stroke-opacity=".5" stroke-width="1.4"/><line x1="260" y1="224.0" x2="330" y2="151" stroke="#2F7B9E" stroke-opacity=".5" stroke-width="1.4"/></g>
+  <circle cx="74" cy="40.0" r="4.5" fill="#2A4A2A"/><text x="63" y="43.0" class="inlab">Cycle</text>
+  <circle cx="74" cy="84.4" r="4.5" fill="#2A4A2A"/><text x="63" y="87.4" class="inlab">Sleep</text>
+  <circle cx="74" cy="128.8" r="4.5" fill="#2A4A2A"/><text x="63" y="131.8" class="inlab">HRV</text>
+  <circle cx="74" cy="173.2" r="4.5" fill="#2A4A2A"/><text x="63" y="176.2" class="inlab">Steps</text>
+  <circle cx="74" cy="217.6" r="4.5" fill="#2A4A2A"/><text x="63" y="220.6" class="inlab">Calendar</text>
+  <circle cx="74" cy="262.0" r="4.5" fill="#2A4A2A"/><text x="63" y="265.0" class="inlab">Mood</text>
+  <circle cx="172" cy="58.0" r="5" fill="#111110"/>
+  <circle cx="172" cy="104.5" r="5" fill="#111110"/>
+  <circle cx="172" cy="151.0" r="5" fill="#111110"/>
+  <circle cx="172" cy="197.5" r="5" fill="#111110"/>
+  <circle cx="172" cy="244.0" r="5" fill="#111110"/>
+  <circle cx="260" cy="78.0" r="5" fill="#111110"/>
+  <circle cx="260" cy="126.7" r="5" fill="#111110"/>
+  <circle cx="260" cy="175.3" r="5" fill="#111110"/>
+  <circle cx="260" cy="224.0" r="5" fill="#111110"/>
+  <circle cx="330" cy="151" r="10" fill="#2F7B9E"/><text x="330" y="177" class="otext">Your move</text>
+  <text x="216" y="292" class="scilab">Gottman · EFT · attachment science</text>
+</svg>
+      </div>
+      <div class="layer layer-dark">
+        <p class="dk-cap">Without it, you're holding it all in your head.</p>
+        <svg class="darkfield" viewBox="0 0 340 300" aria-hidden="true">
+          <g fill="#ffffff">
+            <circle cx="48" cy="60" r="3" opacity=".14"/>
+            <circle cx="120" cy="40" r="2.5" opacity=".1"/>
+            <circle cx="210" cy="70" r="3" opacity=".12"/>
+            <circle cx="292" cy="52" r="2" opacity=".08"/>
+            <circle cx="70" cy="140" r="2.5" opacity=".1"/>
+            <circle cx="158" cy="118" r="3" opacity=".13"/>
+            <circle cx="250" cy="150" r="2.5" opacity=".09"/>
+            <circle cx="300" cy="122" r="2" opacity=".08"/>
+            <circle cx="50" cy="222" r="3" opacity=".11"/>
+            <circle cx="130" cy="242" r="2.5" opacity=".1"/>
+            <circle cx="222" cy="226" r="3" opacity=".12"/>
+            <circle cx="286" cy="246" r="2.5" opacity=".09"/>
+            <circle cx="178" cy="186" r="2" opacity=".08"/>
+          </g>
+          <text x="170" y="168" class="qmark">?</text>
+        </svg>
+        <div class="dk-hint">Scroll — the dark slides away</div>
+      </div>
+    </div>
+</section>
+
+<!-- 5. HOW IT WORKS -->
+<section id="how" class="sec-off">
+  <div class="wrap">
+    <div class="head">
+      <span class="kicker">How it works</span>
+      <h2>This is how <em>Regular helps.</em></h2>
+    </div>
+    <div class="flow">
+      <div class="flowcard">
+        <div class="fnum">Step 01</div><h3>You both connect</h3>
+        <div class="miniphone"><div class="scr">
+          <div class="shead">Connect</div>
+          <div class="toggle on"><span>Apple Health</span><i></i></div>
+          <div class="toggle on"><span>Her cycle</span><i></i></div>
+          <div class="toggle on"><span>Your sleep</span><i></i></div>
+          <div class="hint">You both choose what to share</div>
+        </div></div>
+      </div>
+      <div class="flowcard">
+        <div class="fnum">Step 02</div><h3>It all goes into Regular</h3>
+        <div class="miniphone"><div class="scr">
+          <div class="shead">Regular's brain</div>
+          <div class="line"><span>Her cycle</span><b>Day 18 · luteal</b></div>
+          <div class="line"><span>Your sleep</span><b>4h 10m</b></div>
+          <div class="line"><span>Your energy</span><b>low</b></div>
+          <div class="line"><span>Science</span><b>Gottman · EFT</b></div>
+          <div class="brainout">Read: you're both depleted</div>
+          <div class="readtag">1,000s of signals, weighed in real time</div>
+        </div></div>
+      </div>
+      <div class="flowcard">
+        <div class="fnum">Step 03</div><h3>You make the move</h3>
+        <div class="miniphone"><div class="scr">
+          <div class="shead">Tonight</div>
+          <div class="movecard"><div class="who">Your move</div>Bring her tea. Sit down. Ask nothing.</div>
+          <div class="done">2 minutes · done</div>
+        </div></div>
+      </div>
+    </div>
+    <p class="how-note">Regular weighs it all — both of you, her cycle, your no-sleep week — against decades of relationship science. Then it hands you doable moves, talks you through the hard parts, and asks less of you on the days you're wiped.</p>
+  </div>
+</section>
+
+<!-- 6. THE SCIENCE -->
+<section id="science" class="sec-white">
+  <div class="wrap">
+    <div class="head" style="max-width:680px;margin-bottom:34px">
+      <span class="kicker">The science</span>
+      <h2 style="margin-top:16px">Built on the science, <em>not a horoscope.</em></h2>
+    </div>
+    <div class="stats">
+      <div class="stat">
+        <div class="dots"><i class="g"></i><i class="g"></i><i class="g"></i><i class="g"></i><i class="g"></i><i class="r"></i></div>
+        <div class="big"><span class="num" data-to="5">5</span>:<span class="num" data-to="1">1</span></div>
+        <p>good moments to every bad one — the Gottman ratio that predicts who stays close.</p>
+      </div>
+      <div class="stat">
+        <div class="donut" style="--p:67"></div>
+        <div class="big"><span class="num" data-to="67">67</span>%</div>
+        <p>of couples dip after the first baby. The 33% who don't? It's learnable.</p>
+      </div>
+      <div class="stat">
+        <div class="one">One move</div>
+        <div class="big">1</div>
+        <p>small, doable thing a night. That's the whole job — built on Gottman &amp; EFT.</p>
+      </div>
+    </div>
+    <p class="promise-line" style="text-align:center;margin-top:8px">We won't promise you'll be happier. We promise you'll stop flying blind.</p>
+    <p class="disclaimer" style="max-width:580px;margin:18px auto 0;text-align:left">Regular is support, not therapy. If there's abuse or you're in crisis, reach a qualified professional.</p>
+    <p class="sci-more" style="text-align:center"><a href="regular_blog.html#lab">The latest research, in the blog &rarr;</a></p>
+  </div>
+</section>
+
+<!-- 7. PHILOSOPHY -->
+<section id="philo" class="sec-off">
+  <div class="wrap philo">
+    <img src="regular_hero_poster.jpg" alt="Kintsugi — a cracked bowl repaired with gold">
+    <div>
+      <span class="kicker">Our philosophy</span>
+      <h2 style="margin:14px 0">A cracked bowl <em>isn't trash.</em></h2>
+      <p class="lead">Fill the cracks with gold and it's worth more than new. Regular is for the ones who'd rather rebuild something deeper than pretend it's all fine.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 8. FAQ -->
+<section id="faq" class="sec-white">
+  <div class="wrap">
+    <div class="head" style="margin-bottom:30px">
+      <span class="kicker">Before you ask</span>
+      <h2>The honest <em>answers.</em></h2>
+    </div>
+    <div class="faq">
+      <details open><summary>Is this therapy?</summary><p>No. Regular is a supportive AI buddy — a low-pressure first step, not a clinic. It won't diagnose or replace professional care.</p></details>
+      <details><summary>Does she have to join?</summary><p>You can start on your own and still get guidance. But Regular truly works once she connects her data — that's when it can read her signals instead of you guessing. And she controls what's shared.</p></details>
+      <details><summary>Is our data private?</summary><p>Yes. You never see her raw numbers — only a gentle heads-up. She decides what she shares, and the intimate stuff stays private.</p></details>
+      <details><summary>Is it only for iPhone?</summary><p>We're starting on iOS, with Android on the way. Start free and we'll let you know.</p></details>
+      <details><summary>How much does it cost?</summary><p>Free to start, two minutes to set up. Explore the core experience before deciding anything.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- 9. FINAL + FOOTER -->
+<section id="get" class="sec-ink final">
+  <div class="final-main">
+  <div class="wrap">
+    <span class="kicker">Start tonight</span>
+    <p class="display" style="margin-top:14px;color:#fff">Start with yourself.</p>
+    <a class="btn btn--light" href="#"><span class="dot"></span>Start free</a>
+    <p class="risk" style="color:rgba(250,250,248,.6)">Free · 2 minutes to set up</p>
+  </div>
+  </div>
+  <footer>
+    <div class="wrap">
+      <div class="frow">
+        <a class="logo" href="#top" style="display:inline-flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true"><path fill="currentColor" d="M 1048.00 1520.50 L 1023.00 1520.50 L 1020.00 1517.50 L 1016.00 1520.50 L 1005.00 1520.50 L 999.00 1517.50 L 973.00 1518.50 L 969.00 1515.50 L 955.00 1516.50 L 952.00 1513.50 L 943.00 1514.50 L 939.00 1511.50 L 919.00 1510.50 L 916.00 1507.50 L 908.00 1508.50 L 905.00 1505.50 L 900.00 1506.50 L 897.00 1503.50 L 892.00 1504.50 L 889.00 1501.50 L 884.00 1502.50 L 881.00 1499.50 L 870.00 1498.50 L 855.00 1491.50 L 851.00 1492.50 L 838.00 1485.50 L 834.00 1486.50 L 822.00 1479.50 L 820.00 1480.50 L 817.00 1477.50 L 814.00 1478.50 L 804.00 1472.50 L 800.00 1472.50 L 768.00 1456.50 L 744.00 1442.50 L 740.00 1437.50 L 734.00 1436.50 L 684.00 1397.50 L 682.00 1398.50 L 647.00 1366.50 L 616.50 1335.00 L 611.50 1327.00 L 600.50 1318.00 L 600.50 1314.00 L 594.50 1309.00 L 560.50 1261.00 L 524.50 1193.00 L 520.50 1183.00 L 521.50 1180.00 L 512.50 1163.00 L 506.50 1145.00 L 507.50 1142.00 L 504.50 1139.00 L 505.50 1134.00 L 500.50 1125.00 L 501.50 1121.00 L 498.50 1118.00 L 499.50 1112.00 L 496.50 1109.00 L 495.50 1095.00 L 492.50 1092.00 L 493.50 1086.00 L 490.50 1083.00 L 491.50 1075.00 L 488.50 1072.00 L 487.50 1048.00 L 484.50 1045.00 L 485.50 1030.00 L 482.50 1027.00 L 482.50 934.00 L 485.50 929.00 L 484.50 914.00 L 487.50 911.00 L 488.50 887.00 L 491.50 884.00 L 490.50 876.00 L 493.50 872.00 L 492.50 866.00 L 495.50 863.00 L 496.50 849.00 L 499.50 846.00 L 498.50 841.00 L 501.50 838.00 L 500.50 833.00 L 503.50 830.00 L 502.50 826.00 L 509.50 811.00 L 508.50 807.00 L 517.50 788.00 L 516.50 785.00 L 519.50 782.00 L 518.50 780.00 L 523.50 772.00 L 526.50 760.00 L 546.50 720.00 L 551.50 716.00 L 552.50 710.00 L 580.50 666.00 L 587.50 660.00 L 586.50 658.00 L 630.50 606.00 L 686.00 556.50 L 688.00 557.50 L 706.00 542.50 L 708.00 543.50 L 712.00 538.50 L 724.00 533.50 L 728.00 528.50 L 730.00 529.50 L 742.00 520.50 L 758.00 512.50 L 761.00 513.50 L 766.00 508.50 L 770.00 509.50 L 781.00 502.50 L 782.50 505.00 L 764.50 522.00 L 764.50 526.00 L 751.50 537.00 L 750.50 541.00 L 742.50 548.00 L 742.50 551.00 L 735.50 557.00 L 734.50 561.00 L 729.50 565.00 L 730.50 567.00 L 719.50 579.00 L 720.50 581.00 L 709.50 595.00 L 710.50 597.00 L 685.50 639.00 L 684.50 646.00 L 673.50 669.00 L 674.50 672.00 L 667.50 686.00 L 666.50 696.00 L 663.50 699.00 L 664.50 703.00 L 661.50 706.00 L 662.50 711.00 L 659.50 714.00 L 660.50 719.00 L 657.50 722.00 L 658.50 728.00 L 655.50 731.00 L 654.50 749.00 L 651.50 754.00 L 652.50 769.00 L 649.50 772.00 L 650.50 805.00 L 648.50 807.00 L 648.50 815.00 L 650.50 817.00 L 649.50 844.00 L 652.50 848.00 L 651.50 862.00 L 654.50 865.00 L 653.50 875.00 L 656.50 878.00 L 657.50 896.00 L 660.50 899.00 L 659.50 903.00 L 662.50 906.00 L 661.50 910.00 L 664.50 913.00 L 665.50 924.00 L 676.50 948.00 L 675.50 951.00 L 692.50 982.00 L 693.50 988.00 L 698.50 992.00 L 704.50 1002.00 L 703.50 1004.00 L 723.50 1032.00 L 748.50 1060.00 L 789.00 1097.50 L 820.00 1119.50 L 827.00 1123.50 L 829.00 1122.50 L 837.00 1129.50 L 868.00 1145.50 L 880.00 1148.50 L 892.00 1155.50 L 896.00 1154.50 L 904.00 1159.50 L 913.00 1160.50 L 916.00 1163.50 L 920.00 1162.50 L 923.00 1165.50 L 928.00 1164.50 L 939.00 1169.50 L 945.00 1168.50 L 948.00 1171.50 L 954.00 1170.50 L 957.00 1173.50 L 983.00 1174.50 L 986.00 1177.50 L 1058.00 1177.50 L 1061.00 1174.50 L 1076.00 1175.50 L 1079.00 1172.50 L 1088.00 1173.50 L 1091.00 1170.50 L 1099.00 1171.50 L 1102.00 1168.50 L 1108.00 1169.50 L 1111.00 1166.50 L 1116.00 1167.50 L 1119.00 1164.50 L 1131.00 1163.50 L 1134.00 1160.50 L 1137.00 1161.50 L 1140.00 1158.50 L 1143.00 1159.50 L 1146.00 1156.50 L 1149.00 1157.50 L 1152.00 1154.50 L 1161.00 1153.50 L 1168.00 1148.50 L 1170.00 1149.50 L 1182.00 1142.50 L 1184.00 1143.50 L 1198.00 1134.50 L 1200.00 1135.50 L 1208.00 1131.50 L 1216.00 1124.50 L 1218.00 1125.50 L 1248.00 1105.50 L 1253.00 1098.50 L 1257.00 1098.50 L 1262.00 1092.50 L 1266.00 1091.50 L 1303.50 1056.00 L 1345.50 1002.00 L 1344.50 1000.00 L 1351.50 992.00 L 1352.50 986.00 L 1363.50 970.00 L 1362.50 968.00 L 1367.50 961.00 L 1366.50 958.00 L 1377.50 937.00 L 1376.50 934.00 L 1379.50 931.00 L 1378.50 928.00 L 1385.50 913.00 L 1386.50 901.00 L 1389.50 898.00 L 1390.50 884.00 L 1393.50 881.00 L 1394.50 862.00 L 1397.50 859.00 L 1396.50 844.00 L 1399.50 839.00 L 1399.50 776.00 L 1396.50 773.00 L 1397.50 758.00 L 1394.50 755.00 L 1395.50 746.00 L 1392.50 743.00 L 1393.50 735.00 L 1390.50 732.00 L 1391.50 726.00 L 1388.50 723.00 L 1389.50 718.00 L 1386.50 715.00 L 1385.50 702.00 L 1382.50 699.00 L 1374.50 673.00 L 1362.50 647.00 L 1363.50 645.00 L 1350.50 619.00 L 1317.50 565.00 L 1293.50 535.00 L 1265.50 508.00 L 1267.00 502.50 L 1273.00 507.50 L 1283.00 510.50 L 1309.00 525.50 L 1315.00 526.50 L 1323.00 533.50 L 1325.00 532.50 L 1328.00 536.50 L 1331.00 536.50 L 1362.00 558.50 L 1371.00 567.50 L 1373.00 566.50 L 1415.00 604.50 L 1446.50 640.00 L 1469.50 674.00 L 1474.50 678.00 L 1502.50 724.00 L 1501.50 726.00 L 1516.50 752.00 L 1515.50 754.00 L 1528.50 780.00 L 1527.50 783.00 L 1532.50 790.00 L 1531.50 793.00 L 1538.50 806.00 L 1539.50 817.00 L 1546.50 832.00 L 1545.50 836.00 L 1548.50 839.00 L 1547.50 843.00 L 1550.50 846.00 L 1549.50 852.00 L 1552.50 855.00 L 1553.50 869.00 L 1556.50 872.00 L 1555.50 880.00 L 1558.50 883.00 L 1557.50 892.00 L 1560.50 895.00 L 1559.50 903.00 L 1562.50 906.00 L 1563.50 938.00 L 1566.50 941.00 L 1566.50 1014.00 L 1563.50 1017.00 L 1564.50 1036.00 L 1561.50 1039.00 L 1562.50 1054.00 L 1559.50 1057.00 L 1560.50 1065.00 L 1557.50 1068.00 L 1558.50 1078.00 L 1555.50 1081.00 L 1554.50 1097.00 L 1551.50 1100.00 L 1552.50 1105.00 L 1549.50 1108.00 L 1550.50 1113.00 L 1547.50 1116.00 L 1546.50 1127.00 L 1541.50 1136.00 L 1542.50 1140.00 L 1539.50 1143.00 L 1540.50 1146.00 L 1537.50 1149.00 L 1536.50 1158.00 L 1533.50 1161.00 L 1532.50 1169.00 L 1525.50 1181.00 L 1522.50 1192.00 L 1517.50 1199.00 L 1518.50 1201.00 L 1503.50 1227.00 L 1504.50 1229.00 L 1499.50 1234.00 L 1496.50 1243.00 L 1489.50 1251.00 L 1488.50 1257.00 L 1483.50 1261.00 L 1480.50 1269.00 L 1468.50 1287.00 L 1463.50 1291.00 L 1458.50 1301.00 L 1410.50 1357.00 L 1379.00 1386.50 L 1333.00 1422.50 L 1275.00 1458.50 L 1251.00 1470.50 L 1248.00 1469.50 L 1242.00 1474.50 L 1235.00 1475.50 L 1228.00 1480.50 L 1209.00 1485.50 L 1197.00 1492.50 L 1194.00 1491.50 L 1185.00 1496.50 L 1181.00 1495.50 L 1178.00 1498.50 L 1174.00 1497.50 L 1171.00 1500.50 L 1160.00 1501.50 L 1157.00 1504.50 L 1153.00 1503.50 L 1150.00 1506.50 L 1134.00 1507.50 L 1131.00 1510.50 L 1125.00 1509.50 L 1121.00 1512.50 L 1112.00 1511.50 L 1109.00 1514.50 L 1081.00 1515.50 L 1078.00 1518.50 L 1053.00 1517.50 L 1048.00 1520.50 Z"/><path fill="currentColor" d="M 1037.00 910.50 L 1006.00 910.50 L 1002.00 907.50 L 991.00 908.50 L 988.00 905.50 L 981.00 906.50 L 978.00 903.50 L 973.00 904.50 L 970.00 901.50 L 966.00 902.50 L 964.00 900.50 L 954.00 898.50 L 947.00 893.50 L 942.00 892.50 L 936.00 887.50 L 934.00 888.50 L 927.00 882.50 L 920.00 880.50 L 914.00 874.50 L 912.00 874.50 L 900.00 861.50 L 890.50 854.00 L 889.50 851.00 L 872.50 833.00 L 873.50 831.00 L 860.50 813.00 L 852.50 797.00 L 853.50 794.00 L 848.50 787.00 L 849.50 783.00 L 846.50 780.00 L 847.50 777.00 L 844.50 774.00 L 845.50 768.00 L 842.50 765.00 L 843.50 759.00 L 840.50 756.00 L 841.50 743.00 L 838.50 740.00 L 838.50 712.00 L 841.50 708.00 L 840.50 695.00 L 843.50 692.00 L 842.50 684.00 L 845.50 681.00 L 844.50 676.00 L 847.50 673.00 L 846.50 669.00 L 849.50 666.00 L 848.50 664.00 L 851.50 661.00 L 850.50 658.00 L 853.50 655.00 L 852.50 654.00 L 854.50 652.00 L 854.50 649.00 L 857.50 646.00 L 856.50 644.00 L 870.50 622.00 L 870.50 620.00 L 904.00 584.50 L 908.00 583.50 L 920.00 572.50 L 922.00 573.50 L 926.00 568.50 L 927.00 569.50 L 930.00 566.50 L 934.00 564.50 L 935.00 565.50 L 938.00 562.50 L 946.00 558.50 L 948.00 559.50 L 956.00 554.50 L 959.00 555.50 L 962.00 552.50 L 965.00 553.50 L 968.00 550.50 L 971.00 551.50 L 974.00 548.50 L 980.00 549.50 L 983.00 546.50 L 991.00 547.50 L 994.00 544.50 L 1005.00 545.50 L 1008.00 542.50 L 1039.00 542.50 L 1043.00 545.50 L 1054.00 544.50 L 1057.00 547.50 L 1065.00 546.50 L 1068.00 549.50 L 1073.00 548.50 L 1076.00 551.50 L 1080.00 550.50 L 1083.00 553.50 L 1086.00 552.50 L 1089.00 555.50 L 1091.00 554.50 L 1094.00 557.50 L 1096.00 556.50 L 1102.00 561.50 L 1105.00 560.50 L 1112.00 565.50 L 1113.00 564.50 L 1127.00 575.50 L 1137.00 580.50 L 1170.50 614.00 L 1170.50 616.00 L 1176.50 622.00 L 1175.50 624.00 L 1180.50 628.00 L 1179.50 630.00 L 1186.50 638.00 L 1194.50 654.00 L 1194.50 658.00 L 1198.50 664.00 L 1198.50 668.00 L 1200.50 670.00 L 1199.50 675.00 L 1202.50 678.00 L 1201.50 682.00 L 1204.50 685.00 L 1203.50 693.00 L 1206.50 696.00 L 1205.50 707.00 L 1208.50 710.00 L 1208.50 743.00 L 1205.50 746.00 L 1206.50 757.00 L 1203.50 760.00 L 1204.50 766.00 L 1201.50 769.00 L 1202.50 773.00 L 1199.50 776.00 L 1200.50 780.00 L 1197.50 783.00 L 1198.50 786.00 L 1195.50 789.00 L 1196.50 791.00 L 1194.50 793.00 L 1194.50 796.00 L 1191.50 799.00 L 1192.50 800.00 L 1185.50 811.00 L 1186.50 813.00 L 1184.50 817.00 L 1167.50 839.00 L 1168.50 841.00 L 1133.00 874.50 L 1129.00 875.50 L 1103.00 892.50 L 1092.00 895.50 L 1085.00 900.50 L 1081.00 899.50 L 1078.00 902.50 L 1075.00 901.50 L 1072.00 904.50 L 1067.00 903.50 L 1064.00 906.50 L 1057.00 905.50 L 1053.00 908.50 L 1040.00 907.50 L 1037.00 910.50 Z"/></svg><span style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.2em;text-transform:uppercase">Regular</span></a>
+        <div class="badges"><a href="#">App Store</a><a href="#">Google Play</a></div>
+      </div>
+      <div class="frow" style="margin-top:24px">
+        <div class="flinks"><a href="#how">It works</a><a href="#science">The science</a><a href="regular_blog.html">Blog</a><a href="#faq">FAQ</a><a href="#">Privacy</a><a href="#">Terms</a></div>
+        <span style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-55)">© 2026 Regular</span>
+      </div>
+      <p class="fine">Regular supports your relationship but is not a substitute for therapy or medical care. If you are experiencing abuse or a crisis, please contact a qualified professional or local support service.</p>
+    </div>
+  </footer>
+</section>
+
+<script>
+// hero video as subtle ground texture
+(function(){
+  var vid=document.querySelector('.hero-video'); if(!vid) return;
+  var BASE=0.34, FADE=1.4;
+  vid.addEventListener('canplay',function(){vid.style.transition='opacity 1.8s ease';vid.style.opacity=BASE;},{once:true});
+  vid.addEventListener('timeupdate',function(){
+    var dur=vid.duration; if(!dur||dur<FADE*2) return;
+    var t=vid.currentTime, rem=dur-t, target;
+    if(rem<FADE) target=(rem/FADE)*BASE; else if(t<FADE) target=(t/FADE)*BASE; else target=BASE;
+    vid.style.transition='none'; vid.style.opacity=target.toFixed(4);
+  });
+})();
+// topbar light/dark
+(function(){
+  var bar=document.getElementById('topbar'); if(!bar) return;
+  var els=document.querySelectorAll('header.hero, section');
+  function onScroll(){
+    var y=72, dark=false;
+    for(var i=0;i<els.length;i++){var r=els[i].getBoundingClientRect();
+      if(r.top<=y && r.bottom>y){var el=els[i];
+        dark=el.classList.contains('hero')||el.classList.contains('sec-ink')||el.id==='dark';break;}}
+    bar.classList.toggle('on-light',!dark);
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  window.addEventListener('resize',onScroll); onScroll();
+})();
+// scroll-reveal for map + stories
+['map','stories'].forEach(function(id){
+  var el=document.getElementById(id); if(!el) return;
+  if(!('IntersectionObserver' in window)){el.classList.add('in');return;}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){el.classList.add('in');io.disconnect();}});},{threshold:.3});
+  io.observe(el);
+})
+;
+// neural webs: dense/tangled overload (#load) → open/calm (#dark), both mouse-reactive
+(function(){
+  function net(secId,cvId,opt){
+    var sec=document.getElementById(secId); if(!sec) return;
+    var cv=document.getElementById(cvId); if(!cv) return;
+    var ctx=cv.getContext('2d');
+    var DPR=Math.min(window.devicePixelRatio||1,2);
+    var W=0,H=0,pts=[],mouse={x:-9999,y:-9999,on:false};
+    var reduce=!matchMedia('(prefers-reduced-motion:no-preference)').matches;
+    function build(){
+      var r=sec.getBoundingClientRect(); W=r.width; H=r.height;
+      cv.width=W*DPR; cv.height=H*DPR; cv.style.width=W+'px'; cv.style.height=H+'px';
+      ctx.setTransform(DPR,0,0,DPR,0,0);
+      var n=Math.max(opt.min,Math.min(opt.max,Math.round(W*H/opt.div)));
+      pts=[];
+      for(var i=0;i<n;i++){var hx=Math.random()*W,hy=Math.random()*H;pts.push({hx:hx,hy:hy,x:hx,y:hy,ph:Math.random()*6.283});}
+    }
+    function frame(t){
+      ctx.clearRect(0,0,W,H);
+      var D=opt.dist,D2=D*D,MR=165,i,a,b;
+      for(i=0;i<pts.length;i++){var p=pts[i];
+        var tx=p.hx+(reduce?0:Math.cos(t*0.0006+p.ph)*opt.drift), ty=p.hy+(reduce?0:Math.sin(t*0.0007+p.ph)*opt.drift);
+        if(mouse.on){var dx=p.x-mouse.x,dy=p.y-mouse.y,d=Math.sqrt(dx*dx+dy*dy);
+          if(d<MR&&d>0){var f=(MR-d)/MR*72;tx+=dx/d*f;ty+=dy/d*f;}}
+        p.x+=(tx-p.x)*0.12; p.y+=(ty-p.y)*0.12;
+      }
+      for(a=0;a<pts.length;a++){for(b=a+1;b<pts.length;b++){
+        var ax=pts[a].x-pts[b].x,ay=pts[a].y-pts[b].y,dd=ax*ax+ay*ay;
+        if(dd<D2){var o=(1-dd/D2)*opt.lo;ctx.strokeStyle=opt.link+o.toFixed(3)+')';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(pts[a].x,pts[a].y);ctx.lineTo(pts[b].x,pts[b].y);ctx.stroke();}
+      }}
+      if(mouse.on){for(i=0;i<pts.length;i++){var mx=pts[i].x-mouse.x,my=pts[i].y-mouse.y,m2=mx*mx+my*my;
+        if(m2<MR*MR){var mo=(1-Math.sqrt(m2)/MR)*0.62;ctx.strokeStyle=opt.mouse+mo.toFixed(3)+')';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(mouse.x,mouse.y);ctx.stroke();}}}
+      for(i=0;i<pts.length;i++){ctx.beginPath();ctx.arc(pts[i].x,pts[i].y,2,0,6.2832);ctx.fillStyle=opt.node;ctx.fill();}
+      requestAnimationFrame(frame);
+    }
+    function mv(e){var r=cv.getBoundingClientRect(),tt=e.touches?e.touches[0]:e;mouse.x=tt.clientX-r.left;mouse.y=tt.clientY-r.top;mouse.on=true;}
+    function lv(){mouse.on=false;mouse.x=mouse.y=-9999;}
+    sec.addEventListener('mousemove',mv); sec.addEventListener('mouseleave',lv);
+    sec.addEventListener('touchmove',mv,{passive:true}); sec.addEventListener('touchend',lv);
+    window.addEventListener('resize',build);
+    build(); requestAnimationFrame(frame);
+  }
+  net('dark','nncanvas',{div:16000,min:24,max:84,dist:132,drift:11,lo:0.42,node:'rgba(226,240,250,.92)',link:'rgba(150,196,224,',mouse:'rgba(196,228,246,'});
+})();
+// count-up numbers in the science section
+(function(){
+  var sec=document.getElementById('science'); if(!sec||!('IntersectionObserver' in window)) return;
+  if(!matchMedia('(prefers-reduced-motion:no-preference)').matches) return;
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){ if(!e.isIntersecting) return; io.disconnect();
+    sec.querySelectorAll('.num').forEach(function(el){
+      var to=+el.getAttribute('data-to')||0, start=null, dur=1100; el.textContent='0';
+      function step(t){ if(!start)start=t; var p=Math.min((t-start)/dur,1); el.textContent=Math.round(p*to); if(p<1)requestAnimationFrame(step); }
+      requestAnimationFrame(step);
+    });
+  });},{threshold:.4});
+  io.observe(sec);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How relationships work — the crisis map | Regular</title>
+<meta name="description" content="Every relationship rides a curve. The year after a baby is the deepest, longest dip — ~67% of couples feel it. Here's the map, what each phase needs, and how couples get through it.">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;700;900&family=Noto+Serif:ital,wght@1,500;1,600&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#111110;--ink-72:rgba(17,17,16,.72);--ink-55:rgba(17,17,16,.55);--ink-08:rgba(17,17,16,.08);--white:#FFFFFF;--off:#FFFFFF;--ember:#3F7A4E;--grove:#2A4A2A;--rust:#4E9CBE;--clay:#4E9CBE}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Noto Sans',system-ui,sans-serif;color:var(--ink);background:var(--off);-webkit-font-smoothing:antialiased;line-height:1.6}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+  a{color:inherit}
+  em{font-family:'Noto Serif',Georgia,serif;font-style:italic;font-weight:600;color:var(--rust)}
+  .kicker{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--rust)}
+  /* nav */
+  nav{display:flex;align-items:center;justify-content:space-between;padding:22px 28px;border-bottom:1px solid var(--ink-08)}
+  nav .logo{display:inline-flex;align-items:center;gap:9px;font-family:'DM Mono',monospace;font-size:13px;letter-spacing:.18em;text-transform:uppercase;font-weight:500;text-decoration:none;color:var(--ink)}
+  .logo-mark{width:20px;height:20px;display:inline-block;flex:none;vertical-align:middle}
+  nav .links a{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;color:var(--ink-55);margin-left:22px}
+  nav .links a:hover{color:var(--ink)}
+  @media(max-width:640px){nav .links a:not(.cta){display:none}}
+  /* head */
+  .head{padding:clamp(54px,8vw,92px) 0 24px;text-align:center}
+  .head h1{font-weight:900;letter-spacing:-.025em;font-size:clamp(30px,5vw,56px);line-height:1.05;margin:16px auto 0;max-width:16ch}
+  .head p{color:var(--ink-72);font-weight:300;max-width:600px;margin:20px auto 0;font-size:18px}
+  section{padding:clamp(40px,6vw,72px) 0}
+  h2{font-weight:700;font-size:clamp(24px,3vw,38px);letter-spacing:-.015em;line-height:1.12}
+  .sub{color:var(--ink-72);font-weight:300;max-width:640px;margin-top:14px;font-size:17px}
+  /* chart */
+  .chart{background:var(--white);border:1px solid var(--ink-08);border-radius:22px;padding:clamp(20px,3vw,34px)}
+  .chart svg{width:100%;height:auto;display:block}
+  .legend{display:flex;gap:22px;flex-wrap:wrap;margin-top:18px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-55)}
+  .legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:7px;vertical-align:middle}
+  /* focus stats */
+  .focus{background:var(--ink);color:var(--white);border-radius:22px;padding:clamp(28px,4vw,52px);margin-top:8px}
+  .focus .kicker{color:var(--rust)}
+  .focus h2{color:var(--white);margin:12px 0 6px}
+  .focus .sub{color:rgba(250,250,248,.72)}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:30px}
+  .stat{background:rgba(250,250,248,.05);border:1px solid rgba(250,250,248,.12);border-radius:16px;padding:24px}
+  .stat .big{font-weight:900;font-size:clamp(34px,4.5vw,52px);letter-spacing:-.02em;color:var(--white);line-height:1}
+  .stat .big.rust{color:#7FB4CE}
+  .stat p{margin-top:10px;color:rgba(250,250,248,.72);font-size:14px}
+  @media(max-width:720px){.stats{grid-template-columns:1fr}}
+  .reframe{margin-top:30px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .reframe div{padding:18px 20px;border-radius:14px;background:rgba(250,250,248,.05);border-left:3px solid var(--rust)}
+  .reframe .t{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#7FB4CE;margin-bottom:6px}
+  .reframe p{font-size:15px;color:rgba(250,250,248,.9)}
+  @media(max-width:720px){.reframe{grid-template-columns:1fr}}
+  /* phases */
+  .phases{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px}
+  .phase{background:var(--white);border:1px solid var(--ink-08);border-radius:18px;padding:26px}
+  .phase svg{height:44px;width:auto;display:block;margin-bottom:14px}
+  .phase .when{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--rust)}
+  .phase h3{font-weight:700;font-size:18px;margin:6px 0 10px}
+  .phase ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+  .phase li{padding-left:18px;position:relative;font-size:14.5px;color:var(--ink-55)}
+  .phase li:before{content:'';position:absolute;left:0;top:8px;width:7px;height:7px;border-radius:50%;background:var(--rust)}
+  @media(max-width:760px){.phases{grid-template-columns:1fr}}
+  /* cope */
+  .cope{background:var(--white);border:1px solid var(--ink-08);border-radius:22px;padding:clamp(26px,4vw,46px)}
+  .cope ul{list-style:none;margin-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .cope li{padding-left:22px;position:relative;color:var(--ink-72)}
+  .cope li:before{content:'';position:absolute;left:0;top:9px;width:9px;height:9px;border-radius:50%;background:var(--grove)}
+  .cope li b{color:var(--ink)}
+  @media(max-width:640px){.cope ul{grid-template-columns:1fr}}
+  .btn{display:inline-flex;align-items:center;gap:9px;font-family:'Noto Sans';font-weight:700;font-size:12px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;padding:13px 26px;border-radius:100px;background:var(--ink);color:var(--white);margin-top:26px}
+  .btn .dot{width:7px;height:7px;border-radius:50%;background:var(--ember)}
+  .disclaimer{font-size:13px;color:var(--ink-55);border-top:1px solid var(--ink-08);margin-top:10px;padding-top:22px;line-height:1.6}
+  .sources{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.04em;color:var(--ink-55);margin-top:12px}
+  .sources a{color:var(--rust);text-decoration:none}
+  footer{border-top:1px solid var(--ink-08);padding:36px 0;color:var(--ink-55);font-size:13px;text-align:center}
+</style>
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CNWV2T2BK9"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNWV2T2BK9');</script>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="index.html"><img class="logo-mark" src="regular_logo.svg" alt="">Regular</a>
+  <div class="links"><a href="index.html#how">It works</a><a href="index.html#science">The science</a><a href="regular_blog.html">Blog</a><a class="cta" href="index.html#get">Start free</a></div>
+</nav>
+
+<div class="head wrap">
+  <span class="kicker">How it works · relationships</span>
+  <h1>Every relationship rides a curve. The year after a baby is the <em>deepest dip</em>.</h1>
+  <p>You're not failing. You've hit the single hardest, most studied crisis a couple goes through. Here's the map — what's happening, how long it lasts, and how couples get through it.</p>
+</div>
+
+<!-- ===== THE CURVE ===== -->
+<section class="wrap">
+  <h2>The arc of a relationship</h2>
+  <p class="sub">Relationship satisfaction tends to follow a U-shaped curve: high at the start, dipping through the child-raising years, then climbing again. The first baby is where it drops fastest and furthest.</p>
+  <div class="chart" style="margin-top:28px">
+    <svg viewBox="0 0 1000 470" role="img" aria-label="Relationship satisfaction curve across life stages, with the deepest dip after a baby arrives">
+      <!-- y axis label -->
+      <text x="26" y="220" transform="rotate(-90 26 220)" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" letter-spacing="2" fill="rgba(17,17,16,.45)">RELATIONSHIP SATISFACTION</text>
+      <!-- baseline -->
+      <line x1="60" y1="372" x2="965" y2="372" stroke="rgba(17,17,16,.12)" stroke-width="1"/>
+      <!-- baby crisis band -->
+      <rect x="404" y="78" width="190" height="294" rx="10" fill="rgba(78,156,190,.10)"/>
+      <text x="499" y="100" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" letter-spacing="1.5" fill="#4E9CBE">THE HARDEST CRISIS</text>
+      <!-- curve -->
+      <path d="M 110,120 C 200,126 250,134 320,142 C 400,152 430,300 470,330 C 505,356 545,358 580,344 C 650,316 670,272 720,262 C 770,253 795,292 825,282 C 875,266 905,196 935,150"
+            fill="none" stroke="#111110" stroke-width="3.5" stroke-linecap="round"/>
+      <!-- markers -->
+      <circle cx="110" cy="120" r="5" fill="#2A4A2A"/>
+      <circle cx="320" cy="142" r="5" fill="#111110"/>
+      <circle cx="499" cy="345" r="8" fill="#4E9CBE"/>
+      <circle cx="720" cy="262" r="5" fill="#111110"/>
+      <circle cx="825" cy="282" r="5" fill="#111110"/>
+      <circle cx="935" cy="150" r="5" fill="#2A4A2A"/>
+      <!-- couple at peak (close) -->
+      <g transform="translate(92,70)" fill="#2A4A2A">
+        <circle cx="0" cy="-20" r="6"/><path d="M -7,0 Q -7,-13 0,-13 Q 7,-13 7,0 Z"/>
+        <g transform="translate(18,0)"><circle cx="0" cy="-20" r="6"/><path d="M -7,0 Q -7,-13 0,-13 Q 7,-13 7,0 Z"/></g>
+      </g>
+      <path d="M 100,42 q 5,-6 10,0" fill="none" stroke="#4E9CBE" stroke-width="2"/>
+      <!-- couple at dip (apart) + baby -->
+      <g transform="translate(452,300)" fill="#111110" opacity=".82">
+        <circle cx="0" cy="-20" r="6"/><path d="M -7,0 Q -7,-13 0,-13 Q 7,-13 7,0 Z"/>
+      </g>
+      <g transform="translate(548,300)" fill="#111110" opacity=".82">
+        <circle cx="0" cy="-20" r="6"/><path d="M -7,0 Q -7,-13 0,-13 Q 7,-13 7,0 Z"/>
+      </g>
+      <g transform="translate(500,322)" fill="#4E9CBE"><circle cx="0" cy="-9" r="5"/><path d="M -5,0 Q -5,-8 0,-8 Q 5,-8 5,0 Z"/></g>
+      <!-- couple at recovery (close again) -->
+      <g transform="translate(917,104)" fill="#2A4A2A">
+        <circle cx="0" cy="-20" r="6"/><path d="M -7,0 Q -7,-13 0,-13 Q 7,-13 7,0 Z"/>
+        <g transform="translate(18,0)"><circle cx="0" cy="-20" r="6"/><path d="M -7,0 Q -7,-13 0,-13 Q 7,-13 7,0 Z"/></g>
+      </g>
+      <!-- annotation -->
+      <text x="499" y="412" text-anchor="middle" font-family="Noto Sans, sans-serif" font-size="13" font-weight="700" fill="#4E9CBE">Baby arrives</text>
+      <text x="499" y="432" text-anchor="middle" font-family="Noto Sans, sans-serif" font-size="12" fill="rgba(17,17,16,.6)">~67% dip sharply · first 1–3 years</text>
+      <!-- stage labels -->
+      <text x="110" y="412" text-anchor="middle" font-family="DM Mono, monospace" font-size="10.5" letter-spacing="1" fill="rgba(17,17,16,.55)">FALLING IN LOVE</text>
+      <text x="320" y="412" text-anchor="middle" font-family="DM Mono, monospace" font-size="10.5" letter-spacing="1" fill="rgba(17,17,16,.55)">MOVING IN</text>
+      <text x="700" y="412" text-anchor="middle" font-family="DM Mono, monospace" font-size="10.5" letter-spacing="1" fill="rgba(17,17,16,.55)">EARLY YEARS</text>
+      <text x="825" y="432" text-anchor="middle" font-family="DM Mono, monospace" font-size="10.5" letter-spacing="1" fill="rgba(17,17,16,.55)">TEEN YEARS</text>
+      <text x="935" y="412" text-anchor="middle" font-family="DM Mono, monospace" font-size="10.5" letter-spacing="1" fill="rgba(17,17,16,.55)">EMPTY NEST</text>
+    </svg>
+    <div class="legend">
+      <span><i style="background:#2A4A2A"></i>Close / high satisfaction</span>
+      <span><i style="background:#4E9CBE"></i>The post-baby dip</span>
+      <span><i style="background:#111110"></i>Life stage</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOCUS: THE CRISIS ===== -->
+<section class="wrap">
+  <div class="focus">
+    <span class="kicker">The post-baby crisis</span>
+    <h2>The strongest crisis there is — and it's normal</h2>
+    <p class="sub">The transition to parenthood is the most-studied stressor in relationship science. Decades of longitudinal research keep finding the same thing.</p>
+    <div class="stats">
+      <div class="stat"><div class="big rust">67%</div><p>of couples report a large drop in relationship satisfaction after the first baby (Gottman).</p></div>
+      <div class="stat"><div class="big">1–3</div><p>years is when the drop is steepest. The wider dip can stretch across the child-raising years.</p></div>
+      <div class="stat"><div class="big">33%</div><p>stay happy — and what protected them can be learned and practised.</p></div>
+    </div>
+    <div class="reframe">
+      <div><div class="t">You can't</div><p>Go back to the relationship you had. That couple existed before all this — and before you knew this much about each other.</p></div>
+      <div><div class="t">You can</div><p>Rebuild and ease it — assemble a new, deeper version on what you've learned. Kintsugi, not erasing the crack.</p></div>
+      <div><div class="t">Your job</div><p>Isn't to fix it. It's to get through it together — protecting the connection until the curve turns back up.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PHASES & TOOLS ===== -->
+<section class="wrap">
+  <h2>What each phase needs</h2>
+  <p class="sub">Different tools for different depths of the dip. Small and repeatable beats big and rare.</p>
+  <div class="phases">
+    <div class="phase">
+      <svg viewBox="0 0 80 50" aria-hidden="true"><g fill="#4E9CBE"><circle cx="22" cy="14" r="7"/><path d="M 13,40 Q 13,24 22,24 Q 31,24 31,40 Z"/></g><g fill="#111110"><circle cx="46" cy="14" r="7"/><path d="M 37,40 Q 37,24 46,24 Q 55,24 55,40 Z"/></g><g fill="#2A4A2A"><circle cx="64" cy="34" r="5"/><path d="M 58,48 Q 58,40 64,40 Q 70,40 70,48 Z"/></g></svg>
+      <span class="when">0–6 months</span>
+      <h3>Survival mode</h3>
+      <ul><li>Lower the bar — name that this is the hard part, on purpose</li><li>Non-demand affection: a 6-second hug, no agenda</li><li>One partner fully owns the night, the other sleeps</li></ul>
+    </div>
+    <div class="phase">
+      <svg viewBox="0 0 80 50" aria-hidden="true"><g fill="#111110"><circle cx="26" cy="14" r="7"/><path d="M 17,40 Q 17,24 26,24 Q 35,24 35,40 Z"/></g><g fill="#111110"><circle cx="50" cy="14" r="7"/><path d="M 41,40 Q 41,24 50,24 Q 59,24 59,40 Z"/></g><path d="M 35,12 q 4,-5 8,0" fill="none" stroke="#4E9CBE" stroke-width="2.5"/></svg>
+      <span class="when">6–18 months</span>
+      <h3>Reconnect</h3>
+      <ul><li>Bids for connection — make small ones, answer hers</li><li>Take the mental load, not just the chores</li><li>Talk about closeness, not frequency</li></ul>
+    </div>
+    <div class="phase">
+      <svg viewBox="0 0 80 50" aria-hidden="true"><g fill="#2A4A2A"><circle cx="30" cy="14" r="7"/><path d="M 21,40 Q 21,24 30,24 Q 39,24 39,40 Z"/></g><g fill="#2A4A2A"><circle cx="48" cy="14" r="7"/><path d="M 39,40 Q 39,24 48,24 Q 57,24 57,40 Z"/></g><path d="M 33,8 q 6,-7 12,0" fill="none" stroke="#4E9CBE" stroke-width="2.5"/></svg>
+      <span class="when">18–36 months</span>
+      <h3>Rebuild — deeper</h3>
+      <ul><li>Protect 15 phone-free minutes after bedtime</li><li>Rebuild intimacy slowly, with zero pressure</li><li>Repair after conflict — fast and out loud</li></ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===== HOW COUPLES COPE ===== -->
+<section class="wrap">
+  <div class="cope">
+    <span class="kicker">How couples get through it</span>
+    <h2 style="margin-top:12px">The ones who come out closer do small things, often</h2>
+    <ul>
+      <li><b>They keep the friendship alive</b> — tiny daily moments of "I see you," not grand gestures.</li>
+      <li><b>They share the invisible load</b> — owning whole domains so neither is the manager.</li>
+      <li><b>They lower expectations together</b> — and stop keeping score.</li>
+      <li><b>They repair quickly</b> — a clumsy "that came out wrong, let me try again" beats a perfect argument.</li>
+      <li><b>They protect tiny rituals</b> — a check-in, a hug, a shared coffee.</li>
+      <li><b>They get a first step</b> — a friend who's been there, a program, or a tool — before it becomes a crisis.</li>
+    </ul>
+    <a class="btn" href="regular_blog.html#practice"><span class="dot"></span>Try a practical exercise</a>
+  </div>
+  <p class="disclaimer">This page is for information and support. It isn't medical or psychological advice and isn't a substitute for professional care. If you or your partner are experiencing abuse, severe depression, or a crisis, please reach out to a qualified professional.</p>
+  <p class="sources">Sources: Gottman Institute / J. Gottman, <em style="font-style:normal;color:var(--rust)"></em><a href="https://www.gottman.com/blog/romantic-relationships-take-a-dive-after-baby-arrives-according-to-research/" target="_blank" rel="noopener">romantic relationships after baby (67%)</a>; APA, <a href="https://www.apa.org/monitor/2011/10/babies" target="_blank" rel="noopener">babies & marital satisfaction</a>; U-shaped curve of marital satisfaction (longitudinal research, with caveats).</p>
+</section>
+
+<footer>© 2026 Regular · <a href="index.html" style="color:var(--ink-55)">Home</a> · <a href="regular_blog.html" style="color:var(--ink-55)">Blog</a></footer>
+
+</body>
+</html>

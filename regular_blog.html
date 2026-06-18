@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Regular Blog — Love after a baby, figured out</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;700;900&family=Noto+Serif:ital,wght@1,500;1,600&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#111110;--ink-72:rgba(17,17,16,.72);--ink-55:rgba(17,17,16,.55);--ink-38:rgba(17,17,16,.38);--ink-08:rgba(17,17,16,.08);--white:#FFFFFF;--off:#FFFFFF;--grove:#2A4A2A;--rust:#4E9CBE;--ember:#3F7A4E;--clay:#C16A45}
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Noto Sans',system-ui,sans-serif;color:var(--ink);background:#fff;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 28px}
+  a{color:inherit}
+  em{font-family:'Noto Serif',Georgia,serif;font-style:italic;font-weight:600;color:var(--ember)}
+  .kicker{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--rust)}
+  .t-int{color:#C0473E}.t-rec{color:#3F7A4E}.t-sci{color:#2F7B9E}
+  .tryRow{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:16px}
+  .tryBtn{font-family:'Noto Sans';font-weight:700;font-size:12px;letter-spacing:.04em;background:var(--ink);color:#fff;border:none;border-radius:100px;padding:10px 18px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:.15s}
+  .tryBtn .d{width:7px;height:7px;border-radius:50%;background:var(--ember)}
+  .tryBtn.done{background:var(--ember);color:#fff}
+  .tryStat{position:relative;font-family:'DM Mono',monospace;font-size:11px;color:var(--ink-55);cursor:help}
+  .tryStat .stars{color:var(--ember);letter-spacing:1px}
+  .tryStat .tip{position:absolute;left:0;bottom:calc(100% + 9px);width:232px;background:var(--ink);color:#fff;font-family:'Noto Sans',sans-serif;text-transform:none;letter-spacing:normal;font-weight:400;font-size:12px;line-height:1.45;padding:11px 13px;border-radius:11px;opacity:0;visibility:hidden;transform:translateY(4px);transition:.15s;z-index:30;box-shadow:0 12px 32px rgba(17,17,16,.2)}
+  .tryStat .tip:after{content:'';position:absolute;top:100%;left:20px;border:6px solid transparent;border-top-color:var(--ink)}
+  .tryStat:hover .tip{opacity:1;visibility:visible;transform:translateY(0)}
+  /* nav */
+  nav{display:flex;align-items:center;justify-content:space-between;padding:22px 28px;border-bottom:1px solid var(--ink-08);background:#fff;position:sticky;top:0;z-index:20}
+  nav .logo{display:inline-flex;align-items:center;gap:9px;font-family:'DM Mono',monospace;font-size:13px;letter-spacing:.18em;text-transform:uppercase;font-weight:500;text-decoration:none;color:var(--ink)}
+  .logo-mark{width:20px;height:20px;display:inline-block;flex:none;vertical-align:middle}
+  nav .links a{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;color:var(--ink-55);margin-left:22px}
+  nav .links a:hover{color:var(--ink)}
+  /* head */
+  .head{padding:clamp(64px,9vw,120px) 0 44px;text-align:center}
+  .head h1{font-family:'Noto Sans';font-weight:900;text-transform:uppercase;letter-spacing:-.03em;font-size:clamp(36px,6.5vw,82px);line-height:.92;margin:18px auto 0;max-width:13ch}
+  .head p{color:var(--ink-72);font-weight:300;max-width:580px;margin:22px auto 0;font-size:18px;line-height:1.62}
+  /* rating */
+  .rating{display:flex;align-items:center;gap:8px;margin-top:14px;font-family:'DM Mono',monospace;font-size:11px;color:var(--ink-55)}
+  .rating .stars{color:var(--ember);letter-spacing:1.5px;font-size:13px}
+  .rating b{font-weight:600;color:var(--ink)}
+  /* featured */
+  .featured{display:grid;grid-template-columns:1.05fr 1fr;background:#fff;border:1px solid var(--ink-08);border-radius:24px;overflow:hidden;margin:20px 0 76px;box-shadow:0 18px 50px rgba(17,17,16,.05)}
+  .featured .img{min-height:320px;background:linear-gradient(135deg,#2a1416,#C0473E)}
+  .featured .body{padding:clamp(30px,4vw,52px);display:flex;flex-direction:column;justify-content:center}
+  .featured h2{font-weight:800;font-size:clamp(24px,2.8vw,34px);line-height:1.14;margin:14px 0;letter-spacing:-.015em}
+  .featured p{color:var(--ink-55);line-height:1.62}
+  .featured a.read{margin-top:22px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;color:var(--ink);border-bottom:1px solid var(--rust);padding-bottom:3px;align-self:flex-start}
+  @media(max-width:760px){.featured{grid-template-columns:1fr}}
+  /* section heads */
+  .secrow{margin:0 0 6px;display:flex;align-items:baseline;justify-content:space-between;gap:16px}
+  .secrow h3{font-weight:800;font-size:clamp(22px,2.4vw,30px);letter-spacing:-.01em}
+  .secsub{color:var(--ink-72);font-weight:300;max-width:640px;margin:0 0 26px;line-height:1.6;font-size:16px}
+  .block{margin-bottom:84px}
+  /* grid + cards */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .post{display:block;text-decoration:none;color:var(--ink);background:#fff;border:1px solid var(--ink-08);border-radius:18px;overflow:hidden;transition:transform .2s,box-shadow .2s}
+  a.post:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(17,17,16,.08)}
+  .post .th{height:130px}
+  .post .pb{padding:20px 20px 22px}
+  .post .ptag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--rust)}
+  .post h4{font-weight:700;font-size:16.5px;margin:9px 0 6px;line-height:1.28}
+  .post p{font-size:13.5px;color:var(--ink-55);line-height:1.5}
+  .post .soon{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-38)}
+  @media(max-width:760px){.grid{grid-template-columns:1fr 1fr}}
+  @media(max-width:520px){.grid{grid-template-columns:1fr}}
+  /* situation finder */
+  .finder{background:#fff;border:1px solid var(--ink-08);border-radius:24px;padding:clamp(26px,4vw,44px);box-shadow:0 18px 50px rgba(17,17,16,.05)}
+  .finder .ftag{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ember)}
+  .finder h3{font-weight:800;font-size:clamp(22px,2.6vw,30px);letter-spacing:-.01em;margin:12px 0 6px}
+  .finder p.sub{color:var(--ink-72);font-weight:300;line-height:1.6;max-width:560px;margin-bottom:22px}
+  .finder .ctrl{display:flex;gap:12px;flex-wrap:wrap}
+  .finder textarea{flex:1;min-width:240px;min-height:58px;resize:vertical;font-family:'Noto Sans',sans-serif;font-size:15px;color:var(--ink);background:#fbfcfc;border:1px solid var(--ink-08);border-radius:14px;padding:15px 16px;line-height:1.5}
+  .finder textarea:focus{outline:none;border-color:var(--rust)}
+  .btn{display:inline-flex;align-items:center;gap:9px;font-family:'Noto Sans';font-weight:700;font-size:12px;letter-spacing:.06em;text-transform:uppercase;background:var(--ink);color:#fff;border:none;border-radius:100px;padding:0 26px;height:54px;cursor:pointer;white-space:nowrap}
+  .btn .dot{width:7px;height:7px;border-radius:50%;background:var(--ember)}
+  .btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--ink-08)}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+  .chips span{font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-55);background:#f4f6f6;border:1px solid var(--ink-08);border-radius:99px;padding:7px 13px;cursor:pointer;transition:.15s}
+  .chips span:hover{color:var(--ink);border-color:var(--rust)}
+  /* exercise card */
+  .ex{background:#fbfcfc;border:1px solid var(--ink-08);border-radius:16px;padding:22px 22px 24px}
+  .ex .excat{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--clay)}
+  .ex h4{font-weight:700;font-size:17px;margin:8px 0 7px}
+  .ex .exbody{font-size:14px;color:var(--ink-72);line-height:1.55}
+  .prompt{margin-top:14px;background:#fff;border-left:3px solid var(--rust);border-radius:0 12px 12px 0;padding:13px 15px}
+  .prompt .plabel{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--rust);display:block;margin-bottom:6px}
+  .prompt .pquote{font-family:'Noto Serif',Georgia,serif;font-style:italic;font-size:14.5px;color:var(--ink);line-height:1.45}
+  .ex .exmeta{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-38);margin-top:14px}
+  #finderResult{margin-top:22px}
+  .practiceTop{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:8px}
+  /* roadmap */
+  .roadmap{background:#fff;border:1px solid var(--ink-08);border-radius:24px;padding:clamp(28px,4vw,52px);box-shadow:0 18px 50px rgba(17,17,16,.05)}
+  .roadmap h3{font-weight:800;font-size:clamp(22px,2.4vw,30px);margin-top:10px;letter-spacing:-.01em}
+  .roadmap p.sub{color:var(--ink-72);font-weight:300;margin-top:12px;max-width:660px;line-height:1.6}
+  table{width:100%;border-collapse:collapse;margin-top:28px;font-size:14px}
+  th,td{text-align:left;padding:14px 10px;border-bottom:1px solid var(--ink-08);vertical-align:top}
+  th{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--rust);font-weight:400}
+  td .kw{font-family:'DM Mono',monospace;color:var(--ink-55);font-size:12px}
+  .pri{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.06em;padding:4px 11px;border-radius:99px;white-space:nowrap}
+  .p1{background:rgba(78,156,190,.16);color:#2f6f8c}.p2{background:rgba(193,106,69,.16);color:#a4502f}.p3{background:rgba(63,122,78,.16);color:#2f5b3a}
+  .reqform{margin-top:24px}
+  .reqform textarea{width:100%;min-height:84px;resize:vertical;font-family:'Noto Sans',sans-serif;font-size:15px;color:var(--ink);background:#fbfcfc;border:1px solid var(--ink-08);border-radius:14px;padding:15px 16px;line-height:1.5}
+  .reqform textarea:focus,.reqform input:focus{outline:none;border-color:var(--rust)}
+  .reqrow{display:flex;gap:12px;margin-top:12px;flex-wrap:wrap}
+  .reqrow input{flex:1;min-width:240px;font-family:'Noto Sans',sans-serif;font-size:15px;color:var(--ink);background:#fbfcfc;border:1px solid var(--ink-08);border-radius:14px;padding:0 16px;height:54px}
+  .reqthanks{color:var(--ember);font-weight:600;margin-top:16px;font-size:15px}
+  footer{border-top:1px solid var(--ink-08);padding:48px 0;color:var(--ink-55);font-size:13px;text-align:center;margin-top:24px}
+  footer a{color:var(--ink-55)}
+  .fine{font-family:'Noto Sans';margin-top:14px;font-size:12px;max-width:680px;margin-left:auto;margin-right:auto;line-height:1.6}
+</style>
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CNWV2T2BK9"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNWV2T2BK9');</script>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="index.html"><img class="logo-mark" src="regular_logo.svg" alt="">Regular</a>
+  <div class="links"><a href="index.html#how">It works</a><a href="index.html#science">The science</a><a href="regular_blog.html">Blog</a><a href="index.html#get">Start free</a></div>
+</nav>
+
+<div class="head wrap">
+  <span class="kicker">The Regular Blog</span>
+  <h1>Love after a baby, figured out</h1>
+  <p>Honest, practical, shame-free reads on sex, closeness, and connection in the first year as parents — written like a friend who's already been there.</p>
+</div>
+
+<div class="wrap">
+  <article class="featured">
+    <div class="img"></div>
+    <div class="body">
+      <span class="kicker t-int">Featured · Intimacy</span>
+      <h2>No sex after baby: is this normal, and how long does it last?</h2>
+      <p>If you're lying awake wondering whether your sex life is over — read this first. The honest answer, what's actually going on, and the small things that help.</p>
+      <div class="rating"><span class="stars">★★★★★</span><b>4.8</b> · 326 ratings</div>
+      <a class="read" href="blog_no-sex-after-baby.html">Read the article →</a>
+    </div>
+  </article>
+
+  <!-- LATEST -->
+  <div class="block">
+    <div class="secrow"><h3>Latest reads</h3></div>
+    <p class="secsub">New every week — the questions new dads actually type at midnight.</p>
+    <div class="grid">
+      <a class="post" href="blog_no-sex-after-baby.html"><div class="th" style="background:linear-gradient(135deg,#2a1416,#C0473E)"></div><div class="pb"><span class="ptag t-int">Intimacy</span><h4>No sex after baby: is this normal?</h4><p>And how long it really lasts.</p><div class="rating"><span class="stars">★★★★★</span><b>4.8</b> · 326</div></div></a>
+      <a class="post" href="blog_reconnect-with-wife-after-baby.html"><div class="th" style="background:linear-gradient(135deg,#16241f,#3F7A4E)"></div><div class="pb"><span class="ptag t-rec">Reconnecting</span><h4>How to reconnect with your wife after a baby</h4><p>Real advice that isn't "just communicate."</p><div class="rating"><span class="stars">★★★★★</span><b>4.9</b> · 271</div></div></a>
+      <a class="post" href="#"><div class="th" style="background:linear-gradient(135deg,#2a1416,#C0473E)"></div><div class="pb"><span class="ptag t-int">Intimacy</span><h4>Dead bedroom after kids — without the pressure</h4><p class="soon">Coming soon</p><div class="rating"><span class="stars">★★★★☆</span><b>4.6</b> · 88</div></div></a>
+    </div>
+  </div>
+
+  <!-- SITUATION FINDER -->
+  <div class="block">
+    <div class="finder">
+      <span class="ftag">Personalized · instant</span>
+      <h3>Describe your situation — <em>get one exercise.</em></h3>
+      <p class="sub">Tell us what's going on tonight, in your own words. We'll hand you one small, doable exercise and a ready-to-use line — no sign-up.</p>
+      <div class="ctrl">
+        <textarea id="situationInput" placeholder="e.g. We barely talk anymore, she's exhausted and I feel like a roommate…"></textarea>
+        <button class="btn" id="findBtn"><span class="dot"></span>Find my exercise</button>
+      </div>
+      <div class="chips" id="chips">
+        <span data-q="we feel like roommates and barely talk">Feeling like roommates</span>
+        <span data-q="she is too tired and exhausted for anything">She's exhausted</span>
+        <span data-q="i want to bring up sex and intimacy">Bringing up intimacy</span>
+        <span data-q="i don't know how to help with the baby and chores">I don't know how to help</span>
+        <span data-q="i feel invisible and rejected">I feel invisible</span>
+        <span data-q="we keep fighting and snapping at each other">We keep fighting</span>
+      </div>
+      <div id="finderResult"></div>
+    </div>
+  </div>
+
+  <!-- PRACTICE -->
+  <div class="block" id="practice">
+    <div class="secrow practiceTop">
+      <div><h3>Practice — try this tonight</h3></div>
+      <button class="btn ghost" id="moreBtn">Show me another set ↻</button>
+    </div>
+    <p class="secsub">Small, repeatable moves. Grab one, say the line, or paste it into Regular.</p>
+    <div class="grid" id="practiceGrid"></div>
+  </div>
+
+  <!-- SCIENCE AS ARTICLES -->
+  <div class="block" id="lab">
+    <div class="secrow"><h3>From the lab</h3></div>
+    <p class="secsub">Plain-English write-ups of the research behind how couples connect — neuroscience, relationships, and empathic AI. New pieces added regularly.</p>
+    <div class="grid">
+      <a class="post" href="blog_single-vs-bad-relationship.html"><div class="th" style="background:linear-gradient(135deg,#16242b,#2F7B9E)"></div><div class="pb"><span class="ptag t-sci">Relationships</span><h4>Is single better than a bad relationship? What the data says</h4><p>Well-being is higher single than in a low-quality relationship. It's quality, not status, that lifts you.</p><div class="rating"><span class="stars">★★★★★</span><b>4.7</b> · 154</div></div></a>
+      <a class="post" href="blog_relationship-confidence-health.html"><div class="th" style="background:linear-gradient(135deg,#16242b,#2F7B9E)"></div><div class="pb"><span class="ptag t-sci">Relationships</span><h4>Why confidence in your relationship shows up in your health</h4><p>A couple's confidence tracks with better sleep, stronger mental health, and lower stress.</p><div class="rating"><span class="stars">★★★★☆</span><b>4.5</b> · 119</div></div></a>
+      <a class="post" href="blog_savoring-good-moments.html"><div class="th" style="background:linear-gradient(135deg,#16242b,#2F7B9E)"></div><div class="pb"><span class="ptag t-sci">Relationships</span><h4>Savoring good moments builds a buffer — here's how</h4><p>Couples who slow down and soak in happy moments are measurably steadier when things get hard.</p><div class="rating"><span class="stars">★★★★★</span><b>4.9</b> · 203</div></div></a>
+      <a class="post" href="blog_oxytocin-parent-bond.html"><div class="th" style="background:linear-gradient(135deg,#16242b,#2F7B9E)"></div><div class="pb"><span class="ptag t-sci">Neuroscience</span><h4>Oxytocin and the parent–infant bond, explained</h4><p>How one hormone rewires the early months — and why it reshapes the whole family's wiring.</p><div class="rating"><span class="stars">★★★★★</span><b>4.8</b> · 167</div></div></a>
+      <a class="post" href="blog_dopamine-oxytocin-love.html"><div class="th" style="background:linear-gradient(135deg,#16242b,#2F7B9E)"></div><div class="pb"><span class="ptag t-sci">Neuroscience</span><h4>Dopamine wants, oxytocin bonds: the chemistry of lasting love</h4><p>How the brain turns early attraction into lasting attachment — and what keeps the bond alive.</p><div class="rating"><span class="stars">★★★★☆</span><b>4.6</b> · 142</div></div></a>
+      <a class="post" href="blog_empathic-ai-partner.html"><div class="th" style="background:linear-gradient(135deg,#16242b,#2F7B9E)"></div><div class="pb"><span class="ptag t-sci">Empathic AI</span><h4>Empathic AI lifts mood — but shouldn't replace your partner</h4><p>Emotionally intelligent chatbots help mental health, yet can crowd out real ties. Why Regular nudges you toward her, not away.</p><div class="rating"><span class="stars">★★★★★</span><b>4.7</b> · 98</div></div></a>
+    </div>
+  </div>
+
+  <!-- REQUEST A TOPIC -->
+  <div class="block">
+    <div class="roadmap">
+      <span class="kicker">Suggest a topic</span>
+      <h3>What should we write next?</h3>
+      <p class="sub">Stuck on something the blog doesn't cover yet? Tell us. We read every request and write the ones we hear most.</p>
+      <!-- Requests are emailed via Formspree (form id maqzgnkr). The recipient address lives in the Formspree dashboard, not in this page. -->
+      <form id="reqForm" class="reqform" action="https://formspree.io/f/maqzgnkr" method="POST">
+        <textarea id="reqTopic" name="topic" required placeholder="e.g. How do I bring up date nights without it feeling like pressure?"></textarea>
+        <div class="reqrow">
+          <input id="reqEmail" name="email" type="email" placeholder="Email (optional — we'll tell you when it's live)">
+          <button class="btn" type="submit"><span class="dot"></span>Request this article</button>
+        </div>
+        <input type="hidden" name="_subject" value="New blog article request — Regular">
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <p class="reqthanks" id="reqThanks" hidden>Thanks — your request is in. The topics we hear most get written first.</p>
+      </form>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">© 2026 Regular · <a href="index.html">Home</a>
+    <p class="fine">The Regular Blog is for information and support. It isn't medical or psychological advice and isn't a substitute for professional care. If you're experiencing abuse or a crisis, please reach out to a qualified professional.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var EXERCISES = [
+    {tags:['roommate','roommates','distant','distance','barely talk','close','closer','strangers'],cat:'We feel like roommates',title:'The noticing line',body:'Once a day, say one specific thing you noticed her do. Specific beats "you’re a great mom."',label:'Try saying',quote:'"The way you calmed her down at 3 AM — I don’t know how you do it."',used:312},
+    {tags:['tired','exhausted','no energy','drained','wiped','sleep','knackered'],cat:'Too tired for a big talk',title:'The 6-second hug',body:'Hug for a full six seconds, no agenda. That’s the whole exercise — it resets you both.',label:'Ask Regular',quote:'"Give us a 30-second way to feel close tonight — we’re exhausted."',used:489},
+    {tags:['sex','intimacy','bedroom','frequency','physical','affection'],cat:'Bringing up intimacy',title:'Closeness, not frequency',body:'Name the feeling you miss, not the act. It lands as longing, not pressure.',label:'Try saying',quote:'"I miss feeling close to you. No expectations — I just wanted to say it."',used:401},
+    {tags:['help','chores','load','mental load','do','useless','housework','tasks'],cat:'I don’t know how to help',title:'Own one whole thing',body:'Take a full domain off her plate — nights, bottles, the pediatrician — so she stops managing it.',label:'Ask Regular',quote:'"What’s one job I can fully own this week to cut her mental load?"',used:357},
+    {tags:['invisible','rejected','unseen','ignored','attention','wanted'],cat:'I feel invisible',title:'Make a bid, answer hers',body:'Offer one small invitation for attention — and notice and answer hers when she makes one.',label:'Try saying',quote:'"Ten minutes after bedtime tonight? Just us, phones down."',used:228},
+    {tags:['fight','fights','fighting','argue','arguing','snap','snapping','conflict','tension','blowup'],cat:'We keep snapping',title:'The 20-minute reset',body:'When it heats up, call a 20-minute timeout — you can’t problem-solve while flooded. Come back calmer.',label:'Try saying',quote:'"I want to get this right, not win it. Can we take 20 and come back?"',used:264},
+    {tags:['checkin','check in','daily','routine','talk','communicate'],cat:'A daily check-in',title:'Rose & thorn',body:'Each share one good thing and one hard thing from the day. Thirty seconds, every night.',label:'Try saying',quote:'"Rose and thorn? You go first."',used:333},
+    {tags:['appreciation','grateful','thanks','thank','warmth','resentment','keeping score'],cat:'Rebuilding warmth',title:'Specific thanks',body:'Thank her for one concrete thing she did today — not a general "thanks for everything."',label:'Try saying',quote:'"Thank you for handling the morning so I could sleep. It mattered."',used:295},
+    {tags:['time','date','us','alone','no time','busy'],cat:'No time for us',title:'The 15-minute date',body:'Not a night out — 15 minutes after bedtime, phones down, just the two of you.',label:'Try saying',quote:'"15 minutes tonight, just us? I’ll make the tea."',used:376},
+    {tags:['team','support','overwhelmed','easier','1%'],cat:'Show you’re on her team',title:'The 1% question',body:'Ask what would make tomorrow 1% easier — then actually do that one thing.',label:'Ask Regular',quote:'"What would make tomorrow 1% easier for you?"',used:342}
+  ];
+  function slug(s){return s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');}
+  function exRate(e){return (4.6+(e.used%4)*0.1).toFixed(1);}
+  function lsGet(k,d){try{var v=parseInt(localStorage.getItem(k),10);return isNaN(v)?d:v;}catch(e){return d;}}
+  function exCard(e){
+    var id=slug(e.title), r=exRate(e);
+    var tried=(function(){try{return localStorage.getItem('rg_try_'+id)==='1';}catch(x){return false;}})();
+    var used=e.used+lsGet('rg_trycount_'+id,0);
+    return '<div class="ex"><span class="excat">'+e.cat+'</span><h4>'+e.title+'</h4>'+
+      '<p class="exbody">'+e.body+'</p>'+
+      '<div class="prompt"><span class="plabel">'+e.label+'</span><span class="pquote">'+e.quote+'</span></div>'+
+      '<div class="tryRow">'+
+        '<button class="tryBtn'+(tried?' done':'')+'" data-ex="'+id+'">'+(tried?'✓ You’re on it':'<span class="d"></span>I’ll try this tonight')+'</button>'+
+        '<span class="tryStat"><span class="stars">★</span> '+r+' · '+used+' dads tried this<span class="tip">This rating is based on reviews from Regular app users.</span></span>'+
+      '</div></div>';
+  }
+  document.addEventListener('click',function(ev){
+    var b=ev.target.closest&&ev.target.closest('.tryBtn'); if(!b||b.classList.contains('done'))return;
+    var id=b.getAttribute('data-ex');
+    try{localStorage.setItem('rg_trycount_'+id,lsGet('rg_trycount_'+id,0)+1);localStorage.setItem('rg_try_'+id,'1');var L=JSON.parse(localStorage.getItem('rg_events')||'[]');L.push({a:id,k:'try',d:new Date().toISOString().slice(0,10)});localStorage.setItem('rg_events',JSON.stringify(L));}catch(x){}
+    b.classList.add('done'); b.innerHTML='✓ You’re on it';
+    var stat=b.parentNode.querySelector('.tryStat');
+    if(stat){stat.innerHTML=stat.innerHTML.replace(/(· )(\d+)( dads)/,function(_,a,n,c){return a+(parseInt(n,10)+1)+c;});}
+  });
+  // practice rotation
+  var grid=document.getElementById('practiceGrid');
+  var order=EXERCISES.map(function(_,i){return i;});
+  var ptr=0, PER=3;
+  function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+  shuffle(order);
+  function renderPractice(){
+    var html='';
+    for(var i=0;i<PER;i++){var idx=order[(ptr+i)%order.length];html+=exCard(EXERCISES[idx]);}
+    grid.innerHTML=html;
+    ptr=(ptr+PER)%order.length;
+  }
+  renderPractice();
+  document.getElementById('moreBtn').addEventListener('click',renderPractice);
+  // situation finder
+  var input=document.getElementById('situationInput');
+  var out=document.getElementById('finderResult');
+  function findMatch(text){
+    var t=(text||'').toLowerCase();
+    if(!t.trim()) return null;
+    var best=-1,bestScore=0;
+    EXERCISES.forEach(function(e,i){
+      var s=0;
+      e.tags.forEach(function(tag){ if(t.indexOf(tag)>-1) s+= (tag.indexOf(' ')>-1?2:1); });
+      if(s>bestScore){bestScore=s;best=i;}
+    });
+    if(best<0){ // fallback by a couple of broad cues
+      if(/sex|intima|bedroom/.test(t)) best=2; else if(/tired|sleep|exhaust/.test(t)) best=1; else best=0;
+    }
+    return EXERCISES[best];
+  }
+  function run(){
+    var e=findMatch(input.value);
+    if(!e){ out.innerHTML='<p class="secsub" style="margin:6px 0 0">Tell us a little about what’s going on — even a few words.</p>'; return; }
+    out.innerHTML='<p class="ftag" style="margin-bottom:10px;color:var(--rust)">Your exercise for tonight</p>'+exCard(e);
+  }
+  document.getElementById('findBtn').addEventListener('click',run);
+  input.addEventListener('keydown',function(ev){ if((ev.metaKey||ev.ctrlKey)&&ev.key==='Enter') run(); });
+  document.getElementById('chips').addEventListener('click',function(ev){
+    var s=ev.target.closest('span[data-q]'); if(!s) return;
+    input.value=s.getAttribute('data-q'); run(); input.focus();
+  });
+  // article request form
+  var form=document.getElementById('reqForm');
+  if(form){form.addEventListener('submit',function(ev){
+    ev.preventDefault();
+    var t=document.getElementById('reqTopic'); if(!t.value.trim()){t.focus();return;}
+    var thanks=document.getElementById('reqThanks');
+    function done(msg){thanks.hidden=false;thanks.textContent=msg;t.value='';var em=document.getElementById('reqEmail');if(em)em.value='';}
+    // Demo fallback until a real Formspree ID is set
+    if(form.action.indexOf('REPLACE_WITH')>-1){done('Thanks — your request is in. The topics we hear most get written first.');return;}
+    fetch(form.action,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}})
+      .then(function(r){return r.ok?r:Promise.reject(r);})
+      .then(function(){done('Thanks — your request is in. The topics we hear most get written first.');})
+      .catch(function(){thanks.hidden=false;thanks.textContent='Hmm, that didn’t send. Please try again in a moment.';});
+  });}
+})();
+</script>
+</body>
+</html>
