@@ -18,7 +18,7 @@
   h1{font-weight:900;letter-spacing:-.02em;font-size:clamp(30px,4vw,46px);margin:12px 0 0}
   .note{background:#fbfcfc;border:1px solid var(--ink-08);border-left:3px solid var(--ember);border-radius:0 14px 14px 0;padding:16px 18px;margin:22px 0 8px;font-size:14px;line-height:1.6;color:var(--ink-72)}
   .status{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-55);margin-top:14px}
-  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:34px 0 10px}
+  .kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin:34px 0 10px}
   .kpi{background:#fff;border:1px solid var(--ink-08);border-radius:16px;padding:22px}
   .kpi .n{font-size:34px;font-weight:900;letter-spacing:-.02em;line-height:1}
   .kpi .l{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-55);margin-top:8px}
@@ -43,6 +43,7 @@
 <!-- Google Analytics 4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNWV2T2BK9"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNWV2T2BK9');</script>
+<link rel="icon" type="image/svg+xml" href="regular_logo.svg">
 </head>
 <body>
 <nav>
@@ -63,19 +64,25 @@
   <section>
     <h2>Likes by article</h2>
     <p class="sub">Stars tapped per article, all visitors.</p>
-    <div class="card"><table><thead><tr><th>Article</th><th>Type</th><th>Likes</th><th style="width:180px">Share</th></tr></thead><tbody id="tArticles"></tbody></table></div>
+    <div class="card"><table><thead><tr><th>Article</th><th>Type</th><th>Likes</th><th style="width:180px">Relative</th></tr></thead><tbody id="tArticles"></tbody></table></div>
+  </section>
+
+  <section>
+    <h2>Shares by article</h2>
+    <p class="sub">Times each article was shared to social or copied.</p>
+    <div class="card"><table><thead><tr><th>Article</th><th>Type</th><th>Shares</th><th style="width:180px">Relative</th></tr></thead><tbody id="tShares"></tbody></table></div>
   </section>
 
   <section>
     <h2>Activity by day</h2>
-    <p class="sub">Likes and exercises saved, grouped by date.</p>
-    <div class="card"><table><thead><tr><th>Date</th><th>Likes</th><th>Exercises saved</th><th>Total</th></tr></thead><tbody id="tDays"></tbody></table></div>
+    <p class="sub">Likes, shares and exercises saved, grouped by date.</p>
+    <div class="card"><table><thead><tr><th>Date</th><th>Likes</th><th>Shares</th><th>Exercises saved</th><th>Total</th></tr></thead><tbody id="tDays"></tbody></table></div>
   </section>
 
   <section>
     <h2>Exercises dads saved</h2>
     <p class="sub">"I'll try this tonight" taps per exercise.</p>
-    <div class="card"><table><thead><tr><th>Exercise</th><th>Times saved</th><th style="width:180px">Share</th></tr></thead><tbody id="tEx"></tbody></table></div>
+    <div class="card"><table><thead><tr><th>Exercise</th><th>Times saved</th><th style="width:180px">Relative</th></tr></thead><tbody id="tEx"></tbody></table></div>
   </section>
 
   <div class="tools">
@@ -95,23 +102,29 @@
   function setStatus(t){var el=document.getElementById('status');if(el)el.textContent=t;}
 
   function render(ev){
-    var likes={},tries={},days={},totL=0,totT=0;
+    var likes={},tries={},shares={},days={},totL=0,totT=0,totS=0;
     ev.forEach(function(e){
-      var d=e.d||'—'; days[d]=days[d]||{likes:0,tries:0};
+      var d=e.d||'—'; days[d]=days[d]||{likes:0,tries:0,shares:0};
       if(e.k==='like'){likes[e.a]=(likes[e.a]||0)+1;days[d].likes++;totL++;}
       else if(e.k==='try'){tries[e.a]=(tries[e.a]||0)+1;days[d].tries++;totT++;}
+      else if(e.k==='share'){shares[e.a]=(shares[e.a]||0)+1;days[d].shares++;totS++;}
     });
     function kpi(n,l){return '<div class="kpi"><div class="n">'+n+'</div><div class="l">'+l+'</div></div>';}
-    document.getElementById('kpis').innerHTML=kpi(totL,'Total likes')+kpi(totT,'Exercises saved')+kpi(Object.keys(likes).length,'Articles liked')+kpi(Object.keys(days).filter(function(x){return x!=='—';}).length,'Active days');
+    document.getElementById('kpis').innerHTML=kpi(totL,'Total likes')+kpi(totS,'Total shares')+kpi(totT,'Exercises saved')+kpi(Object.keys(likes).length,'Articles liked')+kpi(Object.keys(days).filter(function(x){return x!=='—';}).length,'Active days');
     // articles
     var maxL=Math.max.apply(null,[1].concat(Object.keys(likes).map(function(k){return likes[k];})));
     var ak=Object.keys(likes).sort(function(a,b){return likes[b]-likes[a];});
     var tA=document.getElementById('tArticles');
     tA.innerHTML=ak.length?ak.map(function(id){var c=CAT[id]||['','p-ex'];return '<tr><td>'+esc(pretty(id))+'</td><td><span class="pill '+c[1]+'">'+c[0]+'</span></td><td class="num">'+likes[id]+'</td><td><div class="bar"><i style="width:'+(likes[id]/maxL*100)+'%;background:'+BARC[c[1]]+'"></i></div></td></tr>';}).join(''):'<tr><td colspan="4" class="empty">No likes yet.</td></tr>';
+    // shares by article
+    var maxSh=Math.max.apply(null,[1].concat(Object.keys(shares).map(function(k){return shares[k];})));
+    var shk=Object.keys(shares).sort(function(a,b){return shares[b]-shares[a];});
+    var tSh=document.getElementById('tShares');
+    if(tSh) tSh.innerHTML=shk.length?shk.map(function(id){var c=CAT[id]||['','p-ex'];return '<tr><td>'+esc(pretty(id))+'</td><td><span class="pill '+c[1]+'">'+c[0]+'</span></td><td class="num">'+shares[id]+'</td><td><div class="bar"><i style="width:'+(shares[id]/maxSh*100)+'%;background:'+BARC[c[1]]+'"></i></div></td></tr>';}).join(''):'<tr><td colspan="4" class="empty">No shares yet.</td></tr>';
     // days
     var dk=Object.keys(days).filter(function(x){return x!=='—';}).sort().reverse();
     var tD=document.getElementById('tDays');
-    tD.innerHTML=dk.length?dk.map(function(d){var x=days[d];return '<tr><td>'+esc(d)+'</td><td class="num">'+x.likes+'</td><td class="num">'+x.tries+'</td><td class="num">'+(x.likes+x.tries)+'</td></tr>';}).join(''):'<tr><td colspan="4" class="empty">No activity yet.</td></tr>';
+    tD.innerHTML=dk.length?dk.map(function(d){var x=days[d];return '<tr><td>'+esc(d)+'</td><td class="num">'+x.likes+'</td><td class="num">'+(x.shares||0)+'</td><td class="num">'+x.tries+'</td><td class="num">'+(x.likes+x.tries+(x.shares||0))+'</td></tr>';}).join(''):'<tr><td colspan="5" class="empty">No activity yet.</td></tr>';
     // exercises
     var maxT=Math.max.apply(null,[1].concat(Object.keys(tries).map(function(k){return tries[k];})));
     var ek=Object.keys(tries).sort(function(a,b){return tries[b]-tries[a];});
