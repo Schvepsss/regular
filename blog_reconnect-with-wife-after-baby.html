@@ -52,6 +52,12 @@
 <!-- Google Analytics 4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNWV2T2BK9"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNWV2T2BK9');</script>
+<!-- Supabase (likes & exercises; public anon key, protected by RLS) -->
+<script>
+window.RG_SB='https://wlmhyenmfiqulzdovqqb.supabase.co/rest/v1';
+window.RG_KEY='sb_publishable_YtfE04th4FATs42lHlzprg__kF5vyO4';
+window.rgSB=function(a,k){try{fetch(RG_SB+'/events',{method:'POST',headers:{'apikey':RG_KEY,'Authorization':'Bearer '+RG_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify({article:a,kind:k})});}catch(e){}};
+</script>
 </head>
 <body>
 <nav>

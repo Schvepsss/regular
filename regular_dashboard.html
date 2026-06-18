@@ -16,7 +16,8 @@
   .head{padding:56px 0 10px}
   .kicker{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--rust)}
   h1{font-weight:900;letter-spacing:-.02em;font-size:clamp(30px,4vw,46px);margin:12px 0 0}
-  .note{background:#fbfcfc;border:1px solid var(--ink-08);border-left:3px solid var(--clay);border-radius:0 14px 14px 0;padding:16px 18px;margin:22px 0 8px;font-size:14px;line-height:1.6;color:var(--ink-72)}
+  .note{background:#fbfcfc;border:1px solid var(--ink-08);border-left:3px solid var(--ember);border-radius:0 14px 14px 0;padding:16px 18px;margin:22px 0 8px;font-size:14px;line-height:1.6;color:var(--ink-72)}
+  .status{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-55);margin-top:14px}
   .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:34px 0 10px}
   .kpi{background:#fff;border:1px solid var(--ink-08);border-radius:16px;padding:22px}
   .kpi .n{font-size:34px;font-weight:900;letter-spacing:-.02em;line-height:1}
@@ -38,7 +39,6 @@
   .empty{padding:40px 18px;text-align:center;color:var(--ink-55);font-size:14px}
   .tools{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap}
   .btn{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--ink-08);background:#fff;color:var(--ink);border-radius:100px;padding:11px 20px;cursor:pointer}
-  .btn.danger{color:#a23b33;border-color:rgba(192,71,62,.3)}
 </style>
 <!-- Google Analytics 4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNWV2T2BK9"></script>
@@ -54,14 +54,15 @@
   <div class="head">
     <span class="kicker">Internal · engagement</span>
     <h1>Votes &amp; likes dashboard</h1>
-    <div class="note"><b>Reading this device only.</b> These tables show real actions recorded in <em>this browser</em> (saved locally). They do not yet aggregate across all visitors — that needs a small backend. Ask to wire one up (e.g. Supabase) and these same tables will show every visitor's votes.</div>
+    <div class="note"><b>Live across all visitors.</b> Every star (like) and every "I'll try this tonight" is recorded in Supabase and aggregated here in real time — by article and by day.</div>
+    <div class="status" id="status">Loading…</div>
   </div>
 
   <div class="kpis" id="kpis"></div>
 
   <section>
     <h2>Likes by article</h2>
-    <p class="sub">Stars (taps) recorded per article.</p>
+    <p class="sub">Stars tapped per article, all visitors.</p>
     <div class="card"><table><thead><tr><th>Article</th><th>Type</th><th>Likes</th><th style="width:180px">Share</th></tr></thead><tbody id="tArticles"></tbody></table></div>
   </section>
 
@@ -78,54 +79,62 @@
   </section>
 
   <div class="tools">
-    <button class="btn" onclick="location.reload()">↻ Refresh</button>
-    <button class="btn danger" id="clearBtn">Clear recorded data (this device)</button>
+    <button class="btn" id="refreshBtn">↻ Refresh</button>
   </div>
 </div>
 
 <script>
 (function(){
-  var NAMES={nosex:'No sex after baby',reconnect:'Reconnect with your wife',sci_single:'Single vs a bad relationship',sci_conf:'Relationship confidence & health',sci_savor:'Savoring good moments',sci_oxy:'Oxytocin & the parent bond',sci_dopa:'Dopamine vs oxytocin',sci_ai:'Empathic AI vs your partner'};
-  var CAT={nosex:['Intimacy','p-int'],reconnect:['Reconnecting','p-rec'],sci_single:['Science','p-sci'],sci_conf:['Science','p-sci'],sci_savor:['Science','p-sci'],sci_oxy:['Science','p-sci'],sci_dopa:['Science','p-sci'],sci_ai:['Science','p-sci']};
+  var RG_SB='https://wlmhyenmfiqulzdovqqb.supabase.co/rest/v1';
+  var RG_KEY='sb_publishable_YtfE04th4FATs42lHlzprg__kF5vyO4';
+  var NAMES={nosex:'No sex after baby',reconnect:'Reconnect with your wife',wifenosex:'Wife doesn’t want sex after baby',deadbed:'Dead bedroom after a baby',rejected:'Why new dads feel rejected',lonely:'Lonely as a new dad',sci_single:'Single vs a bad relationship',sci_conf:'Relationship confidence & health',sci_savor:'Savoring good moments',sci_oxy:'Oxytocin & the parent bond',sci_dopa:'Dopamine vs oxytocin',sci_ai:'Empathic AI vs your partner'};
+  var CAT={nosex:['Intimacy','p-int'],wifenosex:['Intimacy','p-int'],deadbed:['Intimacy','p-int'],reconnect:['Reconnecting','p-rec'],rejected:['Reconnecting','p-rec'],lonely:['Reconnecting','p-rec'],sci_single:['Science','p-sci'],sci_conf:['Science','p-sci'],sci_savor:['Science','p-sci'],sci_oxy:['Science','p-sci'],sci_dopa:['Science','p-sci'],sci_ai:['Science','p-sci']};
   var BARC={'p-int':'#C0473E','p-rec':'#3F7A4E','p-sci':'#2F7B9E','p-ex':'#C16A45'};
-  function pretty(id){return NAMES[id]||id.replace(/[-_]/g,' ').replace(/\b\w/g,function(c){return c.toUpperCase();});}
+  function pretty(id){return NAMES[id]||String(id).replace(/[-_]/g,' ').replace(/\b\w/g,function(c){return c.toUpperCase();});}
   function esc(s){return String(s).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c];});}
-  var ev=[]; try{ev=JSON.parse(localStorage.getItem('rg_events')||'[]');}catch(e){}
-  var likes={}, tries={}, days={}, totLikes=0, totTries=0;
-  ev.forEach(function(e){
-    var d=e.d||'—';
-    days[d]=days[d]||{likes:0,tries:0};
-    if(e.k==='like'){likes[e.a]=(likes[e.a]||0)+1;days[d].likes++;totLikes++;}
-    else if(e.k==='try'){tries[e.a]=(tries[e.a]||0)+1;days[d].tries++;totTries++;}
-  });
-  // KPIs
-  var nArticles=Object.keys(likes).length, nDays=Object.keys(days).length;
-  document.getElementById('kpis').innerHTML=
-    kpi(totLikes,'Total likes')+kpi(totTries,'Exercises saved')+kpi(nArticles,'Articles liked')+kpi(nDays,'Active days');
-  function kpi(n,l){return '<div class="kpi"><div class="n">'+n+'</div><div class="l">'+l+'</div></div>';}
-  // Articles table
-  var maxL=Math.max(1,Math.max.apply(null,[1].concat(Object.values(likes))));
-  var arr=Object.keys(likes).sort(function(a,b){return likes[b]-likes[a];});
-  var tA=document.getElementById('tArticles');
-  if(!arr.length){tA.innerHTML='<tr><td colspan="4" class="empty">No likes recorded on this device yet. Open an article and tap the star.</td></tr>';}
-  else{tA.innerHTML=arr.map(function(id){var c=CAT[id]||['','p-ex'];return '<tr><td>'+esc(pretty(id))+'</td><td><span class="pill '+c[1]+'">'+c[0]+'</span></td><td class="num">'+likes[id]+'</td><td><div class="bar"><i style="width:'+(likes[id]/maxL*100)+'%;background:'+BARC[c[1]]+'"></i></div></td></tr>';}).join('');}
-  // Days table
-  var dk=Object.keys(days).sort().reverse();
-  var tD=document.getElementById('tDays');
-  if(!dk.length){tD.innerHTML='<tr><td colspan="4" class="empty">No activity recorded yet.</td></tr>';}
-  else{tD.innerHTML=dk.map(function(d){var x=days[d];return '<tr><td>'+esc(d)+'</td><td class="num">'+x.likes+'</td><td class="num">'+x.tries+'</td><td class="num">'+(x.likes+x.tries)+'</td></tr>';}).join('');}
-  // Exercises table
-  var maxT=Math.max(1,Math.max.apply(null,[1].concat(Object.values(tries))));
-  var ek=Object.keys(tries).sort(function(a,b){return tries[b]-tries[a];});
-  var tE=document.getElementById('tEx');
-  if(!ek.length){tE.innerHTML='<tr><td colspan="3" class="empty">No exercises saved yet. Try the "I\'ll try this tonight" button on the blog.</td></tr>';}
-  else{tE.innerHTML=ek.map(function(id){return '<tr><td>'+esc(pretty(id))+'</td><td class="num">'+tries[id]+'</td><td><div class="bar"><i style="width:'+(tries[id]/maxT*100)+'%;background:'+BARC['p-ex']+'"></i></div></td></tr>';}).join('');}
-  // clear
-  document.getElementById('clearBtn').addEventListener('click',function(){
-    if(!confirm('Clear all recorded likes and saves on this device? This cannot be undone.'))return;
-    try{var rm=[];for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k&&k.indexOf('rg_')===0)rm.push(k);}rm.forEach(function(k){localStorage.removeItem(k);});}catch(e){}
-    location.reload();
-  });
+  function setStatus(t){var el=document.getElementById('status');if(el)el.textContent=t;}
+
+  function render(ev){
+    var likes={},tries={},days={},totL=0,totT=0;
+    ev.forEach(function(e){
+      var d=e.d||'—'; days[d]=days[d]||{likes:0,tries:0};
+      if(e.k==='like'){likes[e.a]=(likes[e.a]||0)+1;days[d].likes++;totL++;}
+      else if(e.k==='try'){tries[e.a]=(tries[e.a]||0)+1;days[d].tries++;totT++;}
+    });
+    function kpi(n,l){return '<div class="kpi"><div class="n">'+n+'</div><div class="l">'+l+'</div></div>';}
+    document.getElementById('kpis').innerHTML=kpi(totL,'Total likes')+kpi(totT,'Exercises saved')+kpi(Object.keys(likes).length,'Articles liked')+kpi(Object.keys(days).filter(function(x){return x!=='—';}).length,'Active days');
+    // articles
+    var maxL=Math.max.apply(null,[1].concat(Object.keys(likes).map(function(k){return likes[k];})));
+    var ak=Object.keys(likes).sort(function(a,b){return likes[b]-likes[a];});
+    var tA=document.getElementById('tArticles');
+    tA.innerHTML=ak.length?ak.map(function(id){var c=CAT[id]||['','p-ex'];return '<tr><td>'+esc(pretty(id))+'</td><td><span class="pill '+c[1]+'">'+c[0]+'</span></td><td class="num">'+likes[id]+'</td><td><div class="bar"><i style="width:'+(likes[id]/maxL*100)+'%;background:'+BARC[c[1]]+'"></i></div></td></tr>';}).join(''):'<tr><td colspan="4" class="empty">No likes yet.</td></tr>';
+    // days
+    var dk=Object.keys(days).filter(function(x){return x!=='—';}).sort().reverse();
+    var tD=document.getElementById('tDays');
+    tD.innerHTML=dk.length?dk.map(function(d){var x=days[d];return '<tr><td>'+esc(d)+'</td><td class="num">'+x.likes+'</td><td class="num">'+x.tries+'</td><td class="num">'+(x.likes+x.tries)+'</td></tr>';}).join(''):'<tr><td colspan="4" class="empty">No activity yet.</td></tr>';
+    // exercises
+    var maxT=Math.max.apply(null,[1].concat(Object.keys(tries).map(function(k){return tries[k];})));
+    var ek=Object.keys(tries).sort(function(a,b){return tries[b]-tries[a];});
+    var tE=document.getElementById('tEx');
+    tE.innerHTML=ek.length?ek.map(function(id){return '<tr><td>'+esc(pretty(id))+'</td><td class="num">'+tries[id]+'</td><td><div class="bar"><i style="width:'+(tries[id]/maxT*100)+'%;background:'+BARC['p-ex']+'"></i></div></td></tr>';}).join(''):'<tr><td colspan="3" class="empty">No exercises saved yet.</td></tr>';
+  }
+
+  function fromLocal(){var ev=[];try{ev=JSON.parse(localStorage.getItem('rg_events')||'[]');}catch(e){}return ev;}
+
+  function load(){
+    setStatus('Loading…');
+    fetch(RG_SB+'/events?select=article,kind,created_at&order=created_at.desc&limit=20000',{headers:{apikey:RG_KEY,Authorization:'Bearer '+RG_KEY}})
+      .then(function(r){if(!r.ok)throw 0;return r.json();})
+      .then(function(rows){
+        if(!Array.isArray(rows))throw 0;
+        var ev=rows.map(function(x){return {a:x.article,k:x.kind,d:(x.created_at||'').slice(0,10)};});
+        setStatus('Live · all visitors · '+rows.length+' events · updated '+new Date().toLocaleString());
+        render(ev);
+      })
+      .catch(function(){ setStatus('Could not reach the server — showing this device only.'); render(fromLocal()); });
+  }
+  load();
+  document.getElementById('refreshBtn').addEventListener('click',load);
 })();
 </script>
 </body>

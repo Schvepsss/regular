@@ -50,6 +50,12 @@
 <!-- Google Analytics 4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNWV2T2BK9"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNWV2T2BK9');</script>
+<!-- Supabase (likes & exercises; public anon key, protected by RLS) -->
+<script>
+window.RG_SB='https://wlmhyenmfiqulzdovqqb.supabase.co/rest/v1';
+window.RG_KEY='sb_publishable_YtfE04th4FATs42lHlzprg__kF5vyO4';
+window.rgSB=function(a,k){try{fetch(RG_SB+'/events',{method:'POST',headers:{'apikey':RG_KEY,'Authorization':'Bearer '+RG_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify({article:a,kind:k})});}catch(e){}};
+</script>
 </head>
 <body>
 <nav>
@@ -96,7 +102,7 @@
   function fmt(n){return n.toLocaleString('en-US');}
   function render(){elT.textContent=fmt(total)+' ★';elR.textContent='from '+fmt(readers)+' readers';var h=document.getElementById('clapHint');if(h){h.textContent=you<=0?'Tap the star — add up to '+MAX+' · saved here':(you>=MAX?'You added all '+MAX+' — thank you!':"You've added "+you+' of '+MAX);}var top=document.getElementById('clapTop');if(top)top.innerHTML='<b>'+fmt(total)+'</b> stars · '+fmt(readers)+' readers';}
   render();
-  btn.addEventListener('click',function(){btn.classList.remove('pop');void btn.offsetWidth;btn.classList.add('pop');if(you>=MAX)return;if(you===0)readers++;you++;total++;try{localStorage.setItem(kT,total);localStorage.setItem(kR,readers);localStorage.setItem(kY,you);var L=JSON.parse(localStorage.getItem('rg_events')||'[]');L.push({a:ID,k:'like',d:new Date().toISOString().slice(0,10)});localStorage.setItem('rg_events',JSON.stringify(L));}catch(e){}render();var fl=document.getElementById('cfloat');fl.textContent='+1';fl.classList.remove('go');void fl.offsetWidth;fl.classList.add('go');});
+  btn.addEventListener('click',function(){btn.classList.remove('pop');void btn.offsetWidth;btn.classList.add('pop');if(you>=MAX)return;if(you===0)readers++;you++;total++;try{localStorage.setItem(kT,total);localStorage.setItem(kR,readers);localStorage.setItem(kY,you);var L=JSON.parse(localStorage.getItem('rg_events')||'[]');L.push({a:ID,k:'like',d:new Date().toISOString().slice(0,10)});localStorage.setItem('rg_events',JSON.stringify(L));}catch(e){}if(window.rgSB)rgSB(ID,'like');render();var fl=document.getElementById('cfloat');fl.textContent='+1';fl.classList.remove('go');void fl.offsetWidth;fl.classList.add('go');});
 })();</script>
 </body>
 </html>
