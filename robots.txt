@@ -3,4 +3,4 @@ Allow: /
 Disallow: /regular_dashboard.html
 Disallow: /regular_why_options.html
 
-Sitemap: https://regular.sex/sitemap.xml
+Sitemap: https://regular.care/sitemap.xml
