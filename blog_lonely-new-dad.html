@@ -119,7 +119,7 @@ window.addEventListener('load',function(){try{var _p=(location.pathname.split('/
   <p class="crumbs"><a href="regular_blog.html">Blog</a> · Reconnecting</p>
   <span class="tag">Reconnecting</span>
   <h1>Lonely as a new dad? Why it happens and what helps</h1>
-  <p class="byline">6 min read · Based on <a href="https://www.gottman.com/" target="_blank" rel="noopener" style="color:inherit;border-bottom:1px solid var(--rust)">Gottman</a>, EFT &amp; peer-reviewed research</p>
+  <p class="byline">6 min read · Based on <a href="https://www.gottman.com/blog/romantic-relationships-take-a-dive-after-baby-arrives-according-to-research/" target="_blank" rel="noopener" style="color:inherit;border-bottom:1px solid var(--rust)">the Gottman Institute</a>, EFT &amp; <a href="#srcbox" style="color:inherit;border-bottom:1px solid var(--rust)">peer-reviewed research</a></p>
   <div class="score"><span class="stars">★</span> <span id="clapTop"></span></div>
   <article>
     <p>Your house is fuller than it’s ever been, and somehow you’ve never felt more alone. If you’re a new dad quietly carrying that, it’s far more common than anyone says out loud — and naming it is the first step out of it.</p>
@@ -173,7 +173,7 @@ window.addEventListener('load',function(){try{var _p=(location.pathname.split('/
   var btn=document.getElementById('clapBtn'); if(!btn)return;
   var elT=document.getElementById('clapTotal'), elR=document.getElementById('clapReaders');
   function fmt(n){return n.toLocaleString('en-US');}
-  function render(){elT.textContent=fmt(total)+' ★';elR.textContent='from '+fmt(readers)+' readers';var h=document.getElementById('clapHint');if(h){h.textContent=you<=0?'Tap the star — add up to '+MAX+' · saved here':(you>=MAX?'You added all '+MAX+' — thank you!':"You've added "+you+' of '+MAX);}var top=document.getElementById('clapTop');if(top)top.innerHTML='<b>'+fmt(total)+'</b> stars · '+fmt(readers)+' readers';}
+  function render(){elT.textContent=fmt(total)+' ★';elR.textContent='from '+fmt(readers)+' good folks';var h=document.getElementById('clapHint');if(h){h.textContent=you<=0?'Tap the star — add up to '+MAX+' · saved here':(you>=MAX?'You added all '+MAX+' — thank you!':"You've added "+you+' of '+MAX);}var top=document.getElementById('clapTop');if(top)top.innerHTML='<b>'+fmt(total)+'</b> stars · '+fmt(readers)+' good folks';}
   render();
   btn.addEventListener('click',function(){btn.classList.remove('pop');void btn.offsetWidth;btn.classList.add('pop');if(you>=MAX)return;if(you===0)readers++;you++;total++;try{localStorage.setItem(kT,total);localStorage.setItem(kR,readers);localStorage.setItem(kY,you);var L=JSON.parse(localStorage.getItem('rg_events')||'[]');L.push({a:ID,k:'like',d:new Date().toISOString().slice(0,10)});localStorage.setItem('rg_events',JSON.stringify(L));}catch(e){}if(window.rgSB)rgSB(ID,'like');render();var fl=document.getElementById('cfloat');fl.textContent='+1';fl.classList.remove('go');void fl.offsetWidth;fl.classList.add('go');});
 })();</script>

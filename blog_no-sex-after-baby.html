@@ -121,7 +121,7 @@ window.addEventListener('load',function(){try{var _p=(location.pathname.split('/
   <p class="crumbs"><a href="regular_blog.html">Blog</a> · Intimacy</p>
   <span class="tag">Intimacy</span>
   <h1>No sex after baby: is this normal, and how long does it last?</h1>
-  <p class="byline">8 min read · Based on <a href="https://www.gottman.com/" target="_blank" rel="noopener" style="color:inherit;border-bottom:1px solid var(--rust)">Gottman</a>, EFT &amp; peer-reviewed research</p>
+  <p class="byline">8 min read · Based on <a href="https://www.gottman.com/blog/romantic-relationships-take-a-dive-after-baby-arrives-according-to-research/" target="_blank" rel="noopener" style="color:inherit;border-bottom:1px solid var(--rust)">the Gottman Institute</a>, EFT &amp; <a href="#srcbox" style="color:inherit;border-bottom:1px solid var(--rust)">peer-reviewed research</a></p>
   <div class="score"><span class="stars">★</span> <span id="clapTop"></span></div>
 
   <article>
@@ -208,10 +208,10 @@ window.addEventListener('load',function(){try{var _p=(location.pathname.split('/
   function fmt(n){return n.toLocaleString('en-US');}
   function render(){
     elT.textContent=fmt(total)+' ★';
-    elR.textContent='from '+fmt(readers)+' readers';
+    elR.textContent='from '+fmt(readers)+' good folks';
     var h=document.getElementById('clapHint');
     if(h){h.textContent = you<=0 ? 'Tap the star — add up to '+MAX+' · saved here' : (you>=MAX ? 'You added all '+MAX+' — thank you!' : "You've added "+you+' of '+MAX);}
-    var top=document.getElementById('clapTop'); if(top) top.innerHTML='<b>'+fmt(total)+'</b> stars · '+fmt(readers)+' readers';
+    var top=document.getElementById('clapTop'); if(top) top.innerHTML='<b>'+fmt(total)+'</b> stars · '+fmt(readers)+' good folks';
   }
   render();
   btn.addEventListener('click',function(){
