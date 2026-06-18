@@ -15,23 +15,23 @@
 
 ## Start here
 - [Home](https://regular.care/): What Regular is, how it works (you both connect data → Regular reads the whole picture → you get one move), the science, and FAQ.
-- [How relationships work — the crisis map](https://regular.care/regular_how-relationships-work.html): The U-shaped curve of relationship satisfaction, why the post-baby dip is the deepest (~67% of couples), and what each phase needs.
+- [How relationships work — the crisis map](https://regular.care/regular_how-relationships-work): The U-shaped curve of relationship satisfaction, why the post-baby dip is the deepest (~67% of couples), and what each phase needs.
 
 ## Blog — love after a baby (practical, shame-free)
-- [No sex after baby: is this normal, and how long does it last?](https://regular.care/blog_no-sex-after-baby.html): Why desire drops after a baby, how long it usually lasts, and what actually helps.
-- [How to reconnect with your wife after having a baby](https://regular.care/blog_reconnect-with-wife-after-baby.html): Practical steps beyond "just communicate" — small repeatable moves that rebuild closeness.
-- [Wife doesn’t want sex after baby: what it really means](https://regular.care/blog_wife-doesnt-want-sex-after-baby.html): Why her desire drops, what "not now" really means, and how to respond without pressure.
-- [Dead bedroom after a baby: how to fix it without pressure](https://regular.care/blog_dead-bedroom-after-baby.html): Why it happens, the pressure trap, and how to rebuild intimacy.
-- [Why new dads feel rejected after a baby (and what to do)](https://regular.care/blog_new-dad-feels-rejected.html): Feeling like a third wheel or invisible — why, and how to stay a partner.
-- [Lonely as a new dad? Why it happens and what helps](https://regular.care/blog_lonely-new-dad.html): New-dad loneliness, why men go silent, and small things that help.
+- [No sex after baby: is this normal, and how long does it last?](https://regular.care/blog_no-sex-after-baby): Why desire drops after a baby, how long it usually lasts, and what actually helps.
+- [How to reconnect with your wife after having a baby](https://regular.care/blog_reconnect-with-wife-after-baby): Practical steps beyond "just communicate" — small repeatable moves that rebuild closeness.
+- [Wife doesn’t want sex after baby: what it really means](https://regular.care/blog_wife-doesnt-want-sex-after-baby): Why her desire drops, what "not now" really means, and how to respond without pressure.
+- [Dead bedroom after a baby: how to fix it without pressure](https://regular.care/blog_dead-bedroom-after-baby): Why it happens, the pressure trap, and how to rebuild intimacy.
+- [Why new dads feel rejected after a baby (and what to do)](https://regular.care/blog_new-dad-feels-rejected): Feeling like a third wheel or invisible — why, and how to stay a partner.
+- [Lonely as a new dad? Why it happens and what helps](https://regular.care/blog_lonely-new-dad): New-dad loneliness, why men go silent, and small things that help.
 
 ## From the lab — research explainers
-- [Is being single better than a bad relationship?](https://regular.care/blog_single-vs-bad-relationship.html): Relationship quality, not status, predicts well-being.
-- [Why confidence in your relationship shows up in your health](https://regular.care/blog_relationship-confidence-health.html): How relationship security links to sleep and mental health.
-- [Savoring the good moments — together — builds a buffer](https://regular.care/blog_savoring-good-moments.html): How savoring and the Gottman positivity ratio protect couples.
-- [Oxytocin and the parent–infant bond, explained](https://regular.care/blog_oxytocin-parent-bond.html): How bonding is built — and why fathers build it through hands-on care.
-- [Dopamine wants, oxytocin bonds: the chemistry of lasting love](https://regular.care/blog_dopamine-oxytocin-love.html): Why passion cooling into attachment is normal, not decline.
-- [Empathic AI can lift your mood — but shouldn't replace your partner](https://regular.care/blog_empathic-ai-partner.html): Why Regular sends you toward your partner, not away.
+- [Is being single better than a bad relationship?](https://regular.care/blog_single-vs-bad-relationship): Relationship quality, not status, predicts well-being.
+- [Why confidence in your relationship shows up in your health](https://regular.care/blog_relationship-confidence-health): How relationship security links to sleep and mental health.
+- [Savoring the good moments — together — builds a buffer](https://regular.care/blog_savoring-good-moments): How savoring and the Gottman positivity ratio protect couples.
+- [Oxytocin and the parent–infant bond, explained](https://regular.care/blog_oxytocin-parent-bond): How bonding is built — and why fathers build it through hands-on care.
+- [Dopamine wants, oxytocin bonds: the chemistry of lasting love](https://regular.care/blog_dopamine-oxytocin-love): Why passion cooling into attachment is normal, not decline.
+- [Empathic AI can lift your mood — but shouldn't replace your partner](https://regular.care/blog_empathic-ai-partner): Why Regular sends you toward your partner, not away.
 
 ## What makes Regular different
 - Decision-support, not a mind-reader: it gives you a concrete move, not vague advice.

@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://regular.care/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://regular.care/regular_blog.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://regular.care/regular_how-relationships-work.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://regular.care/blog_no-sex-after-baby.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://regular.care/blog_reconnect-with-wife-after-baby.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://regular.care/blog_wife-doesnt-want-sex-after-baby.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://regular.care/blog_dead-bedroom-after-baby.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://regular.care/blog_new-dad-feels-rejected.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://regular.care/blog_lonely-new-dad.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://regular.care/blog_single-vs-bad-relationship.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://regular.care/blog_relationship-confidence-health.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://regular.care/blog_savoring-good-moments.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://regular.care/blog_oxytocin-parent-bond.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://regular.care/blog_dopamine-oxytocin-love.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://regular.care/blog_empathic-ai-partner.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://regular.care/regular_privacy.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
-  <url><loc>https://regular.care/regular_terms.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://regular.care/regular_blog</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://regular.care/regular_how-relationships-work</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://regular.care/blog_no-sex-after-baby</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://regular.care/blog_reconnect-with-wife-after-baby</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://regular.care/blog_wife-doesnt-want-sex-after-baby</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://regular.care/blog_dead-bedroom-after-baby</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://regular.care/blog_new-dad-feels-rejected</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://regular.care/blog_lonely-new-dad</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://regular.care/blog_single-vs-bad-relationship</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://regular.care/blog_relationship-confidence-health</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://regular.care/blog_savoring-good-moments</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://regular.care/blog_oxytocin-parent-bond</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://regular.care/blog_dopamine-oxytocin-love</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://regular.care/blog_empathic-ai-partner</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://regular.care/regular_privacy</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://regular.care/regular_terms</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://regular.care/regular_about</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
 </urlset>

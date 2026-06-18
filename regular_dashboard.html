@@ -47,8 +47,8 @@
 </head>
 <body>
 <nav>
-  <a class="logo" href="index.html">Regular</a>
-  <a class="back" href="regular_blog.html">← Back to blog</a>
+  <a class="logo" href="/">Regular</a>
+  <a class="back" href="regular_blog">← Back to blog</a>
 </nav>
 
 <div class="wrap">
@@ -119,7 +119,7 @@
   function pretty(id){return NAMES[id]||String(id).replace(/[-_]/g,' ').replace(/\b\w/g,function(c){return c.toUpperCase();});}
   function esc(s){return String(s).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c];});}
   function nameCell(id){var t=esc(pretty(id));var u=URLS[id];return u?'<a class="alink" href="'+u+'" target="_blank" rel="noopener">'+t+'</a>':t;}
-  function exCell(id){return '<a class="alink" href="regular_blog.html#practice" target="_blank" rel="noopener">'+esc(pretty(id))+'</a>';}
+  function exCell(id){return '<a class="alink" href="regular_blog#practice" target="_blank" rel="noopener">'+esc(pretty(id))+'</a>';}
   var PAGES={'index':'Home (landing)','regular_blog':'Blog index','regular_how-relationships-work':'How relationships work','blog_no-sex-after-baby':'No sex after baby','blog_reconnect-with-wife-after-baby':'Reconnect with your wife','blog_wife-doesnt-want-sex-after-baby':'Wife doesn’t want sex after baby','blog_dead-bedroom-after-baby':'Dead bedroom after a baby','blog_new-dad-feels-rejected':'Why new dads feel rejected','blog_lonely-new-dad':'Lonely as a new dad','blog_single-vs-bad-relationship':'Single vs a bad relationship','blog_relationship-confidence-health':'Relationship confidence & health','blog_savoring-good-moments':'Savoring good moments','blog_oxytocin-parent-bond':'Oxytocin & the parent bond','blog_dopamine-oxytocin-love':'Dopamine vs oxytocin','blog_empathic-ai-partner':'Empathic AI vs your partner'};
   function pageName(id){return PAGES[id]||pretty(id);}
   function pageCell(id){return '<a class="alink" href="'+esc(id)+'.html" target="_blank" rel="noopener">'+esc(pageName(id))+'</a>';}
