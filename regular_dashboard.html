@@ -37,13 +37,15 @@
   .pill{font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:99px}
   .p-int{background:rgba(192,71,62,.14);color:#a23b33}.p-rec{background:rgba(63,122,78,.16);color:#2f5b3a}.p-sci{background:rgba(47,123,158,.16);color:#2f6f8c}.p-ex{background:rgba(193,106,69,.16);color:#a4502f}
   .empty{padding:40px 18px;text-align:center;color:var(--ink-55);font-size:14px}
+  a.alink{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--ink-08);font-weight:600;transition:.15s}
+  a.alink:hover{color:var(--rust);border-bottom-color:var(--rust)}
   .tools{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap}
   .btn{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--ink-08);background:#fff;color:var(--ink);border-radius:100px;padding:11px 20px;cursor:pointer}
 </style>
 <!-- Google Analytics 4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNWV2T2BK9"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CNWV2T2BK9');</script>
-<link rel="icon" type="image/svg+xml" href="regular_logo.svg">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 </head>
 <body>
 <nav>
@@ -97,8 +99,11 @@
   var NAMES={nosex:'No sex after baby',reconnect:'Reconnect with your wife',wifenosex:'Wife doesn’t want sex after baby',deadbed:'Dead bedroom after a baby',rejected:'Why new dads feel rejected',lonely:'Lonely as a new dad',sci_single:'Single vs a bad relationship',sci_conf:'Relationship confidence & health',sci_savor:'Savoring good moments',sci_oxy:'Oxytocin & the parent bond',sci_dopa:'Dopamine vs oxytocin',sci_ai:'Empathic AI vs your partner'};
   var CAT={nosex:['Intimacy','p-int'],wifenosex:['Intimacy','p-int'],deadbed:['Intimacy','p-int'],reconnect:['Reconnecting','p-rec'],rejected:['Reconnecting','p-rec'],lonely:['Reconnecting','p-rec'],sci_single:['Science','p-sci'],sci_conf:['Science','p-sci'],sci_savor:['Science','p-sci'],sci_oxy:['Science','p-sci'],sci_dopa:['Science','p-sci'],sci_ai:['Science','p-sci']};
   var BARC={'p-int':'#C0473E','p-rec':'#3F7A4E','p-sci':'#2F7B9E','p-ex':'#C16A45'};
+  var URLS={nosex:'blog_no-sex-after-baby.html',reconnect:'blog_reconnect-with-wife-after-baby.html',wifenosex:'blog_wife-doesnt-want-sex-after-baby.html',deadbed:'blog_dead-bedroom-after-baby.html',rejected:'blog_new-dad-feels-rejected.html',lonely:'blog_lonely-new-dad.html',sci_single:'blog_single-vs-bad-relationship.html',sci_conf:'blog_relationship-confidence-health.html',sci_savor:'blog_savoring-good-moments.html',sci_oxy:'blog_oxytocin-parent-bond.html',sci_dopa:'blog_dopamine-oxytocin-love.html',sci_ai:'blog_empathic-ai-partner.html'};
   function pretty(id){return NAMES[id]||String(id).replace(/[-_]/g,' ').replace(/\b\w/g,function(c){return c.toUpperCase();});}
   function esc(s){return String(s).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c];});}
+  function nameCell(id){var t=esc(pretty(id));var u=URLS[id];return u?'<a class="alink" href="'+u+'" target="_blank" rel="noopener">'+t+'</a>':t;}
+  function exCell(id){return '<a class="alink" href="regular_blog.html#practice" target="_blank" rel="noopener">'+esc(pretty(id))+'</a>';}
   function setStatus(t){var el=document.getElementById('status');if(el)el.textContent=t;}
 
   function render(ev){
@@ -115,12 +120,12 @@
     var maxL=Math.max.apply(null,[1].concat(Object.keys(likes).map(function(k){return likes[k];})));
     var ak=Object.keys(likes).sort(function(a,b){return likes[b]-likes[a];});
     var tA=document.getElementById('tArticles');
-    tA.innerHTML=ak.length?ak.map(function(id){var c=CAT[id]||['','p-ex'];return '<tr><td>'+esc(pretty(id))+'</td><td><span class="pill '+c[1]+'">'+c[0]+'</span></td><td class="num">'+likes[id]+'</td><td><div class="bar"><i style="width:'+(likes[id]/maxL*100)+'%;background:'+BARC[c[1]]+'"></i></div></td></tr>';}).join(''):'<tr><td colspan="4" class="empty">No likes yet.</td></tr>';
+    tA.innerHTML=ak.length?ak.map(function(id){var c=CAT[id]||['','p-ex'];return '<tr><td>'+nameCell(id)+'</td><td><span class="pill '+c[1]+'">'+c[0]+'</span></td><td class="num">'+likes[id]+'</td><td><div class="bar"><i style="width:'+(likes[id]/maxL*100)+'%;background:'+BARC[c[1]]+'"></i></div></td></tr>';}).join(''):'<tr><td colspan="4" class="empty">No likes yet.</td></tr>';
     // shares by article
     var maxSh=Math.max.apply(null,[1].concat(Object.keys(shares).map(function(k){return shares[k];})));
     var shk=Object.keys(shares).sort(function(a,b){return shares[b]-shares[a];});
     var tSh=document.getElementById('tShares');
-    if(tSh) tSh.innerHTML=shk.length?shk.map(function(id){var c=CAT[id]||['','p-ex'];return '<tr><td>'+esc(pretty(id))+'</td><td><span class="pill '+c[1]+'">'+c[0]+'</span></td><td class="num">'+shares[id]+'</td><td><div class="bar"><i style="width:'+(shares[id]/maxSh*100)+'%;background:'+BARC[c[1]]+'"></i></div></td></tr>';}).join(''):'<tr><td colspan="4" class="empty">No shares yet.</td></tr>';
+    if(tSh) tSh.innerHTML=shk.length?shk.map(function(id){var c=CAT[id]||['','p-ex'];return '<tr><td>'+nameCell(id)+'</td><td><span class="pill '+c[1]+'">'+c[0]+'</span></td><td class="num">'+shares[id]+'</td><td><div class="bar"><i style="width:'+(shares[id]/maxSh*100)+'%;background:'+BARC[c[1]]+'"></i></div></td></tr>';}).join(''):'<tr><td colspan="4" class="empty">No shares yet.</td></tr>';
     // days
     var dk=Object.keys(days).filter(function(x){return x!=='—';}).sort().reverse();
     var tD=document.getElementById('tDays');
@@ -129,7 +134,7 @@
     var maxT=Math.max.apply(null,[1].concat(Object.keys(tries).map(function(k){return tries[k];})));
     var ek=Object.keys(tries).sort(function(a,b){return tries[b]-tries[a];});
     var tE=document.getElementById('tEx');
-    tE.innerHTML=ek.length?ek.map(function(id){return '<tr><td>'+esc(pretty(id))+'</td><td class="num">'+tries[id]+'</td><td><div class="bar"><i style="width:'+(tries[id]/maxT*100)+'%;background:'+BARC['p-ex']+'"></i></div></td></tr>';}).join(''):'<tr><td colspan="3" class="empty">No exercises saved yet.</td></tr>';
+    tE.innerHTML=ek.length?ek.map(function(id){return '<tr><td>'+exCell(id)+'</td><td class="num">'+tries[id]+'</td><td><div class="bar"><i style="width:'+(tries[id]/maxT*100)+'%;background:'+BARC['p-ex']+'"></i></div></td></tr>';}).join(''):'<tr><td colspan="3" class="empty">No exercises saved yet.</td></tr>';
   }
 
   function fromLocal(){var ev=[];try{ev=JSON.parse(localStorage.getItem('rg_events')||'[]');}catch(e){}return ev;}

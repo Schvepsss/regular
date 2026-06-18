@@ -72,6 +72,31 @@
   .disclaimer{font-size:13px;color:var(--ink-55);border-top:1px solid var(--ink-08);margin-top:10px;padding-top:22px;line-height:1.6}
   .sources{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.04em;color:var(--ink-55);margin-top:12px}
   .sources a{color:var(--rust);text-decoration:none}
+  /* compare */
+  .vs{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:26px}
+  .vs .col{border:1px solid var(--ink-08);border-radius:18px;padding:26px;background:var(--white)}
+  .vs .col.close{border-color:var(--rust);box-shadow:0 0 0 3px rgba(78,156,190,.10)}
+  .vs .col .lead{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px}
+  .vs .col.drift .lead{color:var(--ink-55)}
+  .vs .col.close .lead{color:var(--rust)}
+  .vs .col h3{font-weight:700;font-size:19px;margin-bottom:16px;letter-spacing:-.01em}
+  .vs ul{list-style:none;display:flex;flex-direction:column;gap:11px;margin:0}
+  .vs li{padding-left:22px;position:relative;font-size:15px;color:var(--ink-72);line-height:1.5}
+  .vs li b{color:var(--ink)}
+  .vs .drift li:before{content:'';position:absolute;left:0;top:8px;width:8px;height:8px;border-radius:50%;background:var(--ink-08)}
+  .vs .close li:before{content:'';position:absolute;left:0;top:7px;width:9px;height:9px;border-radius:50%;background:var(--rust)}
+  @media(max-width:640px){.vs{grid-template-columns:1fr}}
+  .research{margin-top:16px;background:var(--white);border:1px solid var(--ink-08);border-left:3px solid var(--ember);border-radius:0 16px 16px 0;padding:24px 26px}
+  .research .t{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ember);margin-bottom:10px}
+  .research p{color:var(--ink-72);font-size:15.5px;line-height:1.62}
+  .research a{color:var(--rust);text-decoration:none;border-bottom:1px solid rgba(78,156,190,.4)}
+  /* skill chart */
+  .skillcta{margin-top:22px;background:var(--ink);color:var(--white);border-radius:18px;padding:clamp(24px,3.5vw,36px);display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+  .skillcta .txt{max-width:560px}
+  .skillcta .t{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#7FB4CE;margin-bottom:8px}
+  .skillcta p{color:rgba(250,250,248,.82);font-size:16px;line-height:1.6}
+  .skillcta p b{color:var(--white)}
+  .skillcta .btn{margin-top:0;background:var(--white);color:var(--ink);flex:none}
   footer{border-top:1px solid var(--ink-08);padding:36px 0;color:var(--ink-55);font-size:13px;text-align:center}
 </style>
 <!-- Google Analytics 4 -->
@@ -83,7 +108,7 @@ window.RG_SB='https://wlmhyenmfiqulzdovqqb.supabase.co/rest/v1';
 window.RG_KEY='sb_publishable_YtfE04th4FATs42lHlzprg__kF5vyO4';
 window.rgSB=function(a,k){try{fetch(RG_SB+'/events',{method:'POST',headers:{'apikey':RG_KEY,'Authorization':'Bearer '+RG_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify({article:a,kind:k})});}catch(e){}};
 </script>
-<link rel="icon" type="image/svg+xml" href="regular_logo.svg">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 </head>
 <body>
 
@@ -218,8 +243,97 @@ window.rgSB=function(a,k){try{fetch(RG_SB+'/events',{method:'POST',headers:{'api
     </ul>
     <a class="btn" href="regular_blog.html#practice"><span class="dot"></span>Try a practical exercise</a>
   </div>
+
+  <!-- ===== SIDE BY SIDE ===== -->
+  <div style="margin-top:64px">
+    <span class="kicker">Two ways through the same dip</span>
+    <h2 style="margin-top:12px">Drift apart, or come closer — the difference is small daily habits</h2>
+    <p class="sub">Same crisis, same exhaustion. What separates the couples who come out closer isn't luck or chemistry — it's a handful of everyday moves, repeated.</p>
+    <div class="vs">
+      <div class="col drift">
+        <div class="lead">Tend to drift apart</div>
+        <h3>The slow slide</h3>
+        <ul>
+          <li><b>Keep score</b> of who did more, silently resenting the gap.</li>
+          <li><b>Wait for big gestures</b> — a date night that never gets booked.</li>
+          <li><b>Let small irritations pile up</b> until they harden into contempt.</li>
+          <li><b>Lead with criticism</b> — "you never…", "you always…".</li>
+          <li><b>Treat closeness as pressure</b>, so both partners avoid it.</li>
+          <li><b>Tough it out alone</b> and wait for it to pass on its own.</li>
+        </ul>
+      </div>
+      <div class="col close">
+        <div class="lead">Tend to come closer</div>
+        <h3>The repair loop</h3>
+        <ul>
+          <li><b>Own whole domains</b> and stop counting — neither is the manager.</li>
+          <li><b>Make tiny daily moves</b> — a 6-second hug, a "thank you," an "I see you."</li>
+          <li><b>Repair fast and out loud</b> — "that came out wrong, let me try again."</li>
+          <li><b>Lead with appreciation</b> — notice and say the small good things.</li>
+          <li><b>Keep affection non-demand</b>, zero pressure, no agenda.</li>
+          <li><b>Get a first step early</b> — a friend, a program, or a tool — before it's a crisis.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="research">
+      <div class="t">Why the small positive comments matter</div>
+      <p>In a daily-diary study, researchers followed both partners in cohabiting couples day by day. On the days one partner <em style="font-style:normal;color:var(--rust)">noticed and voiced appreciation</em>, both people felt more connected and more satisfied with the relationship — the next day too. Small, specific gratitude did more for the bond than grand gestures. Source: Algoe, Gable &amp; Maisel, <a href="https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1475-6811.2010.01273.x" target="_blank" rel="noopener">"It's the little things: Everyday gratitude as a booster shot for romantic relationships,"</a> <em style="font-style:normal;color:var(--ink-55)">Personal Relationships</em> (2010).</p>
+    </div>
+  </div>
+
+  <!-- ===== SKILL CURVE ===== -->
+  <div style="margin-top:64px">
+    <span class="kicker">The dip is not the destination</span>
+    <h2 style="margin-top:12px">Build the skill, and the curve turns back up</h2>
+    <p class="sub">The post-baby dip is real — but it isn't fixed. The couples who practise the small habits don't just recover; they climb past where they started. The difference compounds month over month.</p>
+    <div class="chart" style="margin-top:28px">
+      <svg viewBox="0 0 1000 470" role="img" aria-label="Two trajectories after the post-baby dip: with practised skills the curve climbs high; on your own it stays low">
+        <!-- y axis label -->
+        <text x="26" y="225" transform="rotate(-90 26 225)" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" letter-spacing="2" fill="rgba(17,17,16,.45)">RELATIONSHIP SATISFACTION</text>
+        <!-- baseline + start guide -->
+        <line x1="70" y1="380" x2="960" y2="380" stroke="rgba(17,17,16,.12)" stroke-width="1"/>
+        <line x1="70" y1="150" x2="960" y2="150" stroke="rgba(17,17,16,.07)" stroke-width="1" stroke-dasharray="4 6"/>
+        <text x="74" y="142" font-family="DM Mono, monospace" font-size="9.5" letter-spacing="1" fill="rgba(17,17,16,.4)">WHERE YOU STARTED</text>
+        <!-- divergence marker -->
+        <line x1="430" y1="90" x2="430" y2="380" stroke="rgba(17,17,16,.22)" stroke-width="1.5" stroke-dasharray="3 5"/>
+        <text x="430" y="80" text-anchor="middle" font-family="Noto Sans, sans-serif" font-size="12.5" font-weight="700" fill="#111110">You start building the skill</text>
+        <!-- shared path: high → dip -->
+        <path d="M 110,135 C 215,146 285,158 335,176 C 388,196 408,318 430,338" fill="none" stroke="#111110" stroke-width="3.5" stroke-linecap="round"/>
+        <!-- drift line (on your own) -->
+        <path d="M 430,338 C 545,340 665,330 765,320 C 838,313 892,308 930,306" fill="none" stroke="rgba(17,17,16,.4)" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 9"/>
+        <!-- skill line (Regular) -->
+        <path d="M 430,338 C 525,330 605,255 705,202 C 795,154 865,128 930,108" fill="none" stroke="#4E9CBE" stroke-width="4" stroke-linecap="round"/>
+        <!-- markers -->
+        <circle cx="110" cy="135" r="5" fill="#2A4A2A"/>
+        <circle cx="430" cy="338" r="8" fill="#111110"/>
+        <circle cx="930" cy="108" r="6" fill="#4E9CBE"/>
+        <circle cx="930" cy="306" r="5" fill="rgba(17,17,16,.4)"/>
+        <!-- end labels -->
+        <text x="918" y="96" text-anchor="end" font-family="Noto Sans, sans-serif" font-size="13.5" font-weight="700" fill="#3a82a0">With the skill — climbs higher</text>
+        <text x="918" y="328" text-anchor="end" font-family="Noto Sans, sans-serif" font-size="13" font-weight="700" fill="rgba(17,17,16,.55)">On your own — stays low</text>
+        <!-- dip label -->
+        <text x="430" y="362" text-anchor="middle" font-family="Noto Sans, sans-serif" font-size="12" fill="rgba(17,17,16,.6)">the post-baby dip</text>
+        <!-- x labels -->
+        <text x="110" y="404" text-anchor="middle" font-family="DM Mono, monospace" font-size="10.5" letter-spacing="1" fill="rgba(17,17,16,.55)">BEFORE</text>
+        <text x="430" y="404" text-anchor="middle" font-family="DM Mono, monospace" font-size="10.5" letter-spacing="1" fill="rgba(17,17,16,.55)">BABY ARRIVES</text>
+        <text x="930" y="404" text-anchor="end" font-family="DM Mono, monospace" font-size="10.5" letter-spacing="1" fill="rgba(17,17,16,.55)">MONTHS OF SMALL HABITS</text>
+      </svg>
+      <div class="legend">
+        <span><i style="background:#4E9CBE"></i>With the skill, practised</span>
+        <span><i style="background:rgba(17,17,16,.4)"></i>On your own</span>
+      </div>
+    </div>
+    <div class="skillcta">
+      <div class="txt">
+        <div class="t">Why we built Regular</div>
+        <p>Knowing the habits isn't the hard part — <b>doing them, on no sleep, again and again</b> is. Regular is the nudge in your pocket: it notices the moment, hands you the next small move, and helps the habit stick — so your curve is the one that climbs. <b>That's the whole reason we made it.</b></p>
+      </div>
+      <a class="btn" href="index.html#get"><span class="dot"></span>Start free</a>
+    </div>
+  </div>
+
   <p class="disclaimer">This page is for information and support. It isn't medical or psychological advice and isn't a substitute for professional care. If you or your partner are experiencing abuse, severe depression, or a crisis, please reach out to a qualified professional.</p>
-  <p class="sources">Sources: Gottman Institute / J. Gottman, <em style="font-style:normal;color:var(--rust)"></em><a href="https://www.gottman.com/blog/romantic-relationships-take-a-dive-after-baby-arrives-according-to-research/" target="_blank" rel="noopener">romantic relationships after baby (67%)</a>; APA, <a href="https://www.apa.org/monitor/2011/10/babies" target="_blank" rel="noopener">babies & marital satisfaction</a>; U-shaped curve of marital satisfaction (longitudinal research, with caveats).</p>
+  <p class="sources">Sources: Gottman Institute / J. Gottman, <em style="font-style:normal;color:var(--rust)"></em><a href="https://www.gottman.com/blog/romantic-relationships-take-a-dive-after-baby-arrives-according-to-research/" target="_blank" rel="noopener">romantic relationships after baby (67%)</a>; APA, <a href="https://www.apa.org/monitor/2011/10/babies" target="_blank" rel="noopener">babies & marital satisfaction</a>; Algoe, Gable & Maisel, <a href="https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1475-6811.2010.01273.x" target="_blank" rel="noopener">everyday gratitude & relationship connection</a> (Personal Relationships, 2010); U-shaped curve of marital satisfaction (longitudinal research, with caveats).</p>
 </section>
 
 <footer>© 2026 Regular · <a href="index.html" style="color:var(--ink-55)">Home</a> · <a href="regular_blog.html" style="color:var(--ink-55)">Blog</a></footer>
