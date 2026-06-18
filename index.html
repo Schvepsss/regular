@@ -57,21 +57,21 @@
   @keyframes wUp{from{transform:translateY(110%)}to{transform:translateY(0)}}
   .accent{position:absolute;top:44%;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--rust),var(--ember));z-index:10;transform:scaleX(0);transform-origin:left;animation:lineIn 1.4s cubic-bezier(.16,1,.3,1) 2s both}
   @keyframes lineIn{from{transform:scaleX(0)}to{transform:scaleX(1)}}
-  .ground{position:absolute;left:0;right:0;top:44%;bottom:0;z-index:1;overflow:hidden;background:var(--ink)}
+  .ground{position:absolute;left:0;right:0;top:44%;bottom:0;z-index:1;overflow:hidden;background:var(--white)}
   .video-bg{position:absolute;inset:0;z-index:0;overflow:hidden}
   .video-bg video{width:100%;height:100%;object-fit:cover;opacity:0}
-  .video-bg::after{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(to bottom,rgba(17,17,16,.42),rgba(17,17,16,.66))}
+  .video-bg::after{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(to bottom,rgba(255,255,255,.92),rgba(255,255,255,.4) 34%,rgba(255,255,255,.12) 70%,rgba(255,255,255,.9))}
   .word-bot-zone{position:absolute;top:0;left:0;right:0;padding:14px clamp(22px,5vw,80px) 0;overflow:hidden;z-index:2}
-  .word-bot{font-size:min(10.5vw,19vh,150px);color:var(--white);display:block;white-space:nowrap;transform:translateY(-110%);animation:wDown 2s cubic-bezier(.16,1,.3,1) .95s both}
+  .word-bot{font-size:min(10.5vw,19vh,150px);color:var(--ink);display:block;white-space:nowrap;transform:translateY(-110%);animation:wDown 2s cubic-bezier(.16,1,.3,1) .95s both}
   @keyframes wDown{from{transform:translateY(-110%)}to{transform:translateY(0)}}
   .hero-sub{position:absolute;left:clamp(22px,5vw,80px);right:clamp(22px,5vw,80px);bottom:78px;z-index:5;opacity:0;animation:entryUp .8s ease 2.3s both}
-  .hero-sub .lbl{font-weight:400;font-size:17px;color:rgba(250,250,248,.86);display:block;margin-bottom:24px;max-width:520px;line-height:1.55}
+  .hero-sub .lbl{font-weight:400;font-size:17px;color:var(--ink);display:block;margin-bottom:24px;max-width:520px;line-height:1.55}
   .hero-cta{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
   .hero-scroll{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--rust);opacity:1;text-decoration:none;border-bottom:1px solid rgba(78,156,190,.4);padding-bottom:3px}
   .hero-scroll:hover{border-color:var(--rust)}
   .hero-meta{position:absolute;bottom:30px;left:clamp(22px,5vw,80px);right:clamp(22px,5vw,80px);z-index:10;display:flex;align-items:center;gap:30px;flex-wrap:wrap;opacity:0;animation:entryUp .7s ease 2.6s both}
-  .hero-meta .mi{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:rgba(250,250,248,.5)}
-  .hero-meta .md{width:1px;height:10px;background:rgba(250,250,248,.2)}
+  .hero-meta .mi{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-55)}
+  .hero-meta .md{width:1px;height:10px;background:var(--ink-08)}
   @media(max-width:760px){.hero-sub{bottom:104px}.hero-meta{gap:14px;bottom:20px}}
   @media (prefers-reduced-motion:reduce){.word-top,.word-bot,.accent,.hero-sub,.hero-meta,.sky,.hero-eyebrow{animation:none}.sky{height:44%}.word-top,.word-bot{transform:none}.hero-sub,.hero-meta,.hero-eyebrow{opacity:1}.accent{transform:scaleX(1)}}
 
@@ -270,7 +270,7 @@ window.rgSB=function(a,k){try{fetch(RG_SB+'/events',{method:'POST',headers:{'api
   <div class="hero-sub">
     <span class="lbl">Reads what's going on with her. Hands you one move tonight.</span>
     <div class="hero-cta">
-      <a href="#get" class="btn btn--light"><span class="dot"></span>Start free</a>
+      <a href="#get" class="btn btn--dark"><span class="dot"></span>Start free</a>
       <a href="#map" class="hero-scroll">See what's happening &darr;</a>
     </div>
   </div>
