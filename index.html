@@ -598,6 +598,29 @@ window.addEventListener('load',function(){try{var _p=(location.pathname.split('/
     <p class="storenote">Free · iPhone only for now · tap Android to tell us you want it</p>
   </div>
   </div>
+
+  <div class="reachout" style="background:#eef4f7;text-align:center;padding:clamp(52px,6vw,84px) 0">
+    <div class="wrap">
+      <span class="kicker" style="color:var(--rust)">A note from us</span>
+      <p style="font-weight:800;font-size:clamp(24px,3.4vw,38px);letter-spacing:-.02em;color:var(--ink);margin:12px 0 0">We read every message.</p>
+      <p style="color:var(--ink-72);max-width:600px;margin:14px auto 26px;line-height:1.62;font-size:17px;font-weight:300">We're a few parents building Regular because we needed it ourselves. If something here landed with you, if you've got an idea or something to push back on, or you just want to say hi — please write. It comes straight to us, we read all of it, and honestly your feedback shapes what we build next.<br><em style="display:inline-block;margin-top:10px;font-style:italic;color:var(--ink);font-family:'Noto Serif',Georgia,serif;font-weight:600">— Elisa &amp; the team</em></p>
+      <style>
+        #contactForm textarea::placeholder,#contactForm input::placeholder{color:var(--ink-55)}
+        #contactForm textarea:focus,#contactForm input:focus{outline:none;border-color:var(--rust)}
+      </style>
+      <form id="contactForm" action="https://formspree.io/f/maqzgnkr" method="POST" style="max-width:560px;margin:0 auto;text-align:left">
+        <textarea id="cMsg" name="message" required rows="3" placeholder="Your question, idea, or just hello…" style="width:100%;font-family:'Noto Sans',sans-serif;font-size:15px;color:var(--ink);background:#fff;border:1px solid var(--ink-08);border-radius:14px;padding:14px 16px;line-height:1.5;resize:vertical"></textarea>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px">
+          <input id="cEmail" name="email" type="email" placeholder="Email (optional — so we can reply)" style="flex:1;min-width:220px;font-family:'Noto Sans',sans-serif;font-size:15px;color:var(--ink);background:#fff;border:1px solid var(--ink-08);border-radius:100px;padding:0 18px;height:52px">
+          <button class="btn btn--dark" type="submit"><span class="dot"></span>Write to the team</button>
+        </div>
+        <input type="hidden" name="_subject" value="New message from regular.care — Regular">
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <p id="cThanks" hidden style="color:var(--ember);font-size:14.5px;margin-top:16px">Thanks — your message is in. We'll get back to you.</p>
+      </form>
+    </div>
+  </div>
+
   <footer>
     <div class="wrap">
       <div class="frow">
@@ -768,6 +791,18 @@ window.addEventListener('load',function(){try{var _p=(location.pathname.split('/
       markDone();
     });
   });
+  // contact form → Formspree (auto-emails us)
+  var cf=document.getElementById('contactForm');
+  if(cf){cf.addEventListener('submit',function(ev){
+    ev.preventDefault();
+    var m=document.getElementById('cMsg'); if(!m.value.trim()){m.focus();return;}
+    var th=document.getElementById('cThanks');
+    function show(msg){th.hidden=false;th.textContent=msg;}
+    fetch(cf.action,{method:'POST',body:new FormData(cf),headers:{'Accept':'application/json'}})
+      .then(function(r){return r.ok?r:Promise.reject(r);})
+      .then(function(){show("Thanks — your message is in. We'll get back to you.");m.value='';var e=document.getElementById('cEmail');if(e)e.value='';try{if(window.gtag)gtag('event','contact_submit',{event_category:'contact'});}catch(e){}})
+      .catch(function(){show('Hmm, that didn’t send. Please try again in a moment.');});
+  });}
 })();
 </script>
 </body>
