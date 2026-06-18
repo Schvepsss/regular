@@ -146,7 +146,7 @@ window.rgSB=function(a,k){try{fetch(RG_SB+'/events',{method:'POST',headers:{'api
     if(you>=MAX) return;
     if(you===0) readers++;
     you++; total++;
-    try{localStorage.setItem(kT,total);localStorage.setItem(kR,readers);localStorage.setItem(kY,you);var L=JSON.parse(localStorage.getItem('rg_events')||'[]');L.push({a:ID,k:'like',d:new Date().toISOString().slice(0,10)});localStorage.setItem('rg_events',JSON.stringify(L));}catch(e){}
+    try{localStorage.setItem(kT,total);localStorage.setItem(kR,readers);localStorage.setItem(kY,you);var L=JSON.parse(localStorage.getItem('rg_events')||'[]');L.push({a:ID,k:'like',d:new Date().toISOString().slice(0,10)});localStorage.setItem('rg_events',JSON.stringify(L));}catch(e){}if(window.rgSB)rgSB(ID,'like');
     render();
     fl.textContent='+1'; fl.classList.remove('go'); void fl.offsetWidth; fl.classList.add('go');
   });
