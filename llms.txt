@@ -40,6 +40,7 @@
 - Grounded in John Gottman's research, Emotionally Focused Therapy (EFT), and attachment science. No fabricated metrics, no shame.
 
 ## About
+- [About the team](https://regular.care/regular_about): who builds Regular — founders (married parents from Microsoft, Meta, Yandex, Flo, Canva), why we built it, and the science it stands on.
 - Audience: new fathers and couples, first 1–3 years postpartum.
 - Platform: free on iOS (App Store: https://apps.apple.com/us/app/regular-relationship-practice/id6758154999). Android is in development.
-- Topic requests and contact: via the form on the blog.
+- Contact: elisa@regular.care (questions, press, partnerships). Blog topic requests via the form on the blog.
