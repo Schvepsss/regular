@@ -24,7 +24,8 @@
     --white:#FFFFFF;--off:#FFFFFF;--ember:#3F7A4E;--grove:#2A4A2A;--rust:#4E9CBE;--clay:#C16A45;
   }
   *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth;scroll-snap-type:y proximity}
+  html{scroll-behavior:smooth;scroll-snap-type:y proximity;overflow-x:clip}
+  body{overflow-x:clip}
   body{font-family:'Noto Sans',system-ui,sans-serif;color:var(--ink);background:var(--off);-webkit-font-smoothing:antialiased}
   .wrap{max-width:1120px;margin:0 auto;padding:0 clamp(22px,5vw,80px);width:100%}
   a{color:inherit}
@@ -605,6 +606,7 @@ window.addEventListener('load',function(){try{var _p=(location.pathname.split('/
       <p style="font-weight:800;font-size:clamp(24px,3.4vw,38px);letter-spacing:-.02em;color:var(--ink);margin:12px 0 0">We read every message.</p>
       <p style="color:var(--ink-72);max-width:600px;margin:14px auto 26px;line-height:1.62;font-size:17px;font-weight:300">We're a few parents building Regular because we needed it ourselves. If something here landed with you, if you've got an idea or something to push back on, or you just want to say hi — please write. It comes straight to us, we read all of it, and honestly your feedback shapes what we build next.<br><em style="display:inline-block;margin-top:10px;font-style:italic;color:var(--ink);font-family:'Noto Serif',Georgia,serif;font-weight:600">— Elisa &amp; the team</em></p>
       <style>
+        #contactForm textarea,#contactForm input{box-sizing:border-box;max-width:100%}
         #contactForm textarea::placeholder,#contactForm input::placeholder{color:var(--ink-55)}
         #contactForm textarea:focus,#contactForm input:focus{outline:none;border-color:var(--rust)}
       </style>
