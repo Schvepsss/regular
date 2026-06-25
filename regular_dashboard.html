@@ -121,6 +121,17 @@
     <div class="note" style="border-left-color:var(--rust)"><b>Google Analytics 4 · property G-CNWV2T2BK9.</b> Open <a class="alink" href="https://analytics.google.com/" target="_blank" rel="noopener">analytics.google.com</a> → Reports for sessions, acquisition and audience. GA also tracks Search Console queries if linked.</div>
   </section>
 
+  <section id="pubtracker">
+    <h2>Publishing tracker</h2>
+    <p class="sub">What's live and what's still in the queue. Tick a piece once it's published on regular.care — saved in this browser. <span id="pubCount" style="color:var(--ink);font-weight:600"></span></p>
+    <div class="card">
+      <table>
+        <thead><tr><th style="width:54px">Live</th><th>Title</th><th style="width:130px">Category</th><th style="width:110px">Author</th><th style="width:150px">Published</th></tr></thead>
+        <tbody id="tPub"></tbody>
+      </table>
+    </div>
+  </section>
+
   <div class="tools">
     <button class="btn" id="refreshBtn">↻ Refresh</button>
   </div>
@@ -248,5 +259,58 @@
   var ra=document.getElementById('rApply'); if(ra) ra.addEventListener('click',function(){MODE='custom';setActive(ra);apply();});
 })();
 </script>
+<script>
+(function(){
+  var KEY='rg_pub_tracker';
+  var ITEMS=[
+    ['_g','Articles'],
+    ['blog_no-sex-after-baby','No sex after baby','Intimacy','Vadim'],
+    ['blog_reconnect-with-wife-after-baby','Reconnect with your wife','Reconnecting','Liza'],
+    ['blog_wife-doesnt-want-sex-after-baby','Wife doesn\u2019t want sex after baby','Intimacy','Liza'],
+    ['blog_dead-bedroom-after-baby','Dead bedroom after a baby','Intimacy','Liza'],
+    ['blog_new-dad-feels-rejected','Why new dads feel rejected','Reconnecting','Liza'],
+    ['blog_lonely-new-dad','Lonely as a new dad','Reconnecting','Liza'],
+    ['blog_single-vs-bad-relationship','Single vs a bad relationship','Science','Liza'],
+    ['blog_relationship-confidence-health','Relationship confidence & health','Science','Liza'],
+    ['blog_savoring-good-moments','Savoring good moments','Science','Liza'],
+    ['blog_oxytocin-parent-bond','Oxytocin & the parent bond','Science','Liza'],
+    ['blog_dopamine-oxytocin-love','Dopamine vs oxytocin','Science','Liza'],
+    ['blog_empathic-ai-partner','Empathic AI vs your partner','Science','Liza'],
+    ['_g','News & updates'],
+    ['news_dads-postpartum-depression-1-in-5','1 in 5 dads have postpartum depression','News','Liza']
+  ];
+  var CONTENT=ITEMS.filter(function(it){return it[0]!=='_g';});
+  var store={}; try{store=JSON.parse(localStorage.getItem(KEY)||'{}')||{};}catch(e){store={};}
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
+  function today(){return new Date().toISOString().slice(0,10);}
+  var CC={Intimacy:'p-int',Reconnecting:'p-rec',Science:'p-sci',News:'p-ex'};
+  var tb=document.getElementById('tPub'), cnt=document.getElementById('pubCount');
+  function refreshCount(){var d=CONTENT.filter(function(it){return store[it[0]]&&store[it[0]].pub;}).length;cnt.textContent=d+' / '+CONTENT.length+' published';}
+  function groupRow(label){var tr=document.createElement('tr');tr.innerHTML='<td colspan="5" style="background:#fbfcfc;font-family:\'DM Mono\',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-55);padding:10px 18px">'+label+'</td>';return tr;}
+  function row(it){
+    var id=it[0],st=store[id]||{};
+    var tr=document.createElement('tr');
+    tr.innerHTML='<td style="text-align:center"><input type="checkbox" class="pubchk" style="width:17px;height:17px;cursor:pointer"'+(st.pub?' checked':'')+'></td>'+
+      '<td><a class="alink" href="'+id+'.html" target="_blank" rel="noopener">'+it[1]+'</a></td>'+
+      '<td><span class="pill '+(CC[it[2]]||'p-ex')+'">'+it[2]+'</span></td>'+
+      '<td style="color:var(--ink-72);font-size:13.5px">'+it[3]+'</td>'+
+      '<td><input type="date" class="pubdate" value="'+(st.date||'')+'"'+(st.pub?'':' disabled')+' style="font-family:\'DM Mono\',monospace;font-size:12px;border:1px solid var(--ink-08);border-radius:8px;padding:6px 8px;color:var(--ink);background:#fff"></td>';
+    var chk=tr.querySelector('.pubchk'), dt=tr.querySelector('.pubdate');
+    function paint(){tr.style.opacity=chk.checked?'1':'.5';}
+    chk.addEventListener('change',function(){
+      store[id]=store[id]||{}; store[id].pub=chk.checked;
+      if(chk.checked){ if(!store[id].date){store[id].date=today();dt.value=store[id].date;} dt.disabled=false; }
+      else { dt.disabled=true; }
+      paint(); save(); refreshCount();
+    });
+    dt.addEventListener('change',function(){store[id]=store[id]||{}; store[id].date=dt.value; save();});
+    paint();
+    return tr;
+  }
+  ITEMS.forEach(function(it){ tb.appendChild(it[0]==='_g'?groupRow(it[1]):row(it)); });
+  refreshCount();
+})();
+</script>
+
 </body>
 </html>
