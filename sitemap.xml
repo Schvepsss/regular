@@ -21,5 +21,8 @@
   <url><loc>https://regular.care/regular_terms</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
   <url><loc>https://regular.care/regular_about</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://regular.care/news_dads-postpartum-depression-1-in-5</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://regular.care/news_ai-in-relationships-help-hard-parts</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://regular.care/news_dads-meaning-vs-money</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://regular.care/news_paid-leave-new-dad-mental-health</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://regular.care/regular_editorial</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
 </urlset>
