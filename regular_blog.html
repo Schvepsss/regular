@@ -66,6 +66,15 @@
   .post .soon{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-38)}
   @media(max-width:760px){.grid{grid-template-columns:1fr 1fr}}
   @media(max-width:520px){.grid{grid-template-columns:1fr}}
+  /* news */
+  .newslist{border:1px solid var(--ink-08);border-radius:18px;overflow:hidden;background:#fff}
+  .newsitem{display:grid;grid-template-columns:130px 1fr;gap:18px;padding:20px 24px;border-bottom:1px solid var(--ink-08);text-decoration:none;color:var(--ink);transition:background .15s}
+  .newsitem:last-child{border-bottom:none}
+  .newsitem:hover{background:#fbfcfc}
+  .newsitem .nd{font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--rust);padding-top:3px}
+  .newsitem h4{font-weight:700;font-size:16.5px;margin:0 0 4px;line-height:1.3;letter-spacing:-.01em}
+  .newsitem p{font-size:13.5px;color:var(--ink-55);line-height:1.5;margin:0}
+  @media(max-width:560px){.newsitem{grid-template-columns:1fr;gap:5px}}
   /* situation finder */
   .finder{background:#fff;border:1px solid var(--ink-08);border-radius:24px;padding:clamp(26px,4vw,44px);box-shadow:0 18px 50px rgba(17,17,16,.05)}
   .finder .ftag{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ember)}
@@ -160,8 +169,28 @@ window.addEventListener('load',function(){try{var _p=(location.pathname.split('/
   </article>
 
   <!-- LATEST -->
+  <!-- NEWS & UPDATES -->
+  <div class="block" id="news">
+    <div class="secrow"><h3>News &amp; updates</h3></div>
+    <p class="secsub">What's new at Regular — product, research and what we're shipping.</p>
+    <div class="newslist">
+      <a class="newsitem" href="https://apps.apple.com/us/app/regular-relationship-practice/id6758154999" target="_blank" rel="noopener">
+        <span class="nd">Jun 2026 · Product</span>
+        <span><h4>Regular is live on the App Store</h4><p>You can now download Regular for iPhone, free. Android is in development — tap the Android button on the home page to tell us you want it.</p></span>
+      </a>
+      <a class="newsitem" href="regular_how-relationships-work">
+        <span class="nd">Jun 2026 · New</span>
+        <span><h4>The post-baby relationship curve, explained</h4><p>A visual map of why satisfaction dips hardest in the first year after a baby — and what each phase needs to climb back.</p></span>
+      </a>
+      <a class="newsitem" href="#latest">
+        <span class="nd">Jun 2026 · Blog</span>
+        <span><h4>12 new guides for new dads</h4><p>Our first set of science-backed reads — no sex after baby, reconnecting, feeling rejected, loneliness and more, each grounded in Gottman & peer-reviewed research.</p></span>
+      </a>
+    </div>
+  </div>
+
   <div class="block">
-    <div class="secrow"><h3>Latest reads</h3></div>
+    <div class="secrow" id="latest"><h3>Latest reads</h3></div>
     <p class="secsub">New every week — the questions new dads actually type at midnight.</p>
     <div class="grid">
       <a class="post" href="blog_no-sex-after-baby"><div class="th" style="background:linear-gradient(135deg,#2a1416,#C0473E)"></div><div class="pb"><span class="ptag t-int">Intimacy</span><h4>No sex after baby: is this normal?</h4><p>And how long it really lasts.</p><div class="cstars"><span class="s">★</span> 312</div></div></a>

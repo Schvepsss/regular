@@ -41,6 +41,15 @@
   a.alink:hover{color:var(--rust);border-bottom-color:var(--rust)}
   .tools{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap}
   .btn{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--ink-08);background:#fff;color:var(--ink);border-radius:100px;padding:11px 20px;cursor:pointer}
+  .ranges{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:30px 0 4px}
+  .range-btn{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--ink-08);background:#fff;color:var(--ink-55);border-radius:100px;padding:9px 16px;cursor:pointer;transition:.15s}
+  .range-btn:hover{color:var(--ink)}
+  .range-btn.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .ranges .custom{display:inline-flex;align-items:center;gap:6px;margin-left:6px;font-family:'DM Mono',monospace;font-size:11px;color:var(--ink-55)}
+  .ranges input[type=date]{font-family:'DM Mono',monospace;font-size:11px;border:1px solid var(--ink-08);border-radius:8px;padding:8px 10px;color:var(--ink)}
+  .rangelabel{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.04em;color:var(--ink-55);margin-top:8px}
+  .kpi .delta{font-family:'DM Mono',monospace;font-size:11px;font-weight:500;margin-top:7px;display:inline-block}
+  .kpi .delta.up{color:#2f5b3a}.kpi .delta.down{color:#a23b33}.kpi .delta.flat{color:var(--ink-55)}
 </style>
 <!-- Internal tool: no Google Analytics here, so dashboard visits don't count as site traffic -->
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -58,6 +67,15 @@
     <div class="note"><b>Live across all visitors.</b> Page views and every button click — App Store, Android interest, likes, shares, saved exercises — are recorded in Supabase and aggregated here in real time. For full traffic (sources, geography, real-time), see Google Analytics linked below.</div>
     <div class="status" id="status">Loading…</div>
   </div>
+
+  <div class="ranges" id="ranges">
+    <button class="range-btn" data-r="1">Today</button>
+    <button class="range-btn active" data-r="7">7 days</button>
+    <button class="range-btn" data-r="30">30 days</button>
+    <button class="range-btn" data-r="all">All time</button>
+    <span class="custom"><input type="date" id="rFrom"> – <input type="date" id="rTo"> <button class="range-btn" id="rApply">Apply</button></span>
+  </div>
+  <div class="rangelabel" id="rangeLabel"></div>
 
   <div class="kpis" id="kpis"></div>
 
@@ -125,7 +143,7 @@
   function pageCell(id){return '<a class="alink" href="'+esc(id)+'.html" target="_blank" rel="noopener">'+esc(pageName(id))+'</a>';}
   function setStatus(t){var el=document.getElementById('status');if(el)el.textContent=t;}
 
-  function render(ev){
+  function render(ev,prevEv){
     var likes={},tries={},shares={},views={},days={},kinds={};
     var totL=0,totT=0,totS=0,totA=0,totV=0,totIos=0;
     ev.forEach(function(e){
@@ -138,8 +156,9 @@
       else if(e.k==='store_ios'){totIos++;}
       else if(e.k==='view'){views[e.a]=(views[e.a]||0)+1;days[d].views++;totV++;}
     });
-    function kpi(n,l){return '<div class="kpi"><div class="n">'+n+'</div><div class="l">'+l+'</div></div>';}
-    document.getElementById('kpis').innerHTML=kpi(totV,'Page views')+kpi(totIos,'App Store opens')+kpi(totA,'Android interest')+kpi(totL,'Likes')+kpi(totS,'Shares')+kpi(totT,'Exercises saved');
+    var P=prevEv?totals(prevEv):null;
+    function kpi(n,l,pv){return '<div class="kpi"><div class="n">'+n+'</div><div class="l">'+l+'</div>'+deltaHTML(n,pv)+'</div>';}
+    document.getElementById('kpis').innerHTML=kpi(totV,'Page views',P?P.view:null)+kpi(totIos,'App Store opens',P?P.store_ios:null)+kpi(totA,'Android interest',P?P.android_wait:null)+kpi(totL,'Likes',P?P.like:null)+kpi(totS,'Shares',P?P.share:null)+kpi(totT,'Exercises saved',P?P['try']:null);
     // clicks by button
     var CLICKS=[['store_ios','App Store — Get the app','#2F7B9E'],['android_wait','Android interest','#C16A45'],['like','Likes (stars)','#3F7A4E'],['share','Shares','#7FB4CE'],['try','Exercises saved','#C0473E']];
     var maxC=Math.max.apply(null,[1].concat(CLICKS.map(function(c){return kinds[c[0]]||0;})));
@@ -172,20 +191,61 @@
 
   function fromLocal(){var ev=[];try{ev=JSON.parse(localStorage.getItem('rg_events')||'[]');}catch(e){}return ev;}
 
+  var ALL=[], MODE='7';
+  function totals(ev){var t={view:0,store_ios:0,android_wait:0,like:0,share:0,'try':0};ev.forEach(function(e){if(t[e.k]!=null)t[e.k]++;});return t;}
+  function todayISO(){return new Date().toISOString().slice(0,10);}
+  function dminus(n){var d=new Date();d.setUTCDate(d.getUTCDate()-n);return d.toISOString().slice(0,10);}
+  function deltaHTML(cur,prev){
+    if(prev===null||prev===undefined) return '';
+    if(prev===0) return cur>0?'<span class="delta up">▲ new</span>':'';
+    var p=Math.round((cur-prev)/prev*100);
+    if(p>0) return '<span class="delta up">▲ '+p+'% vs prev</span>';
+    if(p<0) return '<span class="delta down">▼ '+Math.abs(p)+'% vs prev</span>';
+    return '<span class="delta flat">→ 0% vs prev</span>';
+  }
+  function computeRange(){
+    var t=todayISO(), r={};
+    if(MODE==='1'){r.s=t;r.e=t;r.ps=dminus(1);r.pe=dminus(1);r.lbl='Today ('+t+') vs yesterday';}
+    else if(MODE==='7'){r.s=dminus(6);r.e=t;r.ps=dminus(13);r.pe=dminus(7);r.lbl='Last 7 days ('+r.s+' → '+t+') vs previous 7 days';}
+    else if(MODE==='30'){r.s=dminus(29);r.e=t;r.ps=dminus(59);r.pe=dminus(30);r.lbl='Last 30 days ('+r.s+' → '+t+') vs previous 30 days';}
+    else if(MODE==='custom'){
+      var f=document.getElementById('rFrom').value, to=document.getElementById('rTo').value;
+      if(!f||!to){r.s='0000-01-01';r.e='9999-12-31';r.ps=null;r.lbl='All time (pick both dates for a custom range)';return r;}
+      if(f>to){var tmp=f;f=to;to=tmp;}
+      var len=Math.round((Date.parse(to)-Date.parse(f))/86400000)+1;
+      r.s=f;r.e=to;
+      r.pe=new Date(Date.parse(f)-86400000).toISOString().slice(0,10);
+      r.ps=new Date(Date.parse(f)-len*86400000).toISOString().slice(0,10);
+      r.lbl='Custom ('+f+' → '+to+') vs previous '+len+' days';
+    }
+    else {r.s='0000-01-01';r.e='9999-12-31';r.ps=null;r.lbl='All time';}
+    return r;
+  }
+  function apply(){
+    var r=computeRange();
+    var cur=ALL.filter(function(x){return x.d&&x.d>=r.s&&x.d<=r.e;});
+    var prev=r.ps?ALL.filter(function(x){return x.d&&x.d>=r.ps&&x.d<=r.pe;}):null;
+    var lab=document.getElementById('rangeLabel'); if(lab) lab.textContent=r.lbl+' · '+cur.length+' events in range';
+    render(cur,prev);
+  }
+  function setActive(b){document.querySelectorAll('#ranges .range-btn').forEach(function(x){x.classList.remove('active');});if(b)b.classList.add('active');}
+
   function load(){
     setStatus('Loading…');
     fetch(RG_SB+'/events?select=article,kind,created_at&order=created_at.desc&limit=20000',{headers:{apikey:RG_KEY,Authorization:'Bearer '+RG_KEY}})
       .then(function(r){if(!r.ok)throw 0;return r.json();})
       .then(function(rows){
         if(!Array.isArray(rows))throw 0;
-        var ev=rows.map(function(x){return {a:x.article,k:x.kind,d:(x.created_at||'').slice(0,10)};});
+        ALL=rows.map(function(x){return {a:x.article,k:x.kind,d:(x.created_at||'').slice(0,10)};});
         setStatus('Live · all visitors · '+rows.length+' events · updated '+new Date().toLocaleString());
-        render(ev);
+        apply();
       })
-      .catch(function(){ setStatus('Could not reach the server — showing this device only.'); render(fromLocal()); });
+      .catch(function(){ setStatus('Could not reach the server — showing this device only.'); ALL=fromLocal(); apply(); });
   }
   load();
   document.getElementById('refreshBtn').addEventListener('click',load);
+  document.querySelectorAll('#ranges .range-btn[data-r]').forEach(function(b){b.addEventListener('click',function(){MODE=b.getAttribute('data-r');setActive(b);apply();});});
+  var ra=document.getElementById('rApply'); if(ra) ra.addEventListener('click',function(){MODE='custom';setActive(ra);apply();});
 })();
 </script>
 </body>
