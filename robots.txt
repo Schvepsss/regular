@@ -1,47 +1,56 @@
 User-agent: *
 Allow: /
 Disallow: /regular_dashboard
+Disallow: /dashboard
 Disallow: /regular_why_options
 
 # AI assistants & answer engines — explicitly welcome
 User-agent: GPTBot
 Allow: /
 Disallow: /regular_dashboard
+Disallow: /dashboard
 Disallow: /regular_why_options
 
 User-agent: OAI-SearchBot
 Allow: /
 Disallow: /regular_dashboard
+Disallow: /dashboard
 Disallow: /regular_why_options
 
 User-agent: ChatGPT-User
 Allow: /
 Disallow: /regular_dashboard
+Disallow: /dashboard
 Disallow: /regular_why_options
 
 User-agent: ClaudeBot
 Allow: /
 Disallow: /regular_dashboard
+Disallow: /dashboard
 Disallow: /regular_why_options
 
 User-agent: Claude-Web
 Allow: /
 Disallow: /regular_dashboard
+Disallow: /dashboard
 Disallow: /regular_why_options
 
 User-agent: PerplexityBot
 Allow: /
 Disallow: /regular_dashboard
+Disallow: /dashboard
 Disallow: /regular_why_options
 
 User-agent: Google-Extended
 Allow: /
 Disallow: /regular_dashboard
+Disallow: /dashboard
 Disallow: /regular_why_options
 
 User-agent: Applebot-Extended
 Allow: /
 Disallow: /regular_dashboard
+Disallow: /dashboard
 Disallow: /regular_why_options
 
 Sitemap: https://regular.care/sitemap.xml

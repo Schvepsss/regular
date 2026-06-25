@@ -53,6 +53,11 @@
   .block{margin-bottom:84px}
   /* grid + cards */
   .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .afilter{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 22px}
+  .achip{font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-55);background:#fff;border:1px solid var(--ink-08);border-radius:99px;padding:8px 15px;cursor:pointer;transition:.15s}
+  .achip:hover{color:var(--ink);border-color:var(--ink-55)}
+  .achip.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+  #articleMore[hidden]{display:none}
   .post{display:block;text-decoration:none;color:var(--ink);background:#fff;border:1px solid var(--ink-08);border-radius:18px;overflow:hidden;transition:transform .2s,box-shadow .2s}
   a.post:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(17,17,16,.08)}
   .post .th{height:130px}
@@ -170,31 +175,17 @@ window.addEventListener('load',function(){try{var _p=(location.pathname.split('/
 
   <!-- ===== READ ===== -->
   <div class="block">
-    <div class="secrow" id="latest"><h3>Latest reads</h3></div>
-    <p class="secsub">New every week — the questions new dads actually type at midnight.</p>
-    <div class="grid">
-      <a class="post" href="blog_best-apps-for-couples-after-baby"><div class="th" style="background:linear-gradient(135deg,#2a1a12,#C16A45)"></div><div class="pb"><span class="ptag t-tool">Tools</span><h4>The 7 best apps for couples after a baby (2026)</h4><p>Ranked for the postpartum year — Regular vs Paired, Lasting, Coral &amp; more.</p><div class="cstars new">New</div></div></a>
-      <a class="post" href="blog_no-sex-after-baby"><div class="th" style="background:linear-gradient(135deg,#2a1416,#C0473E)"></div><div class="pb"><span class="ptag t-int">Intimacy</span><h4>No sex after baby: is this normal?</h4><p>And how long it really lasts.</p><div class="cstars"><span class="s">★</span> 312</div></div></a>
-      <a class="post" href="blog_reconnect-with-wife-after-baby"><div class="th" style="background:linear-gradient(135deg,#16241f,#3F7A4E)"></div><div class="pb"><span class="ptag t-rec">Reconnecting</span><h4>How to reconnect with your wife after a baby</h4><p>Real advice that isn't "just communicate."</p><div class="cstars"><span class="s">★</span> 241</div></div></a>
-      <a class="post" href="blog_dead-bedroom-after-baby"><div class="th" style="background:linear-gradient(135deg,#2a1416,#C0473E)"></div><div class="pb"><span class="ptag t-int">Intimacy</span><h4>Dead bedroom after a baby — how to fix it without pressure</h4><p>It's common, and usually a phase. Here's the way that actually works.</p><div class="cstars"><span class="s">★</span> 38</div></div></a>
-      <a class="post" href="blog_wife-doesnt-want-sex-after-baby"><div class="th" style="background:linear-gradient(135deg,#2a1416,#C0473E)"></div><div class="pb"><span class="ptag t-int">Intimacy</span><h4>Wife doesn't want sex after baby: what it really means</h4><p>Almost never about you — and what helps.</p><div class="cstars"><span class="s">★</span> 134</div></div></a>
-      <a class="post" href="blog_new-dad-feels-rejected"><div class="th" style="background:linear-gradient(135deg,#16241f,#3F7A4E)"></div><div class="pb"><span class="ptag t-rec">Reconnecting</span><h4>Why new dads feel rejected after a baby</h4><p>Third wheel in your own home? Here's why — and what to do.</p><div class="cstars"><span class="s">★</span> 67</div></div></a>
-      <a class="post" href="blog_lonely-new-dad"><div class="th" style="background:linear-gradient(135deg,#16241f,#3F7A4E)"></div><div class="pb"><span class="ptag t-rec">Reconnecting</span><h4>Lonely as a new dad? Why it happens and what helps</h4><p>Full house, and still alone. You're not the only one.</p><div class="cstars new">New</div></div></a>
+    <div class="secrow" id="latest"><h3>All articles</h3></div>
+    <p class="secsub">Newest first — filter by topic, and tap “Load more” for the rest. New pieces appear here automatically.</p>
+    <div class="afilter" id="aFilter">
+      <button class="achip active" data-f="all">All</button>
+      <button class="achip" data-f="Intimacy">Intimacy</button>
+      <button class="achip" data-f="Reconnecting">Reconnecting</button>
+      <button class="achip" data-f="Science">Science</button>
+      <button class="achip" data-f="Tools">Tools</button>
     </div>
-  </div>
-
-  <!-- SCIENCE AS ARTICLES -->
-  <div class="block" id="lab">
-    <div class="secrow"><h3>From the lab</h3></div>
-    <p class="secsub">Plain-English write-ups of the research behind how couples connect — neuroscience, relationships, and empathic AI. New pieces added regularly.</p>
-    <div class="grid">
-      <a class="post" href="blog_single-vs-bad-relationship"><div class="th" style="background:linear-gradient(135deg,#16242b,#2F7B9E)"></div><div class="pb"><span class="ptag t-sci">Relationships</span><h4>Is single better than a bad relationship? What the data says</h4><p>Well-being is higher single than in a low-quality relationship. It's quality, not status, that lifts you.</p><div class="cstars"><span class="s">★</span> 14</div></div></a>
-      <a class="post" href="blog_relationship-confidence-health"><div class="th" style="background:linear-gradient(135deg,#16242b,#2F7B9E)"></div><div class="pb"><span class="ptag t-sci">Relationships</span><h4>Why confidence in your relationship shows up in your health</h4><p>A couple's confidence tracks with better sleep, stronger mental health, and lower stress.</p><div class="cstars new">New</div></div></a>
-      <a class="post" href="blog_savoring-good-moments"><div class="th" style="background:linear-gradient(135deg,#16242b,#2F7B9E)"></div><div class="pb"><span class="ptag t-sci">Relationships</span><h4>Savoring good moments builds a buffer — here's how</h4><p>Couples who slow down and soak in happy moments are measurably steadier when things get hard.</p><div class="cstars"><span class="s">★</span> 29</div></div></a>
-      <a class="post" href="blog_oxytocin-parent-bond"><div class="th" style="background:linear-gradient(135deg,#16242b,#2F7B9E)"></div><div class="pb"><span class="ptag t-sci">Neuroscience</span><h4>Oxytocin and the parent–infant bond, explained</h4><p>How one hormone rewires the early months — and why it reshapes the whole family's wiring.</p><div class="cstars new">New</div></div></a>
-      <a class="post" href="blog_dopamine-oxytocin-love"><div class="th" style="background:linear-gradient(135deg,#16242b,#2F7B9E)"></div><div class="pb"><span class="ptag t-sci">Neuroscience</span><h4>Dopamine wants, oxytocin bonds: the chemistry of lasting love</h4><p>How the brain turns early attraction into lasting attachment — and what keeps the bond alive.</p><div class="cstars new">New</div></div></a>
-      <a class="post" href="blog_empathic-ai-partner"><div class="th" style="background:linear-gradient(135deg,#16242b,#2F7B9E)"></div><div class="pb"><span class="ptag t-sci">Empathic AI</span><h4>Empathic AI lifts mood — but shouldn't replace your partner</h4><p>Emotionally intelligent chatbots help mental health, yet can crowd out real ties. Why Regular nudges you toward her, not away.</p><div class="cstars new">New</div></div></a>
-    </div>
+    <div class="grid" id="articleGrid"></div>
+    <div style="text-align:center;margin-top:26px"><button class="btn ghost" id="articleMore">Load more ↓</button></div>
   </div>
 
   <!-- ===== DO ===== -->
@@ -381,5 +372,35 @@ window.addEventListener('load',function(){try{var _p=(location.pathname.split('/
   });}
 })();
 </script>
+<script>
+(function(){
+  var ARTICLES=[
+    {slug:'blog_best-apps-for-couples-after-baby',title:'The 7 best apps for couples after a baby (2026)',desc:'Ranked for the postpartum year — Regular vs Paired, Lasting, Coral &amp; more.',group:'Tools',tag:'Tools',meta:'New'},
+    {slug:'blog_empathic-ai-partner',title:'Empathic AI lifts mood — but shouldn’t replace your partner',desc:'Emotionally intelligent chatbots help mental health, yet can crowd out real ties.',group:'Science',tag:'Empathic AI',meta:'New'},
+    {slug:'blog_dopamine-oxytocin-love',title:'Dopamine wants, oxytocin bonds: the chemistry of lasting love',desc:'How the brain turns early attraction into lasting attachment.',group:'Science',tag:'Neuroscience',meta:'New'},
+    {slug:'blog_oxytocin-parent-bond',title:'Oxytocin and the parent–infant bond, explained',desc:'How one hormone rewires the early months.',group:'Science',tag:'Neuroscience',meta:'New'},
+    {slug:'blog_relationship-confidence-health',title:'Why confidence in your relationship shows up in your health',desc:'A couple’s confidence tracks with better sleep and lower stress.',group:'Science',tag:'Relationships',meta:'New'},
+    {slug:'blog_savoring-good-moments',title:'Savoring good moments builds a buffer — here’s how',desc:'Couples who soak in happy moments are measurably steadier.',group:'Science',tag:'Relationships',meta:29},
+    {slug:'blog_single-vs-bad-relationship',title:'Is single better than a bad relationship? What the data says',desc:'It’s quality, not status, that lifts you.',group:'Science',tag:'Relationships',meta:14},
+    {slug:'blog_lonely-new-dad',title:'Lonely as a new dad? Why it happens and what helps',desc:'Full house, and still alone. You’re not the only one.',group:'Reconnecting',tag:'Reconnecting',meta:'New'},
+    {slug:'blog_new-dad-feels-rejected',title:'Why new dads feel rejected after a baby',desc:'Third wheel in your own home? Here’s why — and what to do.',group:'Reconnecting',tag:'Reconnecting',meta:67},
+    {slug:'blog_wife-doesnt-want-sex-after-baby',title:'Wife doesn’t want sex after baby: what it really means',desc:'Almost never about you — and what helps.',group:'Intimacy',tag:'Intimacy',meta:134},
+    {slug:'blog_dead-bedroom-after-baby',title:'Dead bedroom after a baby — how to fix it without pressure',desc:'It’s common, and usually a phase.',group:'Intimacy',tag:'Intimacy',meta:38},
+    {slug:'blog_reconnect-with-wife-after-baby',title:'How to reconnect with your wife after a baby',desc:'Real advice that isn’t “just communicate.”',group:'Reconnecting',tag:'Reconnecting',meta:241},
+    {slug:'blog_no-sex-after-baby',title:'No sex after baby: is this normal?',desc:'And how long it really lasts.',group:'Intimacy',tag:'Intimacy',meta:312}
+  ];
+  var GR={Intimacy:['t-int','linear-gradient(135deg,#2a1416,#C0473E)'],Reconnecting:['t-rec','linear-gradient(135deg,#16241f,#3F7A4E)'],Science:['t-sci','linear-gradient(135deg,#16242b,#2F7B9E)'],Tools:['t-tool','linear-gradient(135deg,#2a1a12,#C16A45)']};
+  var PAGE=6, shown=PAGE, filter='all';
+  var grid=document.getElementById('articleGrid'), more=document.getElementById('articleMore'), bar=document.getElementById('aFilter');
+  if(!grid)return;
+  function list(){return filter==='all'?ARTICLES:ARTICLES.filter(function(a){return a.group===filter;});}
+  function card(a){var g=GR[a.group]||GR.Science;var st=(a.meta==='New')?'<div class="cstars new">New</div>':'<div class="cstars"><span class="s">★</span> '+a.meta+'</div>';return '<a class="post" href="'+a.slug+'"><div class="th" style="background:'+g[1]+'"></div><div class="pb"><span class="ptag '+g[0]+'">'+a.tag+'</span><h4>'+a.title+'</h4><p>'+a.desc+'</p>'+st+'</div></a>';}
+  function render(){var L=list();grid.innerHTML=L.slice(0,shown).map(card).join('');if(more){if(shown>=L.length)more.setAttribute('hidden','');else more.removeAttribute('hidden');}}
+  if(bar)bar.addEventListener('click',function(e){var b=e.target.closest('.achip');if(!b)return;document.querySelectorAll('.achip').forEach(function(x){x.classList.remove('active');});b.classList.add('active');filter=b.getAttribute('data-f');shown=PAGE;render();});
+  if(more)more.addEventListener('click',function(){shown+=PAGE;render();});
+  render();
+})();
+</script>
+
 </body>
 </html>
