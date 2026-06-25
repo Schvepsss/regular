@@ -68,7 +68,7 @@
   @media(max-width:520px){.grid{grid-template-columns:1fr}}
   /* news */
   .newslist{border:1px solid var(--ink-08);border-radius:18px;overflow:hidden;background:#fff}
-  .newsitem{display:grid;grid-template-columns:130px 1fr;gap:18px;padding:20px 24px;border-bottom:1px solid var(--ink-08);text-decoration:none;color:var(--ink);transition:background .15s}
+  .newsitem{display:grid;grid-template-columns:150px 1fr;gap:18px;padding:20px 24px;border-bottom:1px solid var(--ink-08);text-decoration:none;color:var(--ink);transition:background .15s}
   .newsitem:last-child{border-bottom:none}
   .newsitem:hover{background:#fbfcfc}
   .newsitem .nd{font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--rust);padding-top:3px}
@@ -168,31 +168,7 @@ window.addEventListener('load',function(){try{var _p=(location.pathname.split('/
     </div>
   </article>
 
-  <!-- LATEST -->
-  <!-- NEWS & UPDATES -->
-  <div class="block" id="news">
-    <div class="secrow"><h3>News &amp; updates</h3></div>
-    <p class="secsub">What's new at Regular — product, research and what we're shipping.</p>
-    <div class="newslist">
-      <a class="newsitem" href="news_dads-postpartum-depression-1-in-5">
-        <span class="nd">Jun 2026 · Dad life</span>
-        <span><h4>1 in 5 new dads have postpartum depression or anxiety — and most miss it</h4><p>Postpartum Support International: 1 in 5 fathers report depression or anxiety in baby's first year, and in men it rarely looks like sadness. Why dads miss it — and what helps.</p></span>
-      </a>
-      <a class="newsitem" href="https://apps.apple.com/us/app/regular-relationship-practice/id6758154999" target="_blank" rel="noopener">
-        <span class="nd">Jun 2026 · Product</span>
-        <span><h4>Regular is live on the App Store</h4><p>You can now download Regular for iPhone, free. Android is in development — tap the Android button on the home page to tell us you want it.</p></span>
-      </a>
-      <a class="newsitem" href="regular_how-relationships-work">
-        <span class="nd">Jun 2026 · New</span>
-        <span><h4>The post-baby relationship curve, explained</h4><p>A visual map of why satisfaction dips hardest in the first year after a baby — and what each phase needs to climb back.</p></span>
-      </a>
-      <a class="newsitem" href="#latest">
-        <span class="nd">Jun 2026 · Blog</span>
-        <span><h4>12 new guides for new dads</h4><p>Our first set of science-backed reads — no sex after baby, reconnecting, feeling rejected, loneliness and more, each grounded in Gottman & peer-reviewed research.</p></span>
-      </a>
-    </div>
-  </div>
-
+  <!-- ===== READ ===== -->
   <div class="block">
     <div class="secrow" id="latest"><h3>Latest reads</h3></div>
     <p class="secsub">New every week — the questions new dads actually type at midnight.</p>
@@ -206,6 +182,21 @@ window.addEventListener('load',function(){try{var _p=(location.pathname.split('/
     </div>
   </div>
 
+  <!-- SCIENCE AS ARTICLES -->
+  <div class="block" id="lab">
+    <div class="secrow"><h3>From the lab</h3></div>
+    <p class="secsub">Plain-English write-ups of the research behind how couples connect — neuroscience, relationships, and empathic AI. New pieces added regularly.</p>
+    <div class="grid">
+      <a class="post" href="blog_single-vs-bad-relationship"><div class="th" style="background:linear-gradient(135deg,#16242b,#2F7B9E)"></div><div class="pb"><span class="ptag t-sci">Relationships</span><h4>Is single better than a bad relationship? What the data says</h4><p>Well-being is higher single than in a low-quality relationship. It's quality, not status, that lifts you.</p><div class="cstars"><span class="s">★</span> 14</div></div></a>
+      <a class="post" href="blog_relationship-confidence-health"><div class="th" style="background:linear-gradient(135deg,#16242b,#2F7B9E)"></div><div class="pb"><span class="ptag t-sci">Relationships</span><h4>Why confidence in your relationship shows up in your health</h4><p>A couple's confidence tracks with better sleep, stronger mental health, and lower stress.</p><div class="cstars new">New</div></div></a>
+      <a class="post" href="blog_savoring-good-moments"><div class="th" style="background:linear-gradient(135deg,#16242b,#2F7B9E)"></div><div class="pb"><span class="ptag t-sci">Relationships</span><h4>Savoring good moments builds a buffer — here's how</h4><p>Couples who slow down and soak in happy moments are measurably steadier when things get hard.</p><div class="cstars"><span class="s">★</span> 29</div></div></a>
+      <a class="post" href="blog_oxytocin-parent-bond"><div class="th" style="background:linear-gradient(135deg,#16242b,#2F7B9E)"></div><div class="pb"><span class="ptag t-sci">Neuroscience</span><h4>Oxytocin and the parent–infant bond, explained</h4><p>How one hormone rewires the early months — and why it reshapes the whole family's wiring.</p><div class="cstars new">New</div></div></a>
+      <a class="post" href="blog_dopamine-oxytocin-love"><div class="th" style="background:linear-gradient(135deg,#16242b,#2F7B9E)"></div><div class="pb"><span class="ptag t-sci">Neuroscience</span><h4>Dopamine wants, oxytocin bonds: the chemistry of lasting love</h4><p>How the brain turns early attraction into lasting attachment — and what keeps the bond alive.</p><div class="cstars new">New</div></div></a>
+      <a class="post" href="blog_empathic-ai-partner"><div class="th" style="background:linear-gradient(135deg,#16242b,#2F7B9E)"></div><div class="pb"><span class="ptag t-sci">Empathic AI</span><h4>Empathic AI lifts mood — but shouldn't replace your partner</h4><p>Emotionally intelligent chatbots help mental health, yet can crowd out real ties. Why Regular nudges you toward her, not away.</p><div class="cstars new">New</div></div></a>
+    </div>
+  </div>
+
+  <!-- ===== DO ===== -->
   <!-- SITUATION FINDER -->
   <div class="block">
     <div class="finder">
@@ -238,20 +229,35 @@ window.addEventListener('load',function(){try{var _p=(location.pathname.split('/
     <div class="grid" id="practiceGrid"></div>
   </div>
 
-  <!-- SCIENCE AS ARTICLES -->
-  <div class="block" id="lab">
-    <div class="secrow"><h3>From the lab</h3></div>
-    <p class="secsub">Plain-English write-ups of the research behind how couples connect — neuroscience, relationships, and empathic AI. New pieces added regularly.</p>
-    <div class="grid">
-      <a class="post" href="blog_single-vs-bad-relationship"><div class="th" style="background:linear-gradient(135deg,#16242b,#2F7B9E)"></div><div class="pb"><span class="ptag t-sci">Relationships</span><h4>Is single better than a bad relationship? What the data says</h4><p>Well-being is higher single than in a low-quality relationship. It's quality, not status, that lifts you.</p><div class="cstars"><span class="s">★</span> 14</div></div></a>
-      <a class="post" href="blog_relationship-confidence-health"><div class="th" style="background:linear-gradient(135deg,#16242b,#2F7B9E)"></div><div class="pb"><span class="ptag t-sci">Relationships</span><h4>Why confidence in your relationship shows up in your health</h4><p>A couple's confidence tracks with better sleep, stronger mental health, and lower stress.</p><div class="cstars new">New</div></div></a>
-      <a class="post" href="blog_savoring-good-moments"><div class="th" style="background:linear-gradient(135deg,#16242b,#2F7B9E)"></div><div class="pb"><span class="ptag t-sci">Relationships</span><h4>Savoring good moments builds a buffer — here's how</h4><p>Couples who slow down and soak in happy moments are measurably steadier when things get hard.</p><div class="cstars"><span class="s">★</span> 29</div></div></a>
-      <a class="post" href="blog_oxytocin-parent-bond"><div class="th" style="background:linear-gradient(135deg,#16242b,#2F7B9E)"></div><div class="pb"><span class="ptag t-sci">Neuroscience</span><h4>Oxytocin and the parent–infant bond, explained</h4><p>How one hormone rewires the early months — and why it reshapes the whole family's wiring.</p><div class="cstars new">New</div></div></a>
-      <a class="post" href="blog_dopamine-oxytocin-love"><div class="th" style="background:linear-gradient(135deg,#16242b,#2F7B9E)"></div><div class="pb"><span class="ptag t-sci">Neuroscience</span><h4>Dopamine wants, oxytocin bonds: the chemistry of lasting love</h4><p>How the brain turns early attraction into lasting attachment — and what keeps the bond alive.</p><div class="cstars new">New</div></div></a>
-      <a class="post" href="blog_empathic-ai-partner"><div class="th" style="background:linear-gradient(135deg,#16242b,#2F7B9E)"></div><div class="pb"><span class="ptag t-sci">Empathic AI</span><h4>Empathic AI lifts mood — but shouldn't replace your partner</h4><p>Emotionally intelligent chatbots help mental health, yet can crowd out real ties. Why Regular nudges you toward her, not away.</p><div class="cstars new">New</div></div></a>
+  <!-- ===== NEWS ===== -->
+  <div class="block" id="news">
+    <div class="secrow"><h3>Research &amp; dad life</h3></div>
+    <p class="secsub">Studies and stories from the first year as parents — the ones we think you should see.</p>
+    <div class="newslist">
+      <a class="newsitem" href="news_dads-postpartum-depression-1-in-5">
+        <span class="nd">Jun 2026 · Dad life</span>
+        <span><h4>1 in 5 new dads have postpartum depression or anxiety — and most miss it</h4><p>Postpartum Support International: 1 in 5 fathers report depression or anxiety in baby's first year, and in men it rarely looks like sadness. Why dads miss it — and what helps.</p></span>
+      </a>
     </div>
   </div>
 
+  <!-- PRODUCT NEWS -->
+  <div class="block" id="product-news">
+    <div class="secrow"><h3>Product news</h3></div>
+    <p class="secsub">What we're building and shipping at Regular.</p>
+    <div class="newslist">
+      <a class="newsitem" href="https://apps.apple.com/us/app/regular-relationship-practice/id6758154999" target="_blank" rel="noopener">
+        <span class="nd">Jun 2026 · iOS</span>
+        <span><h4>Regular is live on the App Store</h4><p>You can now download Regular for iPhone, free — no account needed to start. Tap to install.</p></span>
+      </a>
+      <a class="newsitem" href="/#get">
+        <span class="nd">Jun 2026 · Android</span>
+        <span><h4>Android is in development</h4><p>Not on iPhone? Tap the Android button on the home page to register interest — it tells us where to ship next.</p></span>
+      </a>
+    </div>
+  </div>
+
+  <!-- ===== CTA ===== -->
   <!-- REQUEST A TOPIC -->
   <div class="block">
     <div class="roadmap">
