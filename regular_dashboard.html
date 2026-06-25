@@ -123,7 +123,7 @@
 
   <section id="pubtracker">
     <h2>Publishing tracker</h2>
-    <p class="sub">Imported from the Notion plan <a class="alink" href="https://app.notion.com/p/38299be402478149b59eff7974aa2832" target="_blank" rel="noopener">«GEO Content»</a> (Month 1) on 25 Jun 2026. Edit status &amp; dates here — saved in this browser. <span id="pubCount" style="color:var(--ink);font-weight:600"></span></p>
+    <p class="sub">Imported from the Notion plan <a class="alink" href="https://app.notion.com/p/38299be402478149b59eff7974aa2832" target="_blank" rel="noopener">«GEO Content»</a> (Month 1). Set a status per piece — the publish date fills in <b>automatically</b> the moment it's marked Published (edit it if the real date differs). Saved in this browser. <span id="pubCount" style="color:var(--ink);font-weight:600"></span></p>
     <div class="card">
       <table>
         <thead><tr><th style="width:130px">Status</th><th>Title</th><th style="width:150px">Published</th></tr></thead>
@@ -288,9 +288,9 @@
     ['blog_no-sex-after-baby','No sex after baby','Published','blog_no-sex-after-baby.html'],
     ['blog_dead-bedroom-after-baby','Dead bedroom after a baby','Published','blog_dead-bedroom-after-baby.html'],
     ['blog_single-vs-bad-relationship','Single vs a bad relationship','Published','blog_single-vs-bad-relationship.html'],
-    ['blog_relationship-confidence-health','Relationship confidence & health','Published','blog_relationship-confidence-health.html'],
+    ['blog_relationship-confidence-health','Relationship confidence &amp; health','Published','blog_relationship-confidence-health.html'],
     ['blog_savoring-good-moments','Savoring good moments','Published','blog_savoring-good-moments.html'],
-    ['blog_oxytocin-parent-bond','Oxytocin & the parent bond','Published','blog_oxytocin-parent-bond.html'],
+    ['blog_oxytocin-parent-bond','Oxytocin &amp; the parent bond','Published','blog_oxytocin-parent-bond.html'],
     ['blog_dopamine-oxytocin-love','Dopamine vs oxytocin','Published','blog_dopamine-oxytocin-love.html'],
     ['blog_empathic-ai-partner','Empathic AI vs your partner','Published','blog_empathic-ai-partner.html']
   ];
@@ -299,6 +299,9 @@
   function save(){try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
   function today(){return new Date().toISOString().slice(0,10);}
   function eff(id,seed){return (store[id]&&store[id].status)||seed;}
+  // auto-fill: any Published row with no date gets today (incl. seeded ones)
+  CONTENT.forEach(function(it){var id=it[0];var st=eff(id,it[2]);if(st==='Published'){store[id]=store[id]||{};if(!store[id].date){store[id].date=today();}}});
+  save();
   var tb=document.getElementById('tPub'), cnt=document.getElementById('pubCount');
   function refreshCount(){var d=CONTENT.filter(function(it){return eff(it[0],it[2])==='Published';}).length;cnt.textContent=d+' / '+CONTENT.length+' published';}
   function groupRow(label){var tr=document.createElement('tr');tr.innerHTML='<td colspan="3" style="background:#fbfcfc;font-family:\'DM Mono\',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-55);padding:10px 18px">'+label+'</td>';return tr;}
@@ -313,8 +316,12 @@
       '<td><input type="date" class="pubdate" value="'+date+'" style="font-family:\'DM Mono\',monospace;font-size:12px;border:1px solid var(--ink-08);border-radius:8px;padding:6px 8px;color:var(--ink);background:#fff"></td>';
     var sel=tr.querySelector('.pubsel'), dt=tr.querySelector('.pubdate');
     function paint(){var v=sel.value;sel.style.color=SC[v]||'var(--ink)';tr.style.opacity=v==='Published'?'1':(v==='In review'?'.9':'.6');}
-    sel.addEventListener('change',function(){store[id]=store[id]||{};store[id].status=sel.value;if(sel.value==='Published'&&!dt.value){dt.value=today();store[id].date=dt.value;}paint();save();refreshCount();});
-    dt.addEventListener('change',function(){store[id]=store[id]||{};store[id].date=dt.value;save();});
+    sel.addEventListener('change',function(){
+      store[id]=store[id]||{}; store[id].status=sel.value;
+      if(sel.value==='Published'){ if(!dt.value){dt.value=today();} store[id].date=dt.value; }
+      paint(); save(); refreshCount();
+    });
+    dt.addEventListener('change',function(){store[id]=store[id]||{}; store[id].date=dt.value; save();});
     paint(); return tr;
   }
   ITEMS.forEach(function(it){tb.appendChild(it[0]==='_g'?groupRow(it[1]):row(it));});
