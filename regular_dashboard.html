@@ -45,6 +45,7 @@
   .range-btn{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--ink-08);background:#fff;color:var(--ink-55);border-radius:100px;padding:9px 16px;cursor:pointer;transition:.15s}
   .range-btn:hover{color:var(--ink)}
   .range-btn.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .tsel{font-family:'DM Mono',monospace;font-size:11px;border:1px solid var(--ink-08);border-radius:8px;padding:8px 10px;color:var(--ink);background:#fff;cursor:pointer}
   .ranges .custom{display:inline-flex;align-items:center;gap:6px;margin-left:6px;font-family:'DM Mono',monospace;font-size:11px;color:var(--ink-55)}
   .ranges input[type=date]{font-family:'DM Mono',monospace;font-size:11px;border:1px solid var(--ink-08);border-radius:8px;padding:8px 10px;color:var(--ink)}
   .rangelabel{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.04em;color:var(--ink-55);margin-top:8px}
@@ -123,10 +124,17 @@
 
   <section id="pubtracker">
     <h2>Publishing tracker</h2>
-    <p class="sub">Imported from the Notion plan <a class="alink" href="https://app.notion.com/p/38299be402478149b59eff7974aa2832" target="_blank" rel="noopener">«GEO Content»</a> (Month 1). Set a status per piece — the publish date fills in <b>automatically</b> the moment it's marked Published (edit it if the real date differs). Saved in this browser. <span id="pubCount" style="color:var(--ink);font-weight:600"></span></p>
+    <p class="sub">Every article &amp; news post — newest first. Publish date fills in <b>automatically</b> from the first real visit logged on the live site (edit it if you know the exact date). Filter &amp; sort below. Saved in this browser. <span id="pubCount" style="color:var(--ink);font-weight:600"></span></p>
+    <div class="tfilter" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:6px 0 16px">
+      <select class="tsel" id="fStatus"><option value="">All statuses</option><option>Published</option><option>In review</option><option>To write</option></select>
+      <select class="tsel" id="fCat"><option value="">All topics</option><option>Intimacy</option><option>Reconnecting</option><option>Science</option><option>Tools</option><option>News</option></select>
+      <select class="tsel" id="fAuthor"><option value="">All authors</option><option>Elizaveta Shvets</option><option>Vadim Nikulin</option></select>
+      <span style="flex:1"></span>
+      <select class="tsel" id="fSort"><option value="new">Newest first</option><option value="old">Oldest first</option><option value="az">Title A–Z</option></select>
+    </div>
     <div class="card">
       <table>
-        <thead><tr><th style="width:130px">Status</th><th>Title</th><th style="width:150px">Published</th></tr></thead>
+        <thead><tr><th style="width:118px">Status</th><th>Title</th><th style="width:118px">Topic</th><th style="width:120px">Author</th><th style="width:140px">Published</th></tr></thead>
         <tbody id="tPub"></tbody>
       </table>
     </div>
@@ -247,11 +255,11 @@
       .then(function(r){if(!r.ok)throw 0;return r.json();})
       .then(function(rows){
         if(!Array.isArray(rows))throw 0;
-        ALL=rows.map(function(x){return {a:x.article,k:x.kind,d:(x.created_at||'').slice(0,10)};});
+        ALL=rows.map(function(x){return {a:x.article,k:x.kind,d:(x.created_at||'').slice(0,10)};});window.RG_ALL=ALL;if(window.RG_onEvents)window.RG_onEvents();
         setStatus('Live · all visitors · '+rows.length+' events · updated '+new Date().toLocaleString());
         apply();
       })
-      .catch(function(){ setStatus('Could not reach the server — showing this device only.'); ALL=fromLocal(); apply(); });
+      .catch(function(){ setStatus('Could not reach the server — showing this device only.'); ALL=fromLocal(); window.RG_ALL=ALL;if(window.RG_onEvents)window.RG_onEvents(); apply(); });
   }
   load();
   document.getElementById('refreshBtn').addEventListener('click',load);
@@ -261,77 +269,81 @@
 </script>
 <script>
 (function(){
-  var KEY='rg_pub_tracker2';
+  var KEY='rg_pub_tracker3';
   var STATUSES=['To write','In review','Published'];
   var SC={'To write':'#8a8a86','In review':'#C16A45','Published':'#3F7A4E'};
+  var CC={Intimacy:'#C0473E',Reconnecting:'#3F7A4E',Science:'#2F7B9E',Tools:'#C16A45',News:'#7A5AA6'};
+  // [slug, title, author, category, seedStatus, seedDate]
   var ITEMS=[
-    ['_g','Month 1 · Week 1 — white spots'],
-    ['plan_invisible','Why I Feel Invisible to My Wife After Baby','In review','blog_why-i-feel-invisible-to-my-wife-after-baby.html'],
-    ['plan_jealous','Is It Normal to Feel Jealous of Your Own Baby?','In review','blog_jealous-of-your-own-baby.html'],
-    ['blog_new-dad-feels-rejected','Why New Dads Feel Like the Third Wheel','Published','blog_new-dad-feels-rejected.html'],
-    ['_g','Month 1 · Week 2 — + timeline'],
-    ['plan_roommates','We’ve Become Roommates Since the Baby','To write',''],
-    ['blog_lonely-new-dad','New Dad Loneliness Is Real','Published','blog_lonely-new-dad.html'],
-    ['plan_timeline','The New Dad’s Timeline (Month by Month)','To write',''],
-    ['plan_tell-lonely','How to Tell Your Wife You Feel Lonely','In review','blog_how-to-tell-your-wife-you-feel-lonely.html'],
-    ['_g','Month 1 · Week 3 — intimacy / sex'],
-    ['plan_wife-ppd','My Wife Has PPD: A Guide for Dads','To write',''],
-    ['plan_touched-out','She Doesn’t Touch Me Anymore (“Touched Out”)','To write',''],
-    ['blog_wife-doesnt-want-sex-after-baby','Why Doesn’t My Wife Want Sex After the Baby?','Published','blog_wife-doesnt-want-sex-after-baby.html'],
-    ['blog_reconnect-with-wife-after-baby','How to Reconnect With Your Wife After Having a Baby','Published','blog_reconnect-with-wife-after-baby.html'],
-    ['_g','Month 1 · Week 4 — gatekeeping / anger / apps'],
-    ['plan_gatekeeping','Maternal Gatekeeping','To write',''],
-    ['plan_resent','Is It Normal to Resent the Baby?','To write',''],
-    ['news_dads-postpartum-depression-1-in-5','Paternal Postpartum Depression (news)','Published','news_dads-postpartum-depression-1-in-5.html'],
-    ['plan_best-apps','7 Best Apps for Couples After a Baby (Regular #1)','In review','blog_best-apps-for-couples-after-baby.html'],
-    ['_g','Also live (outside Month 1 plan)'],
-    ['blog_no-sex-after-baby','No sex after baby','Published','blog_no-sex-after-baby.html'],
-    ['blog_dead-bedroom-after-baby','Dead bedroom after a baby','Published','blog_dead-bedroom-after-baby.html'],
-    ['blog_single-vs-bad-relationship','Single vs a bad relationship','Published','blog_single-vs-bad-relationship.html'],
-    ['blog_relationship-confidence-health','Relationship confidence &amp; health','Published','blog_relationship-confidence-health.html'],
-    ['blog_savoring-good-moments','Savoring good moments','Published','blog_savoring-good-moments.html'],
-    ['blog_oxytocin-parent-bond','Oxytocin &amp; the parent bond','Published','blog_oxytocin-parent-bond.html'],
-    ['blog_dopamine-oxytocin-love','Dopamine vs oxytocin','Published','blog_dopamine-oxytocin-love.html'],
-    ['blog_empathic-ai-partner','Empathic AI vs your partner','Published','blog_empathic-ai-partner.html'],
-    ['blog_relationship-affects-bonding-with-baby','Does your relationship affect how you bond with your baby?','In review','blog_relationship-affects-bonding-with-baby.html'],
-    ['_g','News desk'],
-    ['news_ai-in-relationships-help-hard-parts','Half of people don\u2019t want AI running their love life','In review','news_ai-in-relationships-help-hard-parts.html'],
-    ['news_dads-meaning-vs-money','9 in 10 dads happy, 3 in 4 stressed about money','In review','news_dads-meaning-vs-money.html'],
-    ['news_paid-leave-new-dad-mental-health','Unpaid leave linked to 58% more dad anxiety','In review','news_paid-leave-new-dad-mental-health.html'],
-    ['news_dads-open-but-therapy-still-quiet','Dads more open than their fathers, but therapy stays quiet','In review','news_dads-open-but-therapy-still-quiet.html']
+    ['blog_why-i-feel-invisible-to-my-wife-after-baby','Why I feel invisible to my wife after baby','Vadim Nikulin','Reconnecting','Published','2026-06-29'],
+    ['blog_jealous-of-your-own-baby','Is it normal to feel jealous of your own baby?','Vadim Nikulin','Reconnecting','Published','2026-06-29'],
+    ['blog_relationship-affects-bonding-with-baby','Does your relationship affect bonding with your baby?','Elizaveta Shvets','Science','Published','2026-06-29'],
+    ['news_dads-open-but-therapy-still-quiet','Dads more open than their fathers, but therapy stays quiet','Elizaveta Shvets','News','In review',''],
+    ['news_paid-leave-new-dad-mental-health','Unpaid leave linked to 58% more dad anxiety','Elizaveta Shvets','News','In review',''],
+    ['news_dads-meaning-vs-money','9 in 10 dads happy, 3 in 4 stressed about money','Elizaveta Shvets','News','In review',''],
+    ['news_ai-in-relationships-help-hard-parts','Half don’t want AI running their love life','Elizaveta Shvets','News','In review',''],
+    ['blog_best-apps-for-couples-after-baby','7 best apps for couples after a baby','Vadim Nikulin','Tools','In review',''],
+    ['blog_how-to-tell-your-wife-you-feel-lonely','How to tell your wife you feel lonely','Elizaveta Shvets','Reconnecting','Published','2026-06-25'],
+    ['news_dads-postpartum-depression-1-in-5','1 in 5 dads have postpartum depression','Elizaveta Shvets','News','Published','2026-06-20'],
+    ['blog_no-sex-after-baby','No sex after baby: is this normal?','Vadim Nikulin','Intimacy','Published','2026-06-17'],
+    ['blog_reconnect-with-wife-after-baby','How to reconnect with your wife','Elizaveta Shvets','Reconnecting','Published','2026-06-17'],
+    ['blog_wife-doesnt-want-sex-after-baby','Wife doesn’t want sex after baby','Elizaveta Shvets','Intimacy','Published','2026-06-17'],
+    ['blog_dead-bedroom-after-baby','Dead bedroom after a baby','Elizaveta Shvets','Intimacy','Published','2026-06-17'],
+    ['blog_new-dad-feels-rejected','Why new dads feel rejected','Elizaveta Shvets','Reconnecting','Published','2026-06-17'],
+    ['blog_lonely-new-dad','Lonely as a new dad','Elizaveta Shvets','Reconnecting','Published','2026-06-17'],
+    ['blog_single-vs-bad-relationship','Is single better than a bad relationship?','Elizaveta Shvets','Science','Published','2026-06-17'],
+    ['blog_relationship-confidence-health','Relationship confidence & health','Elizaveta Shvets','Science','Published','2026-06-17'],
+    ['blog_savoring-good-moments','Savoring good moments','Elizaveta Shvets','Science','Published','2026-06-17'],
+    ['blog_oxytocin-parent-bond','Oxytocin & the parent bond','Elizaveta Shvets','Science','Published','2026-06-17'],
+    ['blog_dopamine-oxytocin-love','Dopamine vs oxytocin','Elizaveta Shvets','Science','Published','2026-06-17'],
+    ['blog_empathic-ai-partner','Empathic AI vs your partner','Elizaveta Shvets','Science','Published','2026-06-17']
   ];
-  var CONTENT=ITEMS.filter(function(it){return it[0]!=='_g';});
-  var store={}; try{store=JSON.parse(localStorage.getItem(KEY)||'{}')||{};}catch(e){store={};}
+  var store={}; try{store=JSON.parse(localStorage.getItem(KEY)||'{}')||{};}catch(e){}
   function save(){try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
   function today(){return new Date().toISOString().slice(0,10);}
-  function eff(id,seed){return (store[id]&&store[id].status)||seed;}
-  // auto-fill: any Published row with no date gets today (incl. seeded ones)
-  CONTENT.forEach(function(it){var id=it[0];var st=eff(id,it[2]);if(st==='Published'){store[id]=store[id]||{};if(!store[id].date){store[id].date=today();}}});
-  save();
+  function firstSeen(){var m={},ev=window.RG_ALL||[];for(var i=0;i<ev.length;i++){var e=ev[i];if(e.k==='view'&&e.d){if(!m[e.a]||e.d<m[e.a])m[e.a]=e.d;}}return m;}
+  function effDate(id,sd,seen){var s=store[id]||{};if(s.date)return s.date;if(seen[id])return seen[id];return sd||'';}
+  function effStatus(id,seed,seen){var s=store[id]||{};if(s.status)return s.status;if(seen[id])return 'Published';return seed;}
   var tb=document.getElementById('tPub'), cnt=document.getElementById('pubCount');
-  function refreshCount(){var d=CONTENT.filter(function(it){return eff(it[0],it[2])==='Published';}).length;cnt.textContent=d+' / '+CONTENT.length+' published';}
-  function groupRow(label){var tr=document.createElement('tr');tr.innerHTML='<td colspan="3" style="background:#fbfcfc;font-family:\'DM Mono\',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-55);padding:10px 18px">'+label+'</td>';return tr;}
-  function row(it){
-    var id=it[0],title=it[1],seed=it[2],url=it[3];
-    var st=eff(id,seed), date=(store[id]&&store[id].date)||'';
-    var opts=STATUSES.map(function(s){return '<option'+(s===st?' selected':'')+'>'+s+'</option>';}).join('');
-    var titleHTML=url?'<a class="alink" href="'+url+'" target="_blank" rel="noopener">'+title+'</a>':'<span style="color:var(--ink-72)">'+title+'</span>';
-    var tr=document.createElement('tr');
-    tr.innerHTML='<td><select class="pubsel" style="font-family:\'DM Mono\',monospace;font-size:11px;border:1px solid var(--ink-08);border-radius:8px;padding:7px 8px;background:#fff;cursor:pointer;font-weight:600">'+opts+'</select></td>'+
-      '<td>'+titleHTML+'</td>'+
-      '<td><input type="date" class="pubdate" value="'+date+'" style="font-family:\'DM Mono\',monospace;font-size:12px;border:1px solid var(--ink-08);border-radius:8px;padding:6px 8px;color:var(--ink);background:#fff"></td>';
-    var sel=tr.querySelector('.pubsel'), dt=tr.querySelector('.pubdate');
-    function paint(){var v=sel.value;sel.style.color=SC[v]||'var(--ink)';tr.style.opacity=v==='Published'?'1':(v==='In review'?'.9':'.6');}
-    sel.addEventListener('change',function(){
-      store[id]=store[id]||{}; store[id].status=sel.value;
-      if(sel.value==='Published'){ if(!dt.value){dt.value=today();} store[id].date=dt.value; }
-      paint(); save(); refreshCount();
+  function read(id){var el=document.getElementById(id);return el?el.value:'';}
+  function render(){
+    if(!tb)return;
+    var seen=firstSeen();
+    var fS=read('fStatus'),fC=read('fCat'),fA=read('fAuthor'),sort=read('fSort')||'new';
+    var rows=ITEMS.map(function(it){return {id:it[0],title:it[1],author:it[2],cat:it[3],status:effStatus(it[0],it[4],seen),date:effDate(it[0],it[5],seen)};});
+    var pub=rows.filter(function(r){return r.status==='Published';}).length;
+    if(cnt)cnt.textContent=pub+' / '+rows.length+' published';
+    rows=rows.filter(function(r){return (!fS||r.status===fS)&&(!fC||r.cat===fC)&&(!fA||r.author===fA);});
+    rows.sort(function(a,b){
+      if(sort==='az')return a.title.localeCompare(b.title);
+      var da=a.date||'',db=b.date||'';
+      if(da&&!db)return -1; if(!da&&db)return 1;
+      if(da!==db)return sort==='old'?(da<db?-1:1):(da<db?1:-1);
+      return a.title.localeCompare(b.title);
     });
-    dt.addEventListener('change',function(){store[id]=store[id]||{}; store[id].date=dt.value; save();});
-    paint(); return tr;
+    tb.innerHTML='';
+    rows.forEach(function(r){
+      var tr=document.createElement('tr');
+      var opts=STATUSES.map(function(s){return '<option'+(s===r.status?' selected':'')+'>'+s+'</option>';}).join('');
+      tr.innerHTML='<td><select class="pubsel" data-id="'+r.id+'" style="font-family:\'DM Mono\',monospace;font-size:11px;border:1px solid var(--ink-08);border-radius:8px;padding:7px 8px;background:#fff;cursor:pointer;font-weight:600;color:'+(SC[r.status]||'#111')+'">'+opts+'</select></td>'+
+        '<td><a class="alink" href="'+r.id+'.html" target="_blank" rel="noopener">'+r.title+'</a></td>'+
+        '<td><span style="font-family:\'DM Mono\',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:'+(CC[r.cat]||'#666')+'">'+r.cat+'</span></td>'+
+        '<td style="font-size:13px;color:var(--ink-72)">'+r.author+'</td>'+
+        '<td><input type="date" class="pubdate" data-id="'+r.id+'" value="'+r.date+'" style="font-family:\'DM Mono\',monospace;font-size:12px;border:1px solid var(--ink-08);border-radius:8px;padding:6px 8px;color:var(--ink);background:#fff"></td>';
+      tr.style.opacity=r.status==='Published'?'1':(r.status==='In review'?'.92':'.6');
+      tb.appendChild(tr);
+    });
   }
-  ITEMS.forEach(function(it){tb.appendChild(it[0]==='_g'?groupRow(it[1]):row(it));});
-  refreshCount();
+  if(tb)tb.addEventListener('change',function(e){
+    var sel=e.target.closest('.pubsel'), dt=e.target.closest('.pubdate');
+    if(sel){var id=sel.getAttribute('data-id');store[id]=store[id]||{};store[id].status=sel.value;
+      if(sel.value==='Published'){var seen=firstSeen();if(!store[id].date&&!seen[id]){var it=ITEMS.filter(function(x){return x[0]===id;})[0];if(!(it&&it[5]))store[id].date=today();}}
+      save();render();}
+    else if(dt){var id=dt.getAttribute('data-id');store[id]=store[id]||{};store[id].date=dt.value;save();render();}
+  });
+  ['fStatus','fCat','fAuthor','fSort'].forEach(function(s){var el=document.getElementById(s);if(el)el.addEventListener('change',render);});
+  window.RG_onEvents=render;
+  render();
 })();
 </script>
 
