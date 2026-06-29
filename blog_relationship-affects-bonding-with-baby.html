@@ -54,6 +54,7 @@
   .btn .dot{width:7px;height:7px;border-radius:50%;background:var(--rust)}
   footer{border-top:1px solid var(--ink-08);padding:36px 0;color:var(--ink-55);font-size:13px;text-align:center;margin-top:40px}
   footer a{color:var(--ink-55)}
+  .aboutbox{display:flex;gap:20px;align-items:center;background:#f3f2ef;border-radius:20px;padding:26px 28px;margin:50px 0 16px}.aboutbox .ab-logo{width:80px;height:80px;border-radius:14px;background:var(--ink);flex:none;display:flex;align-items:center;justify-content:center}.aboutbox .ab-logo img{width:44px;height:44px;filter:brightness(0) invert(1)}.aboutbox .ab-title{font-family:'Noto Serif',Georgia,serif;font-weight:600;font-size:22px;color:var(--ink);margin-bottom:6px}.aboutbox p{margin:0;font-size:15.5px;line-height:1.65;color:var(--ink-72)}.aboutbox p a{color:var(--rust);border-bottom:1px solid var(--rust);text-decoration:none}.medbox{background:#f6f6f4;border-radius:20px;padding:22px 26px;margin:0 0 8px;font-size:14px;line-height:1.7;color:var(--ink-55)}.medbox a{color:var(--ink-55);text-decoration:underline}@media(max-width:560px){.aboutbox{flex-direction:column;align-items:flex-start;gap:14px}}
 </style>
 <!-- Google Analytics 4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNWV2T2BK9"></script>
@@ -160,8 +161,6 @@ window.addEventListener('load',function(){try{var _p=(location.pathname.split('/
       <li><b>One honesty move.</b> If your own mood has been flat for a couple of weeks, say so to someone — your partner, a friend, or a professional. Naming it is the first step the research keeps pointing back to.</li>
     </ol>
 
-    <div class="softcta" style="margin:46px 0 8px;padding:24px 0 4px;border-top:1px solid var(--ink-08);color:var(--ink-72);font-size:16.5px;line-height:1.75">If any of this landed and you want a hand — a calm, no‑pressure way to start realigning things with her, without a big talk or homework — you can <a href="https://apps.apple.com/app/regular-ai-for-couples/id6758154999?pt=128257102&amp;ct=blog_relationship-affects-bonding-with-baby" target="_blank" rel="noopener" style="color:var(--rust);border-bottom:1px solid var(--rust);text-decoration:none">try Regular</a>. It reads where you two are and offers one small thing to try tonight, only when you’re ready.</div>
-
     <div id="srcbox" style="margin:48px 0 0;padding:22px 24px;border:1px solid var(--ink-08);border-radius:16px;background:#fbfcfc">
 <b style="font-family:'DM Mono',monospace;display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--rust);margin-bottom:12px">Sources &amp; further reading</b>
 <ul style="margin:0;padding-left:20px">
@@ -194,14 +193,15 @@ window.addEventListener('load',function(){try{var _p=(location.pathname.split('/
 </ul>
 </nav>
 
-<div class="clap">
+<div class="aboutbox"><div class="ab-logo"><img src="regular_logo.svg" alt="Regular"></div><div><div class="ab-title">About Regular</div><p>Regular is the relationship app for new dads in the first year after a baby. With your permission it reads your couple’s context and hands you one small, doable move tonight — grounded in Gottman and EFT — to help you reconnect, without pressure on you or on her. <a href="https://apps.apple.com/app/regular-ai-for-couples/id6758154999?pt=128257102&amp;ct=blog_relationship-affects-bonding-with-baby" target="_blank" rel="noopener">Try Regular free</a>.</p></div></div>
+<div class="medbox">This article is information and support, not a substitute for medical or psychological advice. For anything to do with your mental health, we recommend speaking with a qualified professional. If you or someone in your family is in crisis, considering self-harm or harming others, or otherwise in immediate danger, call your local emergency services, or <a href="https://www.google.com/search?q=suicide+crisis+helpline" target="_blank" rel="noopener">find a crisis helpline in your country</a>.</div>
+    <div class="clap">
       <span class="cq">Helpful? Give it a star — or fifty</span>
       <button class="clapBtn" id="clapBtn" aria-label="Give a star"><span>★</span><span class="cfloat" id="cfloat">+1</span></button>
       <div class="clapinfo"><span class="tot" id="clapTotal"></span><span id="clapReaders"></span></div>
       <div class="claphint" id="clapHint">Tap the star — add up to 50 · saved here</div>
     </div>
-    <p class="disclaimer">This article summarizes published research for information and support. It isn't medical or psychological advice and isn't a substitute for professional care. The 2025 study described is cross-sectional and shows association, not proof of cause. If you or your partner may be experiencing postpartum depression, or you're in crisis, please contact a qualified professional or a local support service.</p>
-  </article>
+    </article>
 </div>
 
 <footer>© 2026 Regular · <a href="regular_blog">More from the blog</a></footer>
