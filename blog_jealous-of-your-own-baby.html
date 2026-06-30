@@ -52,6 +52,13 @@
   footer{border-top:1px solid var(--ink-08);padding:36px 0;color:var(--ink-55);font-size:13px;text-align:center;margin-top:40px}
   footer a{color:var(--ink-55)}
   .aboutbox{display:flex;gap:16px;align-items:flex-start;border:1px solid var(--ink-08);border-radius:18px;padding:22px 24px;margin:50px 0 12px;background:#fff}.aboutbox .ab-logo{width:44px;height:44px;border-radius:12px;background:var(--ink);flex:none;display:flex;align-items:center;justify-content:center}.aboutbox .ab-logo img{width:24px;height:24px;filter:brightness(0) invert(1)}.aboutbox .ab-kicker{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ember);margin-bottom:5px}.aboutbox .ab-title{font-weight:800;font-size:18px;letter-spacing:-.01em;color:var(--ink);margin-bottom:7px;line-height:1.25}.aboutbox p{margin:0;font-size:15px;line-height:1.65;color:var(--ink-72)}.aboutbox p a{color:var(--rust);border-bottom:1px solid var(--rust);text-decoration:none}.medbox{font-size:13px;line-height:1.7;color:var(--ink-55);border-left:3px solid var(--ink-08);padding:2px 0 2px 16px;margin:6px 0 8px}.medbox a{color:var(--ink-55);text-decoration:underline}@media(max-width:560px){.aboutbox{flex-direction:column;align-items:flex-start;gap:12px}}
+  .authorcard{display:flex;gap:16px;align-items:center;margin:40px 0 0;padding:20px 22px;border:1px solid var(--ink-08);border-radius:18px;background:#fbfcfc}
+  .authorcard img{width:54px;height:54px;border-radius:50%;object-fit:cover;flex:none}
+  .authorcard .nm{font-weight:700;font-size:15px}
+  .authorcard .rl{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-55);margin-top:3px}
+  .authorcard .rl a{color:var(--rust)}
+  .authorcard p{margin:8px 0 0;font-size:14px;line-height:1.6;color:var(--ink-72)}
+  @media(max-width:560px){.authorcard{align-items:flex-start}}
 </style>
 <!-- Google Analytics 4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNWV2T2BK9"></script>
@@ -155,14 +162,14 @@ window.addEventListener('load',function(){try{var _p=(location.pathname.split('/
     <p>If you're in the right-hand column — especially the last row — that's not weakness, and it's not permanent. It's a medical thing with good treatment. Talk to a professional this week.</p>
 
     <h2>What actually helps tonight</h2>
-    <p class="answer">What helps is treating the jealousy as a pointer to an unmet need and acting on that need: name the feeling, translate it into a request for closeness, and build your own bond with the baby. Couples who reconnect intentionally recover; those who wait it out often stay stuck for years (Doss et al., 2009).</p>
+    <p class="answer">What helps is treating the jealousy as a pointer to an unmet need and acting on that need: name the feeling, translate it into a request for closeness, and build your own bond with the baby. Couples who reconnect intentionally recover; those who <a href="https://pubmed.ncbi.nlm.nih.gov/19254107/" target="_blank" rel="noopener" style="color:var(--rust);text-decoration:none;border-bottom:1px solid rgba(78,156,190,.45)">wait it out often stay stuck for years</a> (Doss et al., 2009).</p>
 
     <ol>
       <li><b>Name it privately, without judging it.</b> "I feel jealous — that's a feeling, not an action, and it doesn't make me a bad dad." Naming an emotion measurably lowers its grip and stops the shame spiral.</li>
       <li><b>Translate jealousy into a need.</b> Under "I'm jealous of the baby" is almost always "I miss feeling close to my partner." That second sentence is something you can actually ask for.</li>
       <li><b>Ask for one small slice of couple time.</b> "Can we have ten minutes that's just us tonight?" You're not competing with your child — you're protecting the couple underneath the parents.</li>
-      <li><b>Build your own bond with the baby.</b> Claim a caregiving ritual that's yours — the bath, the evening walk, bedtime. One-on-one time turns the baby from a rival into <em>your kid</em>, and involved, hands-on fathering is linked to better relationship quality for both partners (Bouchard, 2017).</li>
-      <li><b>Watch the line into depression.</b> If jealousy hardens into constant resentment or numbness for two weeks or more, call a professional. That's care, not failure.</li>
+      <li><b>Build your own bond with the baby.</b> Claim a caregiving ritual that's yours — the bath, the evening walk, bedtime. One-on-one time turns the baby from a rival into <em>your kid</em>, and involved, hands-on fathering is <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6294450/" target="_blank" rel="noopener" style="color:var(--rust);text-decoration:none;border-bottom:1px solid rgba(78,156,190,.45)">linked to better relationship quality for both partners</a> (Bouchard, 2017).</li>
+      <li><b>Watch the line into depression.</b> If jealousy hardens into constant resentment or numbness for two weeks or more, call a professional — paternal depression is real and <a href="https://pubmed.ncbi.nlm.nih.gov/31757623/" target="_blank" rel="noopener" style="color:var(--rust);text-decoration:none;border-bottom:1px solid rgba(78,156,190,.45)">tends to peak around 3–6 months in</a> (Rao et al., 2020). That's care, not failure.</li>
     </ol>
 
     <figure class="viz"><div class="vt">By the numbers</div><svg viewBox="0 0 680 64" role="img" aria-label="Across a five-year study of 1,275 couples, higher father involvement and coparenting were linked to higher relationship quality and buffered the decline that usually follows a baby.">
@@ -171,15 +178,6 @@ window.addEventListener('load',function(){try{var _p=(location.pathname.split('/
 <rect x="20" y="26" width="470" height="20" rx="6" fill="#3F7A4E"/>
 <text x="500" y="41" font-family="DM Mono,monospace" font-size="12" font-weight="600" fill="#111">buffers the drop</text>
 </svg><figcaption>In a five-year study of 1,275 couples, fathers' involvement and coparenting were positively tied to relationship quality for both partners — softening the decline that usually follows a baby. Source: Bouchard, 2017, Sex Roles (Fragile Families cohort).</figcaption></figure>
-
-    <div id="srcbox" style="margin:48px 0 0;padding:22px 24px;border:1px solid var(--ink-08);border-radius:16px;background:#fbfcfc">
-<b style="font-family:'DM Mono',monospace;display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--rust);margin-bottom:12px">Sources &amp; further reading</b>
-<ul style="margin:0;padding-left:20px">
-<li style="margin:8px 0;font-size:15px"><a href="https://pubmed.ncbi.nlm.nih.gov/19254107/" target="_blank" rel="noopener" style="color:var(--ink);border-bottom:1px solid var(--rust);text-decoration:none">Doss, Rhoades, Stanley &amp; Markman, 2009 — 8-year prospective study: sharp drop in relationship quality after the first baby (J. Personality &amp; Social Psychology)</a></li>
-<li style="margin:8px 0;font-size:15px"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6294450/" target="_blank" rel="noopener" style="color:var(--ink);border-bottom:1px solid var(--rust);text-decoration:none">Bouchard, 2017 — fathers' involvement &amp; coparenting buffer the post-baby decline in relationship quality (Sex Roles)</a></li>
-<li style="margin:8px 0;font-size:15px"><a href="https://pubmed.ncbi.nlm.nih.gov/31757623/" target="_blank" rel="noopener" style="color:var(--ink);border-bottom:1px solid var(--rust);text-decoration:none">Rao et al., 2020 — paternal depression peaks around 3–6 months (J. Affective Disorders)</a></li>
-</ul>
-</div>
 
 <section id="faqs" aria-label="Frequently asked questions">
 <h2>Frequently asked questions</h2>
@@ -195,16 +193,19 @@ window.addEventListener('load',function(){try{var _p=(location.pathname.split('/
 <p>Name the feeling without judging it, translate it into a need for closeness, ask your partner for one small slice of couple time, and build your own one-on-one bond with the baby. A daily check-in tool like Regular gives you the prompt to reconnect with your partner so the jealousy loses its fuel.</p>
 </section>
 
-<nav class="related" style="margin:40px 0;padding-top:24px;border-top:1px solid var(--ink-08)">
-<b style="font-family:'DM Mono',monospace;display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ember);margin-bottom:12px">Keep reading</b>
-<ul style="margin:0;padding-left:20px">
-<li style="margin:8px 0;font-size:15.5px"><a href="blog_lonely-new-dad" style="color:var(--ink);border-bottom:1px solid var(--rust);text-decoration:none">Lonely as a new dad? Why it happens and what helps</a></li>
-<li style="margin:8px 0;font-size:15.5px"><a href="blog_dead-bedroom-after-baby" style="color:var(--ink);border-bottom:1px solid var(--rust);text-decoration:none">Dead bedroom after baby: what's normal and what helps</a></li>
-<li style="margin:8px 0;font-size:15.5px"><a href="regular_how-relationships-work" style="color:var(--ink);border-bottom:1px solid var(--rust);text-decoration:none">How relationships actually work after a baby</a></li>
-</ul>
-</nav>
+<p class="readmore" style="margin:34px 0 0;padding-top:20px;border-top:1px solid var(--ink-08);font-size:14.5px;line-height:1.8;color:var(--ink-55)"><span style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ember);display:block;margin-bottom:6px">Keep reading</span><a href="blog_lonely-new-dad" style="color:var(--ink);text-decoration:none;border-bottom:1px solid var(--ink-08)">Lonely as a new dad? Why it happens and what helps</a> &nbsp;·&nbsp; <a href="blog_dead-bedroom-after-baby" style="color:var(--ink);text-decoration:none;border-bottom:1px solid var(--ink-08)">Dead bedroom after baby: what's normal and what helps</a> &nbsp;·&nbsp; <a href="regular_how-relationships-work" style="color:var(--ink);text-decoration:none;border-bottom:1px solid var(--ink-08)">How relationships actually work after a baby</a></p>
 
-<div class="aboutbox"><div class="ab-logo"><img src="regular_logo.svg" alt="Regular"></div><div><div class="ab-kicker">About Regular</div><div class="ab-title">The relationship app for new dads</div><p>Regular is built by a small team of parents who needed it themselves — a companion for the first year after a baby that helps new dads rebuild closeness with their partner through small, science-backed moments, not big talks. Our mission: make the post-baby year less lonely, for both of you. <a href="/regular_about">More about us</a>.</p></div></div>
+<div class="authorcard">
+  <img src="team_vadim.jpg" alt="Vadim Nikulin">
+  <div>
+    <div class="nm">Vadim Nikulin</div>
+    <div class="rl">Contributing Editor, Regular · <a href="https://www.linkedin.com/in/vnikulin" target="_blank" rel="noopener">LinkedIn</a></div>
+    <p>Contributing editor at Regular, and a dad himself. Writes the honest, from-a-dad's-side pieces on closeness, sex and the messy first year.</p>
+  </div>
+</div>
+
+<p class="aboutreg" style="font-size:14px;line-height:1.68;color:var(--ink-55);margin:26px 0 0;padding-top:18px;border-top:1px solid var(--ink-08)"><b style="color:var(--ink-72)">About Regular &mdash;</b> the relationship app for new dads, built by a small team of parents who needed it themselves. Small, science-backed moves with your partner, not big talks.</p>
+<p style="margin:16px 0 0"><a class="ab-cta" href="https://apps.apple.com/app/id6758154999" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:9px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;color:var(--ink);background:#fff;border:1px solid var(--ink-08);border-radius:99px;padding:11px 20px"><span style="width:7px;height:7px;border-radius:50%;background:var(--rust)"></span>Meet Regular</a></p>
 <div class="medbox">This article is information and support, not a substitute for medical or psychological advice. For anything to do with your mental health, we recommend speaking with a qualified professional. If you or someone in your family is in crisis, considering self-harm or harming others, or otherwise in immediate danger, call your local emergency services, or <a href="https://www.google.com/search?q=mental+health+helpline" target="_blank" rel="noopener">find mental-health support in your country</a>.</div>
     <div class="clap">
       <span class="cq">Helpful? Give it a star — or fifty</span>

@@ -52,6 +52,13 @@
   footer{border-top:1px solid var(--ink-08);padding:36px 0;color:var(--ink-55);font-size:13px;text-align:center;margin-top:40px}
   footer a{color:var(--ink-55)}
   .aboutbox{display:flex;gap:16px;align-items:flex-start;border:1px solid var(--ink-08);border-radius:18px;padding:22px 24px;margin:50px 0 12px;background:#fff}.aboutbox .ab-logo{width:44px;height:44px;border-radius:12px;background:var(--ink);flex:none;display:flex;align-items:center;justify-content:center}.aboutbox .ab-logo img{width:24px;height:24px;filter:brightness(0) invert(1)}.aboutbox .ab-kicker{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ember);margin-bottom:5px}.aboutbox .ab-title{font-weight:800;font-size:18px;letter-spacing:-.01em;color:var(--ink);margin-bottom:7px;line-height:1.25}.aboutbox p{margin:0;font-size:15px;line-height:1.65;color:var(--ink-72)}.aboutbox p a{color:var(--rust);border-bottom:1px solid var(--rust);text-decoration:none}.medbox{font-size:13px;line-height:1.7;color:var(--ink-55);border-left:3px solid var(--ink-08);padding:2px 0 2px 16px;margin:6px 0 8px}.medbox a{color:var(--ink-55);text-decoration:underline}@media(max-width:560px){.aboutbox{flex-direction:column;align-items:flex-start;gap:12px}}
+  .authorcard{display:flex;gap:16px;align-items:center;margin:40px 0 0;padding:20px 22px;border:1px solid var(--ink-08);border-radius:18px;background:#fbfcfc}
+  .authorcard img{width:54px;height:54px;border-radius:50%;object-fit:cover;flex:none}
+  .authorcard .nm{font-weight:700;font-size:15px}
+  .authorcard .rl{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-55);margin-top:3px}
+  .authorcard .rl a{color:var(--rust)}
+  .authorcard p{margin:8px 0 0;font-size:14px;line-height:1.6;color:var(--ink-72)}
+  @media(max-width:560px){.authorcard{align-items:flex-start}}
   .viz{margin:30px 0;border:1px solid var(--ink-08);border-radius:16px;padding:20px 22px 16px;background:#fbfcfc}.viz svg{width:100%;height:auto;display:block}.viz figcaption{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.03em;color:var(--ink-55);margin-top:12px;line-height:1.55}.viz figcaption a{color:var(--ink-55)}.viz .vt{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ember);margin-bottom:12px}
 </style>
 <!-- Google Analytics 4 -->
@@ -114,7 +121,7 @@ window.addEventListener('load',function(){try{var _p=(location.pathname.split('/
     <p>This one's for you. Here's what's actually happening, why it lands so hard on dads, and the small moves that pull you back into focus.</p>
 
     <h2>What "feeling invisible" actually is</h2>
-    <p class="answer">Feeling invisible after a baby is the experience of being physically present but emotionally unregistered — you're in the room, doing the work, but no longer the person she turns toward. It's extremely common: in a peer-reviewed study of first-time fathers, the men's central experience was being "present but invisible" — there for everything, yet sidelined and unseen (Hodgson et al., 2021).</p>
+    <p class="answer">Feeling invisible after a baby is the experience of being physically present but emotionally unregistered — you're in the room, doing the work, but no longer the person she turns toward. It's extremely common: in a <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7913323/" target="_blank" rel="noopener" style="color:var(--rust);text-decoration:none;border-bottom:1px solid rgba(78,156,190,.45)">peer-reviewed study of first-time fathers, the men's central experience was being "present but invisible"</a> — there for everything, yet sidelined and unseen (Hodgson et al., 2021).</p>
 
     <p>It isn't in your head, and it isn't vanity. After birth, your partner's brain and body are rewired around one job: keeping a fragile newborn alive. The hormones, the shattered sleep, the constant low-grade alarm — none of it is a choice, and none of it is a verdict on you. But the practical result is that the beam of her attention narrows to the baby, and you're standing just outside it.</p>
 
@@ -180,15 +187,6 @@ window.addEventListener('load',function(){try{var _p=(location.pathname.split('/
 <text x="184" y="84" font-family="DM Mono,monospace" font-size="12" font-weight="600" fill="#111">5–15%</text>
 </svg><figcaption>Distress in the perinatal year is more common in fathers than most men realise — yet many quietly question whether their own struggle is even allowed. Source: Darwin et al., 2017, BMC Pregnancy &amp; Childbirth.</figcaption></figure>
 
-    <div id="srcbox" style="margin:48px 0 0;padding:22px 24px;border:1px solid var(--ink-08);border-radius:16px;background:#fbfcfc">
-<b style="font-family:'DM Mono',monospace;display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--rust);margin-bottom:12px">Sources &amp; further reading</b>
-<ul style="margin:0;padding-left:20px">
-<li style="margin:8px 0;font-size:15px"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7913323/" target="_blank" rel="noopener" style="color:var(--ink);border-bottom:1px solid var(--rust);text-decoration:none">Hodgson, Painter, Kilby &amp; Hirst, 2021 — first-time fathers "present but invisible" in perinatal services (Healthcare)</a></li>
-<li style="margin:8px 0;font-size:15px"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5270346/" target="_blank" rel="noopener" style="color:var(--ink);border-bottom:1px solid var(--rust);text-decoration:none">Darwin et al., 2017 — fathers question the legitimacy of their own perinatal distress and stay silent (BMC Pregnancy &amp; Childbirth)</a></li>
-<li style="margin:8px 0;font-size:15px"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9350520/" target="_blank" rel="noopener" style="color:var(--ink);border-bottom:1px solid var(--rust);text-decoration:none">Bogdan, Turliuc &amp; Candel, 2022 — meta-analysis of 145,139 people: marital satisfaction drops in the first year for both partners (Frontiers in Psychology)</a></li>
-</ul>
-</div>
-
 <section id="faqs" aria-label="Frequently asked questions">
 <h2>Frequently asked questions</h2>
 <h3>Why do I feel invisible to my wife since she had the baby?</h3>
@@ -203,16 +201,19 @@ window.addEventListener('load',function(){try{var _p=(location.pathname.split('/
 <p>Name the transition instead of blaming her, swap vague feelings for one small specific request, and start a five-minute daily check-in that isn't about logistics or the baby. A structured tool like Regular gives you the prompt and opening line so reconnecting becomes a nightly habit rather than one hard talk you keep postponing.</p>
 </section>
 
-<nav class="related" style="margin:40px 0;padding-top:24px;border-top:1px solid var(--ink-08)">
-<b style="font-family:'DM Mono',monospace;display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ember);margin-bottom:12px">Keep reading</b>
-<ul style="margin:0;padding-left:20px">
-<li style="margin:8px 0;font-size:15.5px"><a href="blog_lonely-new-dad" style="color:var(--ink);border-bottom:1px solid var(--rust);text-decoration:none">Lonely as a new dad? Why it happens and what helps</a></li>
-<li style="margin:8px 0;font-size:15.5px"><a href="blog_dead-bedroom-after-baby" style="color:var(--ink);border-bottom:1px solid var(--rust);text-decoration:none">Dead bedroom after baby: what's normal and what helps</a></li>
-<li style="margin:8px 0;font-size:15.5px"><a href="regular_how-relationships-work" style="color:var(--ink);border-bottom:1px solid var(--rust);text-decoration:none">How relationships actually work after a baby</a></li>
-</ul>
-</nav>
+<p class="readmore" style="margin:34px 0 0;padding-top:20px;border-top:1px solid var(--ink-08);font-size:14.5px;line-height:1.8;color:var(--ink-55)"><span style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ember);display:block;margin-bottom:6px">Keep reading</span><a href="blog_lonely-new-dad" style="color:var(--ink);text-decoration:none;border-bottom:1px solid var(--ink-08)">Lonely as a new dad? Why it happens and what helps</a> &nbsp;·&nbsp; <a href="blog_dead-bedroom-after-baby" style="color:var(--ink);text-decoration:none;border-bottom:1px solid var(--ink-08)">Dead bedroom after baby: what's normal and what helps</a> &nbsp;·&nbsp; <a href="regular_how-relationships-work" style="color:var(--ink);text-decoration:none;border-bottom:1px solid var(--ink-08)">How relationships actually work after a baby</a></p>
 
-<div class="aboutbox"><div class="ab-logo"><img src="regular_logo.svg" alt="Regular"></div><div><div class="ab-kicker">About Regular</div><div class="ab-title">The relationship app for new dads</div><p>Regular is built by a small team of parents who needed it themselves — a companion for the first year after a baby that helps new dads rebuild closeness with their partner through small, science-backed moments, not big talks. Our mission: make the post-baby year less lonely, for both of you. <a href="/regular_about">More about us</a>.</p></div></div>
+<div class="authorcard">
+  <img src="team_vadim.jpg" alt="Vadim Nikulin">
+  <div>
+    <div class="nm">Vadim Nikulin</div>
+    <div class="rl">Contributing Editor, Regular · <a href="https://www.linkedin.com/in/vnikulin" target="_blank" rel="noopener">LinkedIn</a></div>
+    <p>Contributing editor at Regular, and a dad himself. Writes the honest, from-a-dad's-side pieces on closeness, sex and the messy first year.</p>
+  </div>
+</div>
+
+<p class="aboutreg" style="font-size:14px;line-height:1.68;color:var(--ink-55);margin:26px 0 0;padding-top:18px;border-top:1px solid var(--ink-08)"><b style="color:var(--ink-72)">About Regular &mdash;</b> the relationship app for new dads, built by a small team of parents who needed it themselves. Small, science-backed moves with your partner, not big talks.</p>
+<p style="margin:16px 0 0"><a class="ab-cta" href="https://apps.apple.com/app/id6758154999" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:9px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;color:var(--ink);background:#fff;border:1px solid var(--ink-08);border-radius:99px;padding:11px 20px"><span style="width:7px;height:7px;border-radius:50%;background:var(--rust)"></span>Meet Regular</a></p>
 <div class="medbox">This article is information and support, not a substitute for medical or psychological advice. For anything to do with your mental health, we recommend speaking with a qualified professional. If you or someone in your family is in crisis, considering self-harm or harming others, or otherwise in immediate danger, call your local emergency services, or <a href="https://www.google.com/search?q=mental+health+helpline" target="_blank" rel="noopener">find mental-health support in your country</a>.</div>
     <div class="clap">
       <span class="cq">Helpful? Give it a star — or fifty</span>
