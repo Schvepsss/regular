@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://regular.care/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
   <url><loc>https://regular.care/dad-depression-check</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://regular.care/regular_checkup</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://regular.care/quiz/am-i-burnt-out</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://regular.care/relationship-check</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://regular.care/parental-burnout-check</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://regular.care/whats-going-on-check</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://regular.care/regular_blog</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://regular.care/regular_how-relationships-work</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://regular.care/blog_no-sex-after-baby</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
@@ -19,6 +24,7 @@
   <url><loc>https://regular.care/blog_best-apps-for-couples-after-baby</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://regular.care/blog_how-to-tell-your-wife-you-feel-lonely</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://regular.care/blog_why-i-feel-invisible-to-my-wife-after-baby</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://regular.care/blog_what-vikings-knew-about-welcoming-dads</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://regular.care/blog_jealous-of-your-own-baby</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://regular.care/blog_relationship-affects-bonding-with-baby</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://regular.care/regular_privacy</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
