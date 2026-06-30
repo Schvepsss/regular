@@ -163,7 +163,7 @@ window.addEventListener('load',function(){try{var _p=(location.pathname.split('/
 
 <div class="wrap">
   <article class="featured">
-    <div class="img"></div>
+    <div class="img" style="background:#111110 url(img/hero_blog_no-sex-after-baby.png) center/cover"></div>
     <div class="body">
       <span class="kicker t-int">Featured · Intimacy</span>
       <h2>No sex after baby: is this normal, and how long does it last?</h2>
@@ -397,6 +397,7 @@ window.addEventListener('load',function(){try{var _p=(location.pathname.split('/
 <script>
 (function(){
   var ARTICLES=[
+    {slug:'blog_does-ai-companion-hurt-real-relationships',title:'Does using an AI companion hurt your real relationships?',desc:'2026 research: AI that replaces connection can weaken it; AI that sends you back to your partner can help.',group:'Science',tag:'The Science, decoded',meta:'New'},
     {slug:'blog_what-vikings-knew-about-welcoming-dads',title:'The Vikings had a ritual to welcome the dad. We deleted it.',desc:'What the Norse welcome got right about fathers — and the tiny ritual you can rebuild tonight.',group:'Reconnecting',tag:'Fatherhood',meta:'New'},
     {slug:'blog_why-i-feel-invisible-to-my-wife-after-baby',title:'Why I feel invisible to my wife after baby',desc:'Why new dads feel invisible after the baby, what the research says, and what helps tonight.',group:'Reconnecting',tag:'Reconnecting',meta:'New'},
     {slug:'blog_jealous-of-your-own-baby',title:'Is it normal to feel jealous of your own baby?',desc:'That hot, ugly flicker when she lights up for the baby — why it happens and what to do.',group:'Reconnecting',tag:'Reconnecting',meta:'New'},
@@ -421,7 +422,7 @@ window.addEventListener('load',function(){try{var _p=(location.pathname.split('/
   var grid=document.getElementById('articleGrid'), more=document.getElementById('articleMore'), bar=document.getElementById('aFilter');
   if(!grid)return;
   function list(){return filter==='all'?ARTICLES:ARTICLES.filter(function(a){return a.group===filter;});}
-  function card(a){var g=GR[a.group]||GR.Science;var st=(a.meta==='New')?'<div class="cstars new">New</div>':'<div class="cstars"><span class="s">★</span> '+a.meta+'</div>';return '<a class="post" href="'+a.slug+'"><div class="th" style="background:'+g[1]+'"></div><div class="pb"><span class="ptag '+g[0]+'">'+a.tag+'</span><h4>'+a.title+'</h4><p>'+a.desc+'</p>'+st+'</div></a>';}
+  function card(a){var g=GR[a.group]||GR.Science;var st=(a.meta==='New')?'<div class="cstars new">New</div>':'<div class="cstars"><span class="s">★</span> '+a.meta+'</div>';return '<a class="post" href="'+a.slug+'"><div class="th" style="background:#111110 url(img/hero_'+a.slug+'.png) center/cover"></div><div class="pb"><span class="ptag '+g[0]+'">'+a.tag+'</span><h4>'+a.title+'</h4><p>'+a.desc+'</p>'+st+'</div></a>';}
   function render(){var L=list();grid.innerHTML=L.slice(0,shown).map(card).join('');if(more){if(shown>=L.length)more.setAttribute('hidden','');else more.removeAttribute('hidden');}}
   if(bar)bar.addEventListener('click',function(e){var b=e.target.closest('.achip');if(!b)return;document.querySelectorAll('.achip').forEach(function(x){x.classList.remove('active');});b.classList.add('active');filter=b.getAttribute('data-f');shown=PAGE;render();});
   if(more)more.addEventListener('click',function(){shown+=PAGE;render();});
