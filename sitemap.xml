@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://regular.care/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://regular.care/dad-depression-check</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://regular.care/regular_checkup</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://regular.care/quiz/am-i-burnt-out</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://regular.care/relationship-check</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://regular.care/parental-burnout-check</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://regular.care/quiz/am-i-depressed</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://regular.care/quiz/anxiety-check</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://regular.care/quiz/new-dad-mental-health-check</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://regular.care/quiz/relationship-check</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://regular.care/quiz/parental-burnout-test</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://regular.care/quiz/stress-check</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://regular.care/quiz/whats-my-attachment-style</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://regular.care/whats-going-on-check</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://regular.care/regular_blog</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://regular.care/regular_how-relationships-work</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
@@ -37,4 +41,33 @@
   <url><loc>https://regular.care/news_dads-meaning-vs-money</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://regular.care/news_paid-leave-new-dad-mental-health</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://regular.care/regular_editorial</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://regular.care/quiz/am-i-burnt-out/results/captain-in-the-storm</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://regular.care/quiz/am-i-burnt-out/results/navigator</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://regular.care/quiz/am-i-burnt-out/results/opener</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://regular.care/quiz/am-i-burnt-out/results/zen-dad</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://regular.care/quiz/am-i-depressed/results/mild</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://regular.care/quiz/am-i-depressed/results/minimal</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://regular.care/quiz/am-i-depressed/results/moderate</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://regular.care/quiz/am-i-depressed/results/moderately-severe</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://regular.care/quiz/am-i-depressed/results/severe</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://regular.care/quiz/anxiety-check/results/mild</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://regular.care/quiz/anxiety-check/results/minimal</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://regular.care/quiz/anxiety-check/results/moderate</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://regular.care/quiz/anxiety-check/results/severe</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://regular.care/quiz/new-dad-mental-health-check/results/pressure-cooker</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://regular.care/quiz/new-dad-mental-health-check/results/running-hot</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://regular.care/quiz/new-dad-mental-health-check/results/steady</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://regular.care/quiz/parental-burnout-test/results/early-signs</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://regular.care/quiz/parental-burnout-test/results/likely</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://regular.care/quiz/parental-burnout-test/results/low</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://regular.care/quiz/relationship-check/results/below-the-line</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://regular.care/quiz/relationship-check/results/distressed</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://regular.care/quiz/relationship-check/results/satisfied</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://regular.care/quiz/stress-check/results/cruising</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://regular.care/quiz/stress-check/results/loaded</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://regular.care/quiz/stress-check/results/maxed-out</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://regular.care/quiz/whats-my-attachment-style/results/anchor</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://regular.care/quiz/whats-my-attachment-style/results/island</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://regular.care/quiz/whats-my-attachment-style/results/pursuer</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://regular.care/quiz/whats-my-attachment-style/results/storm-tossed</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
 </urlset>
