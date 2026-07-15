@@ -129,7 +129,7 @@
     <div class="tfilter" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:6px 0 16px">
       <select class="tsel" id="fStatus"><option value="">All statuses</option><option>Published</option><option>In review</option><option>To write</option></select>
       <select class="tsel" id="fCat"><option value="">All topics</option><option>Intimacy</option><option>Reconnecting</option><option>Science</option><option>Tools</option><option>News</option></select>
-      <select class="tsel" id="fAuthor"><option value="">All authors</option><option>Elizaveta Shvets</option><option>Vadim Nikulin</option></select>
+      <select class="tsel" id="fAuthor"><option value="">All authors</option><option>Elizaveta Shvets</option><option>Ivan Yamshchikov</option><option>Vadim Nikulin</option></select>
       <span style="flex:1"></span>
       <select class="tsel" id="fSort"><option value="new">Newest first</option><option value="old">Oldest first</option><option value="az">Title A–Z</option></select>
     </div>
@@ -276,17 +276,21 @@
   var CC={Intimacy:'#C0473E',Reconnecting:'#3F7A4E',Science:'#2F7B9E',Tools:'#C16A45',News:'#7A5AA6'};
   // [slug, title, author, category, seedStatus, seedDate]
   var ITEMS=[
+    ['blog_my-wife-has-postpartum-depression','My wife has PPD: a guide for dads','Vadim Nikulin','Reconnecting','Published','2026-07-06'],
+    ['blog_why-new-dads-get-angry','Why new dads get angry after the baby','Ivan Yamshchikov','Science','Published','2026-07-06'],
+    ['blog_regular-vs-paired-vs-lasting','Regular vs Paired vs Lasting','Elizaveta Shvets','Tools','Published','2026-07-06'],
+    ['blog_new-dad-no-friends-mental-health','New dad, no friends (mental-health risk)','Vadim Nikulin','Reconnecting','Published','2026-07-06'],
     ['news_ai-chatbots-cant-fix-loneliness','News: AI can’t fix loneliness','Elizaveta Shvets','News','Published','2026-07-06'],
     ['news_fathers-scared-cant-name-it','News: fathers are frightened','Elizaveta Shvets','News','Published','2026-07-06'],
     ['news_dads-seek-help-too-late','News: dads ask for help too late','Elizaveta Shvets','News','Published','2026-07-06'],
     ['blog_new-dad-timeline-month-by-month','The new dad’s timeline (month by month)','Elizaveta Shvets','Reconnecting','Published','2026-07-06'],
-    ['blog_second-time-dad-relationship-rebound','Why second-time dads rebound faster','Elizaveta Shvets','Science','Published','2026-07-06'],
+    ['blog_second-time-dad-relationship-rebound','Why second-time dads rebound faster','Ivan Yamshchikov','Science','Published','2026-07-06'],
     ['news_parenthood-meaning-not-happiness','News: parenthood — meaning, not happiness','Elizaveta Shvets','News','Published','2026-07-02'],
     ['news_misreading-partner-attachment','News: misreading your partner’s anxiety','Elizaveta Shvets','News','Published','2026-07-02'],
     ['news_love-money-health-both-matter','News: love & money both protect health','Elizaveta Shvets','News','Published','2026-07-02'],
     ['blog_why-i-feel-invisible-to-my-wife-after-baby','Why I feel invisible to my wife after baby','Vadim Nikulin','Reconnecting','Published','2026-06-29'],
     ['blog_jealous-of-your-own-baby','Is it normal to feel jealous of your own baby?','Vadim Nikulin','Reconnecting','Published','2026-06-29'],
-    ['blog_relationship-affects-bonding-with-baby','Does your relationship affect bonding with your baby?','Elizaveta Shvets','Science','Published','2026-06-29'],
+    ['blog_relationship-affects-bonding-with-baby','Does your relationship affect bonding with your baby?','Ivan Yamshchikov','Science','Published','2026-06-29'],
     ['blog_what-vikings-knew-about-welcoming-dads','The Vikings had a ritual to welcome the dad','Elizaveta Shvets','Reconnecting','Published','2026-06-29'],
     ['am-i-depressed','Quiz: Am I depressed? (PHQ-9)','Elizaveta Shvets','Tools','Published','2026-06-30'],
     ['anxiety-check','Quiz: Am I anxious? (GAD-7)','Elizaveta Shvets','Tools','Published','2026-06-30'],
@@ -345,7 +349,7 @@
     ['blog_oxytocin-parent-bond','Oxytocin & the parent bond','Elizaveta Shvets','Science','Published','2026-06-17'],
     ['blog_dopamine-oxytocin-love','Dopamine vs oxytocin','Elizaveta Shvets','Science','Published','2026-06-17'],
     ['blog_empathic-ai-partner','Empathic AI vs your partner','Elizaveta Shvets','Science','Published','2026-06-17'],
-    ['blog_does-ai-companion-hurt-real-relationships','Does an AI companion hurt real relationships?','Elizaveta Shvets','Science','Published','2026-06-30']
+    ['blog_does-ai-companion-hurt-real-relationships','Does an AI companion hurt real relationships?','Ivan Yamshchikov','Science','Published','2026-06-30']
   ];
   var store={}; try{store=JSON.parse(localStorage.getItem(KEY)||'{}')||{};}catch(e){}
   function save(){try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
