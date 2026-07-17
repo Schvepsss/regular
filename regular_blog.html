@@ -231,8 +231,8 @@ window.addEventListener('load',function(){try{var _p=(location.pathname.split('/
 
   <!-- ===== NEWS ===== -->
   <div class="block" id="news">
-    <div class="secrow"><h3>Research &amp; dad life</h3></div>
-    <p class="secsub">Studies and stories from the first year as parents — the ones we think you should see.</p>
+    <div class="secrow"><h3>News &amp; research</h3></div>
+    <p class="secsub">Short, dated takes on new studies and dad-life stories from the first year — the ones we think you should see.</p>
     <div class="newslist">
       <a class="newsitem" href="news_wfh-couples-drift">
         <span class="nd">Jul 2026 · Relationship science</span>
@@ -535,6 +535,7 @@ window.addEventListener('load',function(){try{var _p=(location.pathname.split('/
 <script>
 (function(){
   var ARTICLES=[
+    {slug:'blog_how-to-be-a-better-husband-after-baby',title:'How to be a better husband after a baby',desc:'Being a better husband after a baby isn’t grand gestures — it’s reading what she actually needs and making small, consistent moves. Five shifts that work.',group:'Reconnecting',tag:'Reconnecting',meta:'New'},
     {slug:'blog_my-wife-has-postpartum-depression',title:'My wife has postpartum depression: a guide for dads',desc:'When she has PPD, a partner’s own risk of depression jumps to 24–50%. What it looks like, four steps that help, and why your head matters too.',group:'Reconnecting',tag:'When it’s serious',meta:'New'},
     {slug:'blog_why-new-dads-get-angry',title:'Why new dads get angry after the baby',desc:'Persistent anger and irritability is a documented “masked” symptom of paternal depression — not a character flaw. What the science says.',group:'Science',tag:'The Science, decoded',meta:'New'},
     {slug:'blog_regular-vs-paired-vs-lasting',title:'Regular vs Paired vs Lasting: which couples app helps after baby?',desc:'A focused head-to-head of the three most-recommended couples apps — built-for, how each works, and which fits a new dad.',group:'Tools',tag:'Tools',meta:'New'},
@@ -571,6 +572,20 @@ window.addEventListener('load',function(){try{var _p=(location.pathname.split('/
   if(bar)bar.addEventListener('click',function(e){var b=e.target.closest('.achip');if(!b)return;document.querySelectorAll('.achip').forEach(function(x){x.classList.remove('active');});b.classList.add('active');filter=b.getAttribute('data-f');shown=PAGE;render();});
   if(more)more.addEventListener('click',function(){shown+=PAGE;render();});
   render();
+})();
+</script>
+<script>/* News & research: show 4, expand the rest on click */
+(function(){
+  var list=document.querySelector('#news .newslist'); if(!list)return;
+  var items=Array.prototype.slice.call(list.querySelectorAll('.newsitem'));
+  var SHOW=4; if(items.length<=SHOW)return;
+  var hidden=items.slice(SHOW), expanded=false;
+  var btn=document.createElement('button'); btn.className='btn ghost'; btn.style.marginTop='16px'; btn.type='button';
+  list.parentNode.insertBefore(btn,list.nextSibling);
+  function collapse(){hidden.forEach(function(el){el.style.display='none';});btn.textContent='Show all '+items.length+' news ↓';expanded=false;}
+  function expand(){hidden.forEach(function(el){el.style.display='';});btn.textContent='Show fewer news ↑';expanded=true;}
+  btn.addEventListener('click',function(){if(expanded){collapse();var b=document.getElementById('news');if(b)b.scrollIntoView({behavior:'smooth',block:'start'});}else{expand();}});
+  collapse();
 })();
 </script>
 
