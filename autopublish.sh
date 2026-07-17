@@ -10,7 +10,9 @@ TOKEN_FILE="/Users/schvepsss/Documents/Claude/Projects/Regular/.github_token"
 LOG="/Users/schvepsss/Documents/Claude/Projects/Regular/autopublish.log"
 GITHUB_USER="Schvepsss"
 REPO_NAME="regular"
-BLOG_HTML="$REPO_DIR/regular_blog.html"
+# BLOG_HTML points to publish_mirror — section 4 then syncs it to repo.
+# (Previously pointed to REPO_DIR, but section 4 overwrote it with publish_mirror anyway.)
+BLOG_HTML="$PUBLISH_MIRROR/regular_blog.html"
 
 log() { echo "[$(date '+%Y-%m-%d %H:%M')] $*" | tee -a "$LOG"; }
 log "=== Auto-publish started ==="
@@ -76,7 +78,7 @@ PYEOF
 done
 
 # ---- 2. Копируем news-черновики + инжектим в regular_blog.html ----
-BLOG_HTML="$REPO_DIR/regular_blog.html"
+# BLOG_HTML уже задан выше как $PUBLISH_MIRROR/regular_blog.html
 
 for f in "$DRAFTS_DIR/news"/*.html; do
     [ -f "$f" ] || continue
@@ -135,7 +137,8 @@ if [ ${#NEW_FILES[@]} -eq 0 ]; then
 fi
 
 # ---- 3. Обновляем sitemap.xml ----
-SITEMAP="$REPO_DIR/sitemap.xml"
+# Обновляем publish_mirror/sitemap.xml — секция 4 синхронизирует его в repo.
+SITEMAP="$PUBLISH_MIRROR/sitemap.xml"
 for url in "${NEW_URLS[@]}"; do
     if ! grep -qF "$url" "$SITEMAP"; then
         slug_only=$(echo "$url" | sed 's|https://regular.care/||')
